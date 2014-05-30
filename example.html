@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!--
+  # nginx settings
+
+  location ~ ^/galaxy/sds(/?)(.*) {
+    rewrite_by_lua_file /path/to/check_md5.lua;
+    proxy_pass http://sds_server/$2;
+    proxy_set_header Host $http_host;
+  } 
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>SDS jQuery Client Test</title>
+  </head>
+  <body>
+    <input type="button" id="runTest" value="Test SDS Server API" >
+
+    <table style="width:600px">
+    <tr>
+      <td>API</td>
+      <td>Result</td>
+    </tr>
+    <tr>
+      <td>getServerTime</td>
+      <td id="getServerTime">NA</td>
+    </tr>
+    <tr>
+      <td >getServerVersion</td>
+      <td id="getServerVersion">NA</td>
+    </tr>
+    <tr>
+      <td>validateClientVersion</td>
+      <td id="validateClientVersion">NA</td>
+    </tr>
+    <tr>
+      <td>describeTable</td>
+      <td id="describeTable">NA</td>
+    </tr>
+    </table>
+
+    <script src="src/jquery.js"></script>
+    <script src="src/thrift.js"></script>
+    <script src="src/sds/Errors_types.js"></script>
+    <script src="src/sds/Common_types.js"></script>
+    <script src="src/sds/BaseService.js"></script>
+    <script src="src/sds/Authentication_types.js"></script>
+    <script src="src/sds/AuthService.js"></script>
+    <script src="src/sds/Admin_types.js"></script>
+    <script src="src/sds/AdminService.js"></script>
+    <script src="src/sds/Table_types.js"></script>
+    <script src="src/sds/TableService.js"></script>
+
+    <script>
+      (function() {
+        // convert error code to readable string
+        var ErrorCodeName = {}
+        for (var key in ErrorCode) {
+          ErrorCodeName[ErrorCode[key]] = key;
+        }
+        var transport = new Thrift.TXHRTransport("/galaxy/sds/v1/api/admin");
+        var protocol  = new Thrift.TJSONProtocol(transport);
+        var client    = new AdminServiceClient(protocol);
+        var serverTimeElement = document.getElementById("getServerTime");
+        var serverVersionElement = document.getElementById("getServerVersion");
+        var validateVersionElement = document.getElementById("validateClientVersion");
+        var describeTableElement = document.getElementById("describeTable");
+        document.getElementById("runTest")
+          .addEventListener("click", function() {
+            client.getServerTime(function(time) {
+              serverTimeElement.innerHTML = "Server Time: " + time;
+            });
+            client.getServerVersion(function(ver) {
+              serverVersionElement.innerHTML = "Server Version: " + ver.major + "." + ver.minor + "." + ver.patch;
+            });
+            // exception handling
+            var clientVersion = new Version();
+            clientVersion.major = 0;
+            client.validateClientVersion(clientVersion, function() {})
+            .error(function(xhr, status, e){
+              validateVersionElement.innerHTML = "Error code " + ErrorCodeName[e.errorCode] + ": " + e.errorMessage;
+            });
+            var tableName = "test";
+            client.describeTable(tableName, function(tableInfo) {
+              describeTableElement.innerHTML = "Table ID: " + tableInfo.tableId;
+            })
+            .error(function(xhr, status, e){
+              describeTableElement.innerHTML = "Error code " + ErrorCodeName[e.errorCode] + ": " + e.errorMessage;
+            });
+          });
+      })();
+    </script>
+  </body>
+</html>
