@@ -30,7 +30,12 @@ ErrorCode = {
   'INVALID_AUTH' : 31,
   'CLOCK_TOO_SKEWED' : 32,
   'REQUEST_TOO_LARGE' : 33,
-  'BAD_REQUEST' : 34
+  'BAD_REQUEST' : 34,
+  'TTRANSPORT_ERROR' : 35
+};
+RetryType = {
+  'SAFE' : 0,
+  'UNSAFE' : 1
 };
 ServiceException = function(args) {
   this.errorCode = null;
@@ -40,8 +45,6 @@ ServiceException = function(args) {
   if (args) {
     if (args.errorCode !== undefined) {
       this.errorCode = args.errorCode;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field errorCode is unset!');
     }
     if (args.errorMessage !== undefined) {
       this.errorMessage = args.errorMessage;
@@ -133,8 +136,16 @@ ServiceException.prototype.write = function(output) {
   return;
 };
 
-ERROR_AUTO_BACKOFF = {2 : 1000,
+ERROR_BACKOFF = {2 : 1000,
 25 : 1000,
-32 : 0
+32 : 0,
+1 : 1000,
+35 : 1000
+};
+ERROR_RETRY_TYPE = {2 : 0,
+25 : 0,
+32 : 0,
+1 : 1,
+35 : 1
 };
 MAX_RETRY = 1;

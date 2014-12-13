@@ -8,18 +8,14 @@
 Version = function(args) {
   this.major = 1;
   this.minor = 0;
-  this.patch = 'db56394d';
+  this.patch = '98aaa9b2';
   this.comments = '';
   if (args) {
     if (args.major !== undefined) {
       this.major = args.major;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field major is unset!');
     }
     if (args.minor !== undefined) {
       this.minor = args.minor;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field minor is unset!');
     }
     if (args.patch !== undefined) {
       this.patch = args.patch;
@@ -107,9 +103,9 @@ Version.prototype.write = function(output) {
   return;
 };
 
-DEFAULT_CLIENT_TIMEOUT = 10;
-DEFAULT_ADMIN_CLIENT_TIMEOUT = 30;
-DEFAULT_CLIENT_CONN_TIMEOUT = 3;
+DEFAULT_CLIENT_TIMEOUT = 10000;
+DEFAULT_ADMIN_CLIENT_TIMEOUT = 30000;
+DEFAULT_CLIENT_CONN_TIMEOUT = 3000;
 DEFAULT_SERVICE_ENDPOINT = 'http://sds.api.xiaomi.com';
 DEFAULT_SECURE_SERVICE_ENDPOINT = 'https://sds.api.xiaomi.com';
 API_ROOT_PATH = '/v1/api';

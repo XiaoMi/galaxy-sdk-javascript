@@ -593,3 +593,89 @@ ValueList.prototype.write = function(output) {
   return;
 };
 
+DatumMap = function(args) {
+  this.data = null;
+  if (args) {
+    if (args.data !== undefined) {
+      this.data = args.data;
+    }
+  }
+};
+DatumMap.prototype = {};
+DatumMap.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.MAP) {
+        var _size64 = 0;
+        var _rtmp368;
+        this.data = {};
+        var _ktype65 = 0;
+        var _vtype66 = 0;
+        _rtmp368 = input.readMapBegin();
+        _ktype65 = _rtmp368.ktype;
+        _vtype66 = _rtmp368.vtype;
+        _size64 = _rtmp368.size;
+        for (var _i69 = 0; _i69 < _size64; ++_i69)
+        {
+          if (_i69 > 0 ) {
+            if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
+              input.rstack.pop();
+            }
+          }
+          var key70 = null;
+          var val71 = null;
+          key70 = input.readString().value;
+          val71 = new Datum();
+          val71.read(input);
+          this.data[key70] = val71;
+        }
+        input.readMapEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+DatumMap.prototype.write = function(output) {
+  output.writeStructBegin('DatumMap');
+  if (this.data !== null && this.data !== undefined) {
+    output.writeFieldBegin('data', Thrift.Type.MAP, 1);
+    output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRUCT, Thrift.objectLength(this.data));
+    for (var kiter72 in this.data)
+    {
+      if (this.data.hasOwnProperty(kiter72))
+      {
+        var viter73 = this.data[kiter72];
+        output.writeString(kiter72);
+        viter73.write(output);
+      }
+    }
+    output.writeMapEnd();
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
