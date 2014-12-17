@@ -553,9 +553,13 @@ Datum = function(args) {
   if (args) {
     if (args.type !== undefined) {
       this.type = args.type;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field type is unset!');
     }
     if (args.value !== undefined) {
       this.value = args.value;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field value is unset!');
     }
   }
 };
@@ -615,14 +619,14 @@ Datum.prototype.write = function(output) {
 };
 
 ProvisionThroughput = function(args) {
-  this.readQps = null;
-  this.writeQps = null;
+  this.readCapacity = null;
+  this.writeCapacity = null;
   if (args) {
-    if (args.readQps !== undefined) {
-      this.readQps = args.readQps;
+    if (args.readCapacity !== undefined) {
+      this.readCapacity = args.readCapacity;
     }
-    if (args.writeQps !== undefined) {
-      this.writeQps = args.writeQps;
+    if (args.writeCapacity !== undefined) {
+      this.writeCapacity = args.writeCapacity;
     }
   }
 };
@@ -642,14 +646,14 @@ ProvisionThroughput.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.I64) {
-        this.readQps = input.readI64().value;
+        this.readCapacity = input.readI64().value;
       } else {
         input.skip(ftype);
       }
       break;
       case 2:
       if (ftype == Thrift.Type.I64) {
-        this.writeQps = input.readI64().value;
+        this.writeCapacity = input.readI64().value;
       } else {
         input.skip(ftype);
       }
@@ -665,14 +669,14 @@ ProvisionThroughput.prototype.read = function(input) {
 
 ProvisionThroughput.prototype.write = function(output) {
   output.writeStructBegin('ProvisionThroughput');
-  if (this.readQps !== null && this.readQps !== undefined) {
-    output.writeFieldBegin('readQps', Thrift.Type.I64, 1);
-    output.writeI64(this.readQps);
+  if (this.readCapacity !== null && this.readCapacity !== undefined) {
+    output.writeFieldBegin('readCapacity', Thrift.Type.I64, 1);
+    output.writeI64(this.readCapacity);
     output.writeFieldEnd();
   }
-  if (this.writeQps !== null && this.writeQps !== undefined) {
-    output.writeFieldBegin('writeQps', Thrift.Type.I64, 2);
-    output.writeI64(this.writeQps);
+  if (this.writeCapacity !== null && this.writeCapacity !== undefined) {
+    output.writeFieldBegin('writeCapacity', Thrift.Type.I64, 2);
+    output.writeI64(this.writeCapacity);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -739,6 +743,8 @@ KeySpec = function(args) {
   if (args) {
     if (args.attribute !== undefined) {
       this.attribute = args.attribute;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field attribute is unset!');
     }
     if (args.asc !== undefined) {
       this.asc = args.asc;
@@ -807,6 +813,8 @@ LocalSecondaryIndexSpec = function(args) {
   if (args) {
     if (args.indexSchema !== undefined) {
       this.indexSchema = args.indexSchema;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field indexSchema is unset!');
     }
     if (args.projections !== undefined) {
       this.projections = args.projections;
@@ -948,6 +956,8 @@ EntityGroupSpec = function(args) {
   if (args) {
     if (args.attributes !== undefined) {
       this.attributes = args.attributes;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field attributes is unset!');
     }
     if (args.enableHash !== undefined) {
       this.enableHash = args.enableHash;
@@ -1054,6 +1064,8 @@ TableSchema = function(args) {
     }
     if (args.attributes !== undefined) {
       this.attributes = args.attributes;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field attributes is unset!');
     }
     if (args.ttl !== undefined) {
       this.ttl = args.ttl;
@@ -1741,9 +1753,13 @@ SimpleCondition = function(args) {
   if (args) {
     if (args.operator !== undefined) {
       this.operator = args.operator;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field operator is unset!');
     }
     if (args.field !== undefined) {
       this.field = args.field;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field field is unset!');
     }
     if (args.value !== undefined) {
       this.value = args.value;
@@ -1956,9 +1972,13 @@ GetRequest = function(args) {
   if (args) {
     if (args.tableName !== undefined) {
       this.tableName = args.tableName;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field tableName is unset!');
     }
     if (args.keys !== undefined) {
       this.keys = args.keys;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field keys is unset!');
     }
     if (args.attributes !== undefined) {
       this.attributes = args.attributes;
@@ -2179,9 +2199,13 @@ PutRequest = function(args) {
   if (args) {
     if (args.tableName !== undefined) {
       this.tableName = args.tableName;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field tableName is unset!');
     }
     if (args.record !== undefined) {
       this.record = args.record;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field record is unset!');
     }
     if (args.condition !== undefined) {
       this.condition = args.condition;
@@ -2348,12 +2372,18 @@ IncrementRequest = function(args) {
   if (args) {
     if (args.tableName !== undefined) {
       this.tableName = args.tableName;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field tableName is unset!');
     }
     if (args.keys !== undefined) {
       this.keys = args.keys;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field keys is unset!');
     }
     if (args.amounts !== undefined) {
       this.amounts = args.amounts;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field amounts is unset!');
     }
   }
 };
@@ -2583,9 +2613,13 @@ RemoveRequest = function(args) {
   if (args) {
     if (args.tableName !== undefined) {
       this.tableName = args.tableName;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field tableName is unset!');
     }
     if (args.keys !== undefined) {
       this.keys = args.keys;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field keys is unset!');
     }
     if (args.attributes !== undefined) {
       this.attributes = args.attributes;
@@ -2796,6 +2830,8 @@ ScanRequest = function(args) {
   if (args) {
     if (args.tableName !== undefined) {
       this.tableName = args.tableName;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field tableName is unset!');
     }
     if (args.indexName !== undefined) {
       this.indexName = args.indexName;
@@ -3326,9 +3362,13 @@ BatchRequestItem = function(args) {
   if (args) {
     if (args.action !== undefined) {
       this.action = args.action;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field action is unset!');
     }
     if (args.request !== undefined) {
       this.request = args.request;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field request is unset!');
     }
   }
 };
@@ -3501,9 +3541,13 @@ BatchResultItem = function(args) {
   if (args) {
     if (args.action !== undefined) {
       this.action = args.action;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field action is unset!');
     }
     if (args.success !== undefined) {
       this.success = args.success;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field success is unset!');
     }
     if (args.result !== undefined) {
       this.result = args.result;
@@ -3598,6 +3642,8 @@ BatchRequest = function(args) {
   if (args) {
     if (args.items !== undefined) {
       this.items = args.items;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field items is unset!');
     }
   }
 };

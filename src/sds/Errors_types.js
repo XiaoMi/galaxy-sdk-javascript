@@ -45,6 +45,8 @@ ServiceException = function(args) {
   if (args) {
     if (args.errorCode !== undefined) {
       this.errorCode = args.errorCode;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field errorCode is unset!');
     }
     if (args.errorMessage !== undefined) {
       this.errorMessage = args.errorMessage;

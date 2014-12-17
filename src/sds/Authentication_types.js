@@ -32,9 +32,13 @@ Credential = function(args) {
   if (args) {
     if (args.type !== undefined) {
       this.type = args.type;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field type is unset!');
     }
     if (args.secretKeyId !== undefined) {
       this.secretKeyId = args.secretKeyId;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field secretKeyId is unset!');
     }
     if (args.secretKey !== undefined) {
       this.secretKey = args.secretKey;
@@ -118,12 +122,18 @@ HttpAuthorizationHeader = function(args) {
   if (args) {
     if (args.version !== undefined) {
       this.version = args.version;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field version is unset!');
     }
     if (args.userType !== undefined) {
       this.userType = args.userType;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field userType is unset!');
     }
     if (args.secretKeyId !== undefined) {
       this.secretKeyId = args.secretKeyId;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field secretKeyId is unset!');
     }
     if (args.secretKey !== undefined) {
       this.secretKey = args.secretKey;
