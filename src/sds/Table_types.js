@@ -553,13 +553,9 @@ Datum = function(args) {
   if (args) {
     if (args.type !== undefined) {
       this.type = args.type;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field type is unset!');
     }
     if (args.value !== undefined) {
       this.value = args.value;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field value is unset!');
     }
   }
 };
@@ -743,8 +739,6 @@ KeySpec = function(args) {
   if (args) {
     if (args.attribute !== undefined) {
       this.attribute = args.attribute;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field attribute is unset!');
     }
     if (args.asc !== undefined) {
       this.asc = args.asc;
@@ -813,8 +807,6 @@ LocalSecondaryIndexSpec = function(args) {
   if (args) {
     if (args.indexSchema !== undefined) {
       this.indexSchema = args.indexSchema;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field indexSchema is unset!');
     }
     if (args.projections !== undefined) {
       this.projections = args.projections;
@@ -956,8 +948,6 @@ EntityGroupSpec = function(args) {
   if (args) {
     if (args.attributes !== undefined) {
       this.attributes = args.attributes;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field attributes is unset!');
     }
     if (args.enableHash !== undefined) {
       this.enableHash = args.enableHash;
@@ -1064,8 +1054,6 @@ TableSchema = function(args) {
     }
     if (args.attributes !== undefined) {
       this.attributes = args.attributes;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field attributes is unset!');
     }
     if (args.ttl !== undefined) {
       this.ttl = args.ttl;
@@ -1753,13 +1741,9 @@ SimpleCondition = function(args) {
   if (args) {
     if (args.operator !== undefined) {
       this.operator = args.operator;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field operator is unset!');
     }
     if (args.field !== undefined) {
       this.field = args.field;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field field is unset!');
     }
     if (args.value !== undefined) {
       this.value = args.value;
@@ -1972,13 +1956,9 @@ GetRequest = function(args) {
   if (args) {
     if (args.tableName !== undefined) {
       this.tableName = args.tableName;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field tableName is unset!');
     }
     if (args.keys !== undefined) {
       this.keys = args.keys;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field keys is unset!');
     }
     if (args.attributes !== undefined) {
       this.attributes = args.attributes;
@@ -2199,13 +2179,9 @@ PutRequest = function(args) {
   if (args) {
     if (args.tableName !== undefined) {
       this.tableName = args.tableName;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field tableName is unset!');
     }
     if (args.record !== undefined) {
       this.record = args.record;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field record is unset!');
     }
     if (args.condition !== undefined) {
       this.condition = args.condition;
@@ -2372,18 +2348,12 @@ IncrementRequest = function(args) {
   if (args) {
     if (args.tableName !== undefined) {
       this.tableName = args.tableName;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field tableName is unset!');
     }
     if (args.keys !== undefined) {
       this.keys = args.keys;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field keys is unset!');
     }
     if (args.amounts !== undefined) {
       this.amounts = args.amounts;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field amounts is unset!');
     }
   }
 };
@@ -2613,13 +2583,9 @@ RemoveRequest = function(args) {
   if (args) {
     if (args.tableName !== undefined) {
       this.tableName = args.tableName;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field tableName is unset!');
     }
     if (args.keys !== undefined) {
       this.keys = args.keys;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field keys is unset!');
     }
     if (args.attributes !== undefined) {
       this.attributes = args.attributes;
@@ -2830,8 +2796,6 @@ ScanRequest = function(args) {
   if (args) {
     if (args.tableName !== undefined) {
       this.tableName = args.tableName;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field tableName is unset!');
     }
     if (args.indexName !== undefined) {
       this.indexName = args.indexName;
@@ -3362,13 +3326,9 @@ BatchRequestItem = function(args) {
   if (args) {
     if (args.action !== undefined) {
       this.action = args.action;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field action is unset!');
     }
     if (args.request !== undefined) {
       this.request = args.request;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field request is unset!');
     }
   }
 };
@@ -3541,13 +3501,9 @@ BatchResultItem = function(args) {
   if (args) {
     if (args.action !== undefined) {
       this.action = args.action;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field action is unset!');
     }
     if (args.success !== undefined) {
       this.success = args.success;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field success is unset!');
     }
     if (args.result !== undefined) {
       this.result = args.result;
@@ -3642,8 +3598,6 @@ BatchRequest = function(args) {
   if (args) {
     if (args.items !== undefined) {
       this.items = args.items;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field items is unset!');
     }
   }
 };

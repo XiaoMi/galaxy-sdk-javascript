@@ -8,18 +8,14 @@
 Version = function(args) {
   this.major = 1;
   this.minor = 0;
-  this.patch = 'aba8f1a1';
+  this.patch = 'e882eb61';
   this.comments = '';
   if (args) {
     if (args.major !== undefined) {
       this.major = args.major;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field major is unset!');
     }
     if (args.minor !== undefined) {
       this.minor = args.minor;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field minor is unset!');
     }
     if (args.patch !== undefined) {
       this.patch = args.patch;
