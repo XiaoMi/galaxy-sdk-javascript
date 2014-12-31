@@ -31,7 +31,8 @@ ErrorCode = {
   'CLOCK_TOO_SKEWED' : 32,
   'REQUEST_TOO_LARGE' : 33,
   'BAD_REQUEST' : 34,
-  'TTRANSPORT_ERROR' : 35
+  'TTRANSPORT_ERROR' : 35,
+  'UNSUPPORTED_TPROTOCOL' : 36
 };
 RetryType = {
   'SAFE' : 0,

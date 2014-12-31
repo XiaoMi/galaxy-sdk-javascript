@@ -5,10 +5,15 @@
 //
 
 
+ThriftProtocol = {
+  'TCOMPACT' : 0,
+  'TJSON' : 1,
+  'TBINARY' : 2
+};
 Version = function(args) {
   this.major = 1;
   this.minor = 0;
-  this.patch = 'e882eb61';
+  this.patch = '03c3feba';
   this.comments = '';
   if (args) {
     if (args.major !== undefined) {
@@ -112,3 +117,16 @@ API_ROOT_PATH = '/v1/api';
 AUTH_SERVICE_PATH = '/v1/api/auth';
 ADMIN_SERVICE_PATH = '/v1/api/admin';
 TABLE_SERVICE_PATH = '/v1/api/table';
+DEFAULT_THRIFT_HEADER = 'application/x-thrift';
+THRIFT_JSON_HEADER = 'application/x-thrift-json';
+THRIFT_COMPACT_HEADER = 'application/x-thrift-compact';
+THRIFT_BINARY_HEADER = 'application/x-thrift-binary';
+THRIFT_HEADER_MAP = {0 : 'application/x-thrift-compact',
+1 : 'application/x-thrift-json',
+2 : 'application/x-thrift-binary'
+};
+HEADER_THRIFT_MAP = {'application/x-thrift-compact' : 0,
+'application/x-thrift-json' : 1,
+'application/x-thrift-binary' : 2,
+'application/x-thrift' : 1
+};
