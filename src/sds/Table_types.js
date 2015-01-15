@@ -2793,6 +2793,7 @@ ScanRequest = function(args) {
   this.reverse = false;
   this.inGlobalOrder = true;
   this.cacheResult = true;
+  this.lookAheadStep = 0;
   if (args) {
     if (args.tableName !== undefined) {
       this.tableName = args.tableName;
@@ -2823,6 +2824,9 @@ ScanRequest = function(args) {
     }
     if (args.cacheResult !== undefined) {
       this.cacheResult = args.cacheResult;
+    }
+    if (args.lookAheadStep !== undefined) {
+      this.lookAheadStep = args.lookAheadStep;
     }
   }
 };
@@ -2969,6 +2973,13 @@ ScanRequest.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 11:
+      if (ftype == Thrift.Type.I32) {
+        this.lookAheadStep = input.readI32().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -3057,6 +3068,11 @@ ScanRequest.prototype.write = function(output) {
   if (this.cacheResult !== null && this.cacheResult !== undefined) {
     output.writeFieldBegin('cacheResult', Thrift.Type.BOOL, 10);
     output.writeBool(this.cacheResult);
+    output.writeFieldEnd();
+  }
+  if (this.lookAheadStep !== null && this.lookAheadStep !== undefined) {
+    output.writeFieldBegin('lookAheadStep', Thrift.Type.I32, 11);
+    output.writeI32(this.lookAheadStep);
     output.writeFieldEnd();
   }
   output.writeFieldStop();

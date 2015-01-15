@@ -2248,6 +2248,127 @@ AdminService_queryMetrics_result.prototype.write = function(output) {
   return;
 };
 
+AdminService_findAllAppIds_args = function(args) {
+};
+AdminService_findAllAppIds_args.prototype = {};
+AdminService_findAllAppIds_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    input.skip(ftype);
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+AdminService_findAllAppIds_args.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_findAllAppIds_args');
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+AdminService_findAllAppIds_result = function(args) {
+  this.success = null;
+  this.se = null;
+  if (args instanceof ServiceException) {
+    this.se = args;
+    return;
+  }
+  if (args) {
+    if (args.success !== undefined) {
+      this.success = args.success;
+    }
+    if (args.se !== undefined) {
+      this.se = args.se;
+    }
+  }
+};
+AdminService_findAllAppIds_result.prototype = {};
+AdminService_findAllAppIds_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+      if (ftype == Thrift.Type.LIST) {
+        var _size90 = 0;
+        var _rtmp394;
+        this.success = [];
+        var _etype93 = 0;
+        _rtmp394 = input.readListBegin();
+        _etype93 = _rtmp394.etype;
+        _size90 = _rtmp394.size;
+        for (var _i95 = 0; _i95 < _size90; ++_i95)
+        {
+          var elem96 = null;
+          elem96 = input.readString().value;
+          this.success.push(elem96);
+        }
+        input.readListEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.se = new ServiceException();
+        this.se.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+AdminService_findAllAppIds_result.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_findAllAppIds_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.LIST, 0);
+    output.writeListBegin(Thrift.Type.STRING, this.success.length);
+    for (var iter97 in this.success)
+    {
+      if (this.success.hasOwnProperty(iter97))
+      {
+        iter97 = this.success[iter97];
+        output.writeString(iter97);
+      }
+    }
+    output.writeListEnd();
+    output.writeFieldEnd();
+  }
+  if (this.se !== null && this.se !== undefined) {
+    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
+    this.se.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
 AdminServiceClient = function(input, output) {
     this.input = input;
     this.output = (!output) ? input : output;
@@ -2967,4 +3088,46 @@ AdminServiceClient.prototype.recv_queryMetrics = function() {
     return result.success;
   }
   throw 'queryMetrics failed: unknown result';
+};
+AdminServiceClient.prototype.findAllAppIds = function(callback) {
+  if (callback === undefined) {
+    this.send_findAllAppIds();
+    return this.recv_findAllAppIds();
+  } else {
+    var postData = this.send_findAllAppIds(true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_findAllAppIds);
+  }
+};
+
+AdminServiceClient.prototype.send_findAllAppIds = function(callback) {
+  this.output.writeMessageBegin('findAllAppIds', Thrift.MessageType.CALL, this.seqid);
+  var args = new AdminService_findAllAppIds_args();
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+AdminServiceClient.prototype.recv_findAllAppIds = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new AdminService_findAllAppIds_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.se) {
+    throw result.se;
+  }
+  if (null !== result.success) {
+    return result.success;
+  }
+  throw 'findAllAppIds failed: unknown result';
 };
