@@ -54,6 +54,7 @@ AppInfo = function(args) {
   this.developerId = null;
   this.tableMappings = null;
   this.oauthAppMapping = null;
+  this.appName = null;
   if (args) {
     if (args.appId !== undefined) {
       this.appId = args.appId;
@@ -66,6 +67,9 @@ AppInfo = function(args) {
     }
     if (args.oauthAppMapping !== undefined) {
       this.oauthAppMapping = args.oauthAppMapping;
+    }
+    if (args.appName !== undefined) {
+      this.appName = args.appName;
     }
   }
 };
@@ -155,6 +159,13 @@ AppInfo.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 5:
+      if (ftype == Thrift.Type.STRING) {
+        this.appName = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -204,6 +215,11 @@ AppInfo.prototype.write = function(output) {
       }
     }
     output.writeMapEnd();
+    output.writeFieldEnd();
+  }
+  if (this.appName !== null && this.appName !== undefined) {
+    output.writeFieldBegin('appName', Thrift.Type.STRING, 5);
+    output.writeString(this.appName);
     output.writeFieldEnd();
   }
   output.writeFieldStop();

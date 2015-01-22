@@ -2248,10 +2248,10 @@ AdminService_queryMetrics_result.prototype.write = function(output) {
   return;
 };
 
-AdminService_findAllAppIds_args = function(args) {
+AdminService_findAllAppInfo_args = function(args) {
 };
-AdminService_findAllAppIds_args.prototype = {};
-AdminService_findAllAppIds_args.prototype.read = function(input) {
+AdminService_findAllAppInfo_args.prototype = {};
+AdminService_findAllAppInfo_args.prototype.read = function(input) {
   input.readStructBegin();
   while (true)
   {
@@ -2269,14 +2269,14 @@ AdminService_findAllAppIds_args.prototype.read = function(input) {
   return;
 };
 
-AdminService_findAllAppIds_args.prototype.write = function(output) {
-  output.writeStructBegin('AdminService_findAllAppIds_args');
+AdminService_findAllAppInfo_args.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_findAllAppInfo_args');
   output.writeFieldStop();
   output.writeStructEnd();
   return;
 };
 
-AdminService_findAllAppIds_result = function(args) {
+AdminService_findAllAppInfo_result = function(args) {
   this.success = null;
   this.se = null;
   if (args instanceof ServiceException) {
@@ -2292,8 +2292,8 @@ AdminService_findAllAppIds_result = function(args) {
     }
   }
 };
-AdminService_findAllAppIds_result.prototype = {};
-AdminService_findAllAppIds_result.prototype.read = function(input) {
+AdminService_findAllAppInfo_result.prototype = {};
+AdminService_findAllAppInfo_result.prototype.read = function(input) {
   input.readStructBegin();
   while (true)
   {
@@ -2318,7 +2318,8 @@ AdminService_findAllAppIds_result.prototype.read = function(input) {
         for (var _i95 = 0; _i95 < _size90; ++_i95)
         {
           var elem96 = null;
-          elem96 = input.readString().value;
+          elem96 = new AppInfo();
+          elem96.read(input);
           this.success.push(elem96);
         }
         input.readListEnd();
@@ -2343,17 +2344,17 @@ AdminService_findAllAppIds_result.prototype.read = function(input) {
   return;
 };
 
-AdminService_findAllAppIds_result.prototype.write = function(output) {
-  output.writeStructBegin('AdminService_findAllAppIds_result');
+AdminService_findAllAppInfo_result.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_findAllAppInfo_result');
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
-    output.writeListBegin(Thrift.Type.STRING, this.success.length);
+    output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
     for (var iter97 in this.success)
     {
       if (this.success.hasOwnProperty(iter97))
       {
         iter97 = this.success[iter97];
-        output.writeString(iter97);
+        iter97.write(output);
       }
     }
     output.writeListEnd();
@@ -3089,26 +3090,26 @@ AdminServiceClient.prototype.recv_queryMetrics = function() {
   }
   throw 'queryMetrics failed: unknown result';
 };
-AdminServiceClient.prototype.findAllAppIds = function(callback) {
+AdminServiceClient.prototype.findAllAppInfo = function(callback) {
   if (callback === undefined) {
-    this.send_findAllAppIds();
-    return this.recv_findAllAppIds();
+    this.send_findAllAppInfo();
+    return this.recv_findAllAppInfo();
   } else {
-    var postData = this.send_findAllAppIds(true);
+    var postData = this.send_findAllAppInfo(true);
     return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_findAllAppIds);
+      .jqRequest(this, postData, arguments, this.recv_findAllAppInfo);
   }
 };
 
-AdminServiceClient.prototype.send_findAllAppIds = function(callback) {
-  this.output.writeMessageBegin('findAllAppIds', Thrift.MessageType.CALL, this.seqid);
-  var args = new AdminService_findAllAppIds_args();
+AdminServiceClient.prototype.send_findAllAppInfo = function(callback) {
+  this.output.writeMessageBegin('findAllAppInfo', Thrift.MessageType.CALL, this.seqid);
+  var args = new AdminService_findAllAppInfo_args();
   args.write(this.output);
   this.output.writeMessageEnd();
   return this.output.getTransport().flush(callback);
 };
 
-AdminServiceClient.prototype.recv_findAllAppIds = function() {
+AdminServiceClient.prototype.recv_findAllAppInfo = function() {
   var ret = this.input.readMessageBegin();
   var fname = ret.fname;
   var mtype = ret.mtype;
@@ -3119,7 +3120,7 @@ AdminServiceClient.prototype.recv_findAllAppIds = function() {
     this.input.readMessageEnd();
     throw x;
   }
-  var result = new AdminService_findAllAppIds_result();
+  var result = new AdminService_findAllAppInfo_result();
   result.read(this.input);
   this.input.readMessageEnd();
 
@@ -3129,5 +3130,5 @@ AdminServiceClient.prototype.recv_findAllAppIds = function() {
   if (null !== result.success) {
     return result.success;
   }
-  throw 'findAllAppIds failed: unknown result';
+  throw 'findAllAppInfo failed: unknown result';
 };
