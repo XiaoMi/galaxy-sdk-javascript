@@ -59,6 +59,11 @@ TableState = {
   'DELETED' : 7,
   'LAZY_DELETE' : 8
 };
+ScanOp = {
+  'COUNT' : 0,
+  'DELETE' : 1,
+  'UPDATE' : 2
+};
 BatchOp = {
   'GET' : 1,
   'PUT' : 2,
@@ -1949,6 +1954,73 @@ TableSplit.prototype.write = function(output) {
   return;
 };
 
+ScanAction = function(args) {
+  this.action = null;
+  this.request = null;
+  if (args) {
+    if (args.action !== undefined) {
+      this.action = args.action;
+    }
+    if (args.request !== undefined) {
+      this.request = args.request;
+    }
+  }
+};
+ScanAction.prototype = {};
+ScanAction.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.I32) {
+        this.action = input.readI32().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.request = new Request();
+        this.request.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+ScanAction.prototype.write = function(output) {
+  output.writeStructBegin('ScanAction');
+  if (this.action !== null && this.action !== undefined) {
+    output.writeFieldBegin('action', Thrift.Type.I32, 1);
+    output.writeI32(this.action);
+    output.writeFieldEnd();
+  }
+  if (this.request !== null && this.request !== undefined) {
+    output.writeFieldBegin('request', Thrift.Type.STRUCT, 2);
+    this.request.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
 GetRequest = function(args) {
   this.tableName = null;
   this.keys = null;
@@ -2794,6 +2866,7 @@ ScanRequest = function(args) {
   this.inGlobalOrder = true;
   this.cacheResult = true;
   this.lookAheadStep = 0;
+  this.action = null;
   if (args) {
     if (args.tableName !== undefined) {
       this.tableName = args.tableName;
@@ -2827,6 +2900,9 @@ ScanRequest = function(args) {
     }
     if (args.lookAheadStep !== undefined) {
       this.lookAheadStep = args.lookAheadStep;
+    }
+    if (args.action !== undefined) {
+      this.action = args.action;
     }
   }
 };
@@ -2980,6 +3056,14 @@ ScanRequest.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 12:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.action = new ScanAction();
+        this.action.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -3075,6 +3159,11 @@ ScanRequest.prototype.write = function(output) {
     output.writeI32(this.lookAheadStep);
     output.writeFieldEnd();
   }
+  if (this.action !== null && this.action !== undefined) {
+    output.writeFieldBegin('action', Thrift.Type.STRUCT, 12);
+    this.action.write(output);
+    output.writeFieldEnd();
+  }
   output.writeFieldStop();
   output.writeStructEnd();
   return;
@@ -3083,12 +3172,16 @@ ScanRequest.prototype.write = function(output) {
 ScanResult = function(args) {
   this.nextStartKey = null;
   this.records = null;
+  this.throttled = null;
   if (args) {
     if (args.nextStartKey !== undefined) {
       this.nextStartKey = args.nextStartKey;
     }
     if (args.records !== undefined) {
       this.records = args.records;
+    }
+    if (args.throttled !== undefined) {
+      this.throttled = args.throttled;
     }
   }
 };
@@ -3179,6 +3272,13 @@ ScanResult.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 3:
+      if (ftype == Thrift.Type.BOOL) {
+        this.throttled = input.readBool().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -3227,6 +3327,11 @@ ScanResult.prototype.write = function(output) {
       }
     }
     output.writeListEnd();
+    output.writeFieldEnd();
+  }
+  if (this.throttled !== null && this.throttled !== undefined) {
+    output.writeFieldBegin('throttled', Thrift.Type.BOOL, 3);
+    output.writeBool(this.throttled);
     output.writeFieldEnd();
   }
   output.writeFieldStop();

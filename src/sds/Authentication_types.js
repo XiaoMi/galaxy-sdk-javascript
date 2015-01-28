@@ -287,4 +287,3 @@ HK_TIMESTAMP = 'X-Xiaomi-Timestamp';
 HK_CONTENT_MD5 = 'X-Xiaomi-Content-MD5';
 HK_AUTHORIZATION = 'Authorization';
 SUGGESTED_SIGNATURE_HEADERS = ['Host','X-Xiaomi-Timestamp','X-Xiaomi-Content-MD5'];
-MAX_CONTENT_SIZE = 524288;

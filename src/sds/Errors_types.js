@@ -32,7 +32,8 @@ ErrorCode = {
   'REQUEST_TOO_LARGE' : 33,
   'BAD_REQUEST' : 34,
   'TTRANSPORT_ERROR' : 35,
-  'UNSUPPORTED_TPROTOCOL' : 36
+  'UNSUPPORTED_TPROTOCOL' : 36,
+  'REQUEST_TIMEOUT' : 37
 };
 RetryType = {
   'SAFE' : 0,
@@ -139,12 +140,14 @@ ServiceException.prototype.write = function(output) {
 
 ERROR_BACKOFF = {2 : 1000,
 25 : 1000,
+37 : 0,
 32 : 0,
 1 : 1000,
 35 : 1000
 };
 ERROR_RETRY_TYPE = {2 : 0,
 25 : 0,
+37 : 0,
 32 : 0,
 1 : 1,
 35 : 1

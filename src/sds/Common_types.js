@@ -13,7 +13,7 @@ ThriftProtocol = {
 Version = function(args) {
   this.major = 1;
   this.minor = 0;
-  this.patch = 'b0ec2a12';
+  this.patch = 'bf602faf';
   this.comments = '';
   if (args) {
     if (args.major !== undefined) {
@@ -109,6 +109,7 @@ Version.prototype.write = function(output) {
 };
 
 DEFAULT_CLIENT_TIMEOUT = 10000;
+DEFAULT_MAX_CLIENT_TIMEOUT = 10000;
 DEFAULT_ADMIN_CLIENT_TIMEOUT = 30000;
 DEFAULT_CLIENT_CONN_TIMEOUT = 3000;
 DEFAULT_SERVICE_ENDPOINT = 'http://sds.api.xiaomi.com';
@@ -117,6 +118,7 @@ API_ROOT_PATH = '/v1/api';
 AUTH_SERVICE_PATH = '/v1/api/auth';
 ADMIN_SERVICE_PATH = '/v1/api/admin';
 TABLE_SERVICE_PATH = '/v1/api/table';
+SCAN_COUNT = 'count';
 DEFAULT_THRIFT_HEADER = 'application/x-thrift';
 THRIFT_JSON_HEADER = 'application/x-thrift-json';
 THRIFT_COMPACT_HEADER = 'application/x-thrift-compact';
@@ -130,3 +132,6 @@ HEADER_THRIFT_MAP = {'application/x-thrift-compact' : 0,
 'application/x-thrift-binary' : 2,
 'application/x-thrift' : 1
 };
+HK_REQUEST_TIMEOUT = 'X-Xiaomi-Request-Timeout';
+HK_ERROR_CODE_HEADER = 'X-Xiaomi-Error-Code';
+MAX_CONTENT_SIZE = 524288;
