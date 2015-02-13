@@ -1954,73 +1954,6 @@ TableSplit.prototype.write = function(output) {
   return;
 };
 
-ScanAction = function(args) {
-  this.action = null;
-  this.request = null;
-  if (args) {
-    if (args.action !== undefined) {
-      this.action = args.action;
-    }
-    if (args.request !== undefined) {
-      this.request = args.request;
-    }
-  }
-};
-ScanAction.prototype = {};
-ScanAction.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true)
-  {
-    var ret = input.readFieldBegin();
-    var fname = ret.fname;
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 1:
-      if (ftype == Thrift.Type.I32) {
-        this.action = input.readI32().value;
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 2:
-      if (ftype == Thrift.Type.STRUCT) {
-        this.request = new Request();
-        this.request.read(input);
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      default:
-        input.skip(ftype);
-    }
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
-};
-
-ScanAction.prototype.write = function(output) {
-  output.writeStructBegin('ScanAction');
-  if (this.action !== null && this.action !== undefined) {
-    output.writeFieldBegin('action', Thrift.Type.I32, 1);
-    output.writeI32(this.action);
-    output.writeFieldEnd();
-  }
-  if (this.request !== null && this.request !== undefined) {
-    output.writeFieldBegin('request', Thrift.Type.STRUCT, 2);
-    this.request.write(output);
-    output.writeFieldEnd();
-  }
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
-};
-
 GetRequest = function(args) {
   this.tableName = null;
   this.keys = null;
@@ -2854,6 +2787,175 @@ RemoveResult.prototype.write = function(output) {
   return;
 };
 
+Request = function(args) {
+  this.getRequest = null;
+  this.putRequest = null;
+  this.incrementRequest = null;
+  this.removeRequest = null;
+  if (args) {
+    if (args.getRequest !== undefined) {
+      this.getRequest = args.getRequest;
+    }
+    if (args.putRequest !== undefined) {
+      this.putRequest = args.putRequest;
+    }
+    if (args.incrementRequest !== undefined) {
+      this.incrementRequest = args.incrementRequest;
+    }
+    if (args.removeRequest !== undefined) {
+      this.removeRequest = args.removeRequest;
+    }
+  }
+};
+Request.prototype = {};
+Request.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.getRequest = new GetRequest();
+        this.getRequest.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.putRequest = new PutRequest();
+        this.putRequest.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 3:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.incrementRequest = new IncrementRequest();
+        this.incrementRequest.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 4:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.removeRequest = new RemoveRequest();
+        this.removeRequest.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+Request.prototype.write = function(output) {
+  output.writeStructBegin('Request');
+  if (this.getRequest !== null && this.getRequest !== undefined) {
+    output.writeFieldBegin('getRequest', Thrift.Type.STRUCT, 1);
+    this.getRequest.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.putRequest !== null && this.putRequest !== undefined) {
+    output.writeFieldBegin('putRequest', Thrift.Type.STRUCT, 2);
+    this.putRequest.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.incrementRequest !== null && this.incrementRequest !== undefined) {
+    output.writeFieldBegin('incrementRequest', Thrift.Type.STRUCT, 3);
+    this.incrementRequest.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.removeRequest !== null && this.removeRequest !== undefined) {
+    output.writeFieldBegin('removeRequest', Thrift.Type.STRUCT, 4);
+    this.removeRequest.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+ScanAction = function(args) {
+  this.action = null;
+  this.request = null;
+  if (args) {
+    if (args.action !== undefined) {
+      this.action = args.action;
+    }
+    if (args.request !== undefined) {
+      this.request = args.request;
+    }
+  }
+};
+ScanAction.prototype = {};
+ScanAction.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.I32) {
+        this.action = input.readI32().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.request = new Request();
+        this.request.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+ScanAction.prototype.write = function(output) {
+  output.writeStructBegin('ScanAction');
+  if (this.action !== null && this.action !== undefined) {
+    output.writeFieldBegin('action', Thrift.Type.I32, 1);
+    output.writeI32(this.action);
+    output.writeFieldEnd();
+  }
+  if (this.request !== null && this.request !== undefined) {
+    output.writeFieldBegin('request', Thrift.Type.STRUCT, 2);
+    this.request.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
 ScanRequest = function(args) {
   this.tableName = null;
   this.indexName = null;
@@ -3332,108 +3434,6 @@ ScanResult.prototype.write = function(output) {
   if (this.throttled !== null && this.throttled !== undefined) {
     output.writeFieldBegin('throttled', Thrift.Type.BOOL, 3);
     output.writeBool(this.throttled);
-    output.writeFieldEnd();
-  }
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
-};
-
-Request = function(args) {
-  this.getRequest = null;
-  this.putRequest = null;
-  this.incrementRequest = null;
-  this.removeRequest = null;
-  if (args) {
-    if (args.getRequest !== undefined) {
-      this.getRequest = args.getRequest;
-    }
-    if (args.putRequest !== undefined) {
-      this.putRequest = args.putRequest;
-    }
-    if (args.incrementRequest !== undefined) {
-      this.incrementRequest = args.incrementRequest;
-    }
-    if (args.removeRequest !== undefined) {
-      this.removeRequest = args.removeRequest;
-    }
-  }
-};
-Request.prototype = {};
-Request.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true)
-  {
-    var ret = input.readFieldBegin();
-    var fname = ret.fname;
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 1:
-      if (ftype == Thrift.Type.STRUCT) {
-        this.getRequest = new GetRequest();
-        this.getRequest.read(input);
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 2:
-      if (ftype == Thrift.Type.STRUCT) {
-        this.putRequest = new PutRequest();
-        this.putRequest.read(input);
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 3:
-      if (ftype == Thrift.Type.STRUCT) {
-        this.incrementRequest = new IncrementRequest();
-        this.incrementRequest.read(input);
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 4:
-      if (ftype == Thrift.Type.STRUCT) {
-        this.removeRequest = new RemoveRequest();
-        this.removeRequest.read(input);
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      default:
-        input.skip(ftype);
-    }
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
-};
-
-Request.prototype.write = function(output) {
-  output.writeStructBegin('Request');
-  if (this.getRequest !== null && this.getRequest !== undefined) {
-    output.writeFieldBegin('getRequest', Thrift.Type.STRUCT, 1);
-    this.getRequest.write(output);
-    output.writeFieldEnd();
-  }
-  if (this.putRequest !== null && this.putRequest !== undefined) {
-    output.writeFieldBegin('putRequest', Thrift.Type.STRUCT, 2);
-    this.putRequest.write(output);
-    output.writeFieldEnd();
-  }
-  if (this.incrementRequest !== null && this.incrementRequest !== undefined) {
-    output.writeFieldBegin('incrementRequest', Thrift.Type.STRUCT, 3);
-    this.incrementRequest.write(output);
-    output.writeFieldEnd();
-  }
-  if (this.removeRequest !== null && this.removeRequest !== undefined) {
-    output.writeFieldBegin('removeRequest', Thrift.Type.STRUCT, 4);
-    this.removeRequest.write(output);
     output.writeFieldEnd();
   }
   output.writeFieldStop();

@@ -44,6 +44,7 @@ ServiceException = function(args) {
   this.errorMessage = null;
   this.details = null;
   this.callId = null;
+  this.requestId = null;
   if (args) {
     if (args.errorCode !== undefined) {
       this.errorCode = args.errorCode;
@@ -56,6 +57,9 @@ ServiceException = function(args) {
     }
     if (args.callId !== undefined) {
       this.callId = args.callId;
+    }
+    if (args.requestId !== undefined) {
+      this.requestId = args.requestId;
     }
   }
 };
@@ -102,6 +106,13 @@ ServiceException.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 5:
+      if (ftype == Thrift.Type.STRING) {
+        this.requestId = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -131,6 +142,11 @@ ServiceException.prototype.write = function(output) {
   if (this.callId !== null && this.callId !== undefined) {
     output.writeFieldBegin('callId', Thrift.Type.STRING, 4);
     output.writeString(this.callId);
+    output.writeFieldEnd();
+  }
+  if (this.requestId !== null && this.requestId !== undefined) {
+    output.writeFieldBegin('requestId', Thrift.Type.STRING, 5);
+    output.writeString(this.requestId);
     output.writeFieldEnd();
   }
   output.writeFieldStop();

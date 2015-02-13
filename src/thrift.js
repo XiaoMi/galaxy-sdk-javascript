@@ -381,14 +381,38 @@ Thrift.TXHRTransport.prototype = {
         }
 
         var thriftTransport = this;
+        var authorization = {
+            "1": {
+                "str": "SDS-V1"
+            },
+            "2": {
+                "i32": UserType.DEV_XIAOMI_SSO
+            },
+            "3": {
+                "str": ''
+            },
+            "4": {
+                "str": this.__getCookie('serviceToken')
+            }
+        };
+        var hostname = location.hostname;
+        if (hostname.indexOf('dev.xiaomi.com') >= 0) {
+            authorization['3'].str = 'developer';
+        }
+        else if (hostname.indexOf('dev.mi.com') >= 0) {
+            authorization['3'].str = 'mideveloper';
+        }
 
         var jqXHR = jQuery.ajax({
-            url: this.url,
+            url: this.url + '?requestId=' + this.__S4() + this.__S4(),
             data: postData,
             type: 'POST',
             cache: false,
             contentType: 'application/json',
             dataType: 'text thrift',
+            headers: {
+                Authorization: JSON.stringify(authorization)
+            },
             converters: {
                 'text thrift' : function(responseData) {
                     thriftTransport.setRecvBuffer(responseData);
@@ -401,6 +425,28 @@ Thrift.TXHRTransport.prototype = {
         });
 
         return jqXHR;
+    },
+
+    /**
+     * Returns the cookie value by provided key,if not exist, returns empty
+     * string.
+     * @param {string} key - The key of cookie
+     * @returns {string}
+     */
+    __getCookie: function(key) {
+        var SPLITOR = '; ';
+        var formatedCookie = SPLITOR + document.cookie;
+        var parts = formatedCookie.split(SPLITOR + key + '=');
+        if (parts.length === 2) {
+            return parts.pop().split(SPLITOR).shift();
+        }
+        else {
+            return '';
+        }
+    },
+
+    __S4: function() {
+        return (((1+Math.random())*0x10000)|0).toString(16).substring(1).toLowerCase();
     },
 
     /**
