@@ -404,7 +404,7 @@ Thrift.TXHRTransport.prototype = {
         }
 
         var jqXHR = jQuery.ajax({
-            url: this.url + '?requestId=' + this.__S4() + this.__S4(),
+            url: this.url + '?id=' + this.__S4() + this.__S4() + '&type=' + JSON.parse(postData)[1],
             data: postData,
             type: 'POST',
             cache: false,
