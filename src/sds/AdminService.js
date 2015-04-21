@@ -488,6 +488,127 @@ AdminService_findAllTables_result.prototype.write = function(output) {
   return;
 };
 
+AdminService_cleanAllLazyDroppedTables_args = function(args) {
+};
+AdminService_cleanAllLazyDroppedTables_args.prototype = {};
+AdminService_cleanAllLazyDroppedTables_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    input.skip(ftype);
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+AdminService_cleanAllLazyDroppedTables_args.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_cleanAllLazyDroppedTables_args');
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+AdminService_cleanAllLazyDroppedTables_result = function(args) {
+  this.success = null;
+  this.se = null;
+  if (args instanceof ServiceException) {
+    this.se = args;
+    return;
+  }
+  if (args) {
+    if (args.success !== undefined) {
+      this.success = args.success;
+    }
+    if (args.se !== undefined) {
+      this.se = args.se;
+    }
+  }
+};
+AdminService_cleanAllLazyDroppedTables_result.prototype = {};
+AdminService_cleanAllLazyDroppedTables_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+      if (ftype == Thrift.Type.LIST) {
+        var _size46 = 0;
+        var _rtmp350;
+        this.success = [];
+        var _etype49 = 0;
+        _rtmp350 = input.readListBegin();
+        _etype49 = _rtmp350.etype;
+        _size46 = _rtmp350.size;
+        for (var _i51 = 0; _i51 < _size46; ++_i51)
+        {
+          var elem52 = null;
+          elem52 = input.readString().value;
+          this.success.push(elem52);
+        }
+        input.readListEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.se = new ServiceException();
+        this.se.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+AdminService_cleanAllLazyDroppedTables_result.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_cleanAllLazyDroppedTables_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.LIST, 0);
+    output.writeListBegin(Thrift.Type.STRING, this.success.length);
+    for (var iter53 in this.success)
+    {
+      if (this.success.hasOwnProperty(iter53))
+      {
+        iter53 = this.success[iter53];
+        output.writeString(iter53);
+      }
+    }
+    output.writeListEnd();
+    output.writeFieldEnd();
+  }
+  if (this.se !== null && this.se !== undefined) {
+    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
+    this.se.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
 AdminService_createTable_args = function(args) {
   this.tableName = null;
   this.tableSpec = null;
@@ -738,7 +859,7 @@ AdminService_dropTable_result.prototype.write = function(output) {
   return;
 };
 
-AdminService_lazyDropTable_args = function(args) {
+AdminService_restoreTable_args = function(args) {
   this.tableName = null;
   if (args) {
     if (args.tableName !== undefined) {
@@ -746,8 +867,8 @@ AdminService_lazyDropTable_args = function(args) {
     }
   }
 };
-AdminService_lazyDropTable_args.prototype = {};
-AdminService_lazyDropTable_args.prototype.read = function(input) {
+AdminService_restoreTable_args.prototype = {};
+AdminService_restoreTable_args.prototype.read = function(input) {
   input.readStructBegin();
   while (true)
   {
@@ -779,8 +900,8 @@ AdminService_lazyDropTable_args.prototype.read = function(input) {
   return;
 };
 
-AdminService_lazyDropTable_args.prototype.write = function(output) {
-  output.writeStructBegin('AdminService_lazyDropTable_args');
+AdminService_restoreTable_args.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_restoreTable_args');
   if (this.tableName !== null && this.tableName !== undefined) {
     output.writeFieldBegin('tableName', Thrift.Type.STRING, 1);
     output.writeString(this.tableName);
@@ -791,7 +912,7 @@ AdminService_lazyDropTable_args.prototype.write = function(output) {
   return;
 };
 
-AdminService_lazyDropTable_result = function(args) {
+AdminService_restoreTable_result = function(args) {
   this.se = null;
   if (args instanceof ServiceException) {
     this.se = args;
@@ -803,8 +924,8 @@ AdminService_lazyDropTable_result = function(args) {
     }
   }
 };
-AdminService_lazyDropTable_result.prototype = {};
-AdminService_lazyDropTable_result.prototype.read = function(input) {
+AdminService_restoreTable_result.prototype = {};
+AdminService_restoreTable_result.prototype.read = function(input) {
   input.readStructBegin();
   while (true)
   {
@@ -837,8 +958,8 @@ AdminService_lazyDropTable_result.prototype.read = function(input) {
   return;
 };
 
-AdminService_lazyDropTable_result.prototype.write = function(output) {
-  output.writeStructBegin('AdminService_lazyDropTable_result');
+AdminService_restoreTable_result.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_restoreTable_result');
   if (this.se !== null && this.se !== undefined) {
     output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
     this.se.write(output);
@@ -1749,39 +1870,9 @@ AdminService_getTableSplits_args.prototype.read = function(input) {
       break;
       case 2:
       if (ftype == Thrift.Type.MAP) {
-        var _size46 = 0;
-        var _rtmp350;
-        this.startKey = {};
-        var _ktype47 = 0;
-        var _vtype48 = 0;
-        _rtmp350 = input.readMapBegin();
-        _ktype47 = _rtmp350.ktype;
-        _vtype48 = _rtmp350.vtype;
-        _size46 = _rtmp350.size;
-        for (var _i51 = 0; _i51 < _size46; ++_i51)
-        {
-          if (_i51 > 0 ) {
-            if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
-              input.rstack.pop();
-            }
-          }
-          var key52 = null;
-          var val53 = null;
-          key52 = input.readString().value;
-          val53 = new Datum();
-          val53.read(input);
-          this.startKey[key52] = val53;
-        }
-        input.readMapEnd();
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 3:
-      if (ftype == Thrift.Type.MAP) {
         var _size54 = 0;
         var _rtmp358;
-        this.stopKey = {};
+        this.startKey = {};
         var _ktype55 = 0;
         var _vtype56 = 0;
         _rtmp358 = input.readMapBegin();
@@ -1800,7 +1891,37 @@ AdminService_getTableSplits_args.prototype.read = function(input) {
           key60 = input.readString().value;
           val61 = new Datum();
           val61.read(input);
-          this.stopKey[key60] = val61;
+          this.startKey[key60] = val61;
+        }
+        input.readMapEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 3:
+      if (ftype == Thrift.Type.MAP) {
+        var _size62 = 0;
+        var _rtmp366;
+        this.stopKey = {};
+        var _ktype63 = 0;
+        var _vtype64 = 0;
+        _rtmp366 = input.readMapBegin();
+        _ktype63 = _rtmp366.ktype;
+        _vtype64 = _rtmp366.vtype;
+        _size62 = _rtmp366.size;
+        for (var _i67 = 0; _i67 < _size62; ++_i67)
+        {
+          if (_i67 > 0 ) {
+            if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
+              input.rstack.pop();
+            }
+          }
+          var key68 = null;
+          var val69 = null;
+          key68 = input.readString().value;
+          val69 = new Datum();
+          val69.read(input);
+          this.stopKey[key68] = val69;
         }
         input.readMapEnd();
       } else {
@@ -1826,13 +1947,13 @@ AdminService_getTableSplits_args.prototype.write = function(output) {
   if (this.startKey !== null && this.startKey !== undefined) {
     output.writeFieldBegin('startKey', Thrift.Type.MAP, 2);
     output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRUCT, Thrift.objectLength(this.startKey));
-    for (var kiter62 in this.startKey)
+    for (var kiter70 in this.startKey)
     {
-      if (this.startKey.hasOwnProperty(kiter62))
+      if (this.startKey.hasOwnProperty(kiter70))
       {
-        var viter63 = this.startKey[kiter62];
-        output.writeString(kiter62);
-        viter63.write(output);
+        var viter71 = this.startKey[kiter70];
+        output.writeString(kiter70);
+        viter71.write(output);
       }
     }
     output.writeMapEnd();
@@ -1841,13 +1962,13 @@ AdminService_getTableSplits_args.prototype.write = function(output) {
   if (this.stopKey !== null && this.stopKey !== undefined) {
     output.writeFieldBegin('stopKey', Thrift.Type.MAP, 3);
     output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRUCT, Thrift.objectLength(this.stopKey));
-    for (var kiter64 in this.stopKey)
+    for (var kiter72 in this.stopKey)
     {
-      if (this.stopKey.hasOwnProperty(kiter64))
+      if (this.stopKey.hasOwnProperty(kiter72))
       {
-        var viter65 = this.stopKey[kiter64];
-        output.writeString(kiter64);
-        viter65.write(output);
+        var viter73 = this.stopKey[kiter72];
+        output.writeString(kiter72);
+        viter73.write(output);
       }
     }
     output.writeMapEnd();
@@ -1890,19 +2011,19 @@ AdminService_getTableSplits_result.prototype.read = function(input) {
     {
       case 0:
       if (ftype == Thrift.Type.LIST) {
-        var _size66 = 0;
-        var _rtmp370;
+        var _size74 = 0;
+        var _rtmp378;
         this.success = [];
-        var _etype69 = 0;
-        _rtmp370 = input.readListBegin();
-        _etype69 = _rtmp370.etype;
-        _size66 = _rtmp370.size;
-        for (var _i71 = 0; _i71 < _size66; ++_i71)
+        var _etype77 = 0;
+        _rtmp378 = input.readListBegin();
+        _etype77 = _rtmp378.etype;
+        _size74 = _rtmp378.size;
+        for (var _i79 = 0; _i79 < _size74; ++_i79)
         {
-          var elem72 = null;
-          elem72 = new TableSplit();
-          elem72.read(input);
-          this.success.push(elem72);
+          var elem80 = null;
+          elem80 = new TableSplit();
+          elem80.read(input);
+          this.success.push(elem80);
         }
         input.readListEnd();
       } else {
@@ -1931,12 +2052,12 @@ AdminService_getTableSplits_result.prototype.write = function(output) {
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
     output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
-    for (var iter73 in this.success)
+    for (var iter81 in this.success)
     {
-      if (this.success.hasOwnProperty(iter73))
+      if (this.success.hasOwnProperty(iter81))
       {
-        iter73 = this.success[iter73];
-        iter73.write(output);
+        iter81 = this.success[iter81];
+        iter81.write(output);
       }
     }
     output.writeListEnd();
@@ -2102,19 +2223,19 @@ AdminService_queryMetrics_args.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.LIST) {
-        var _size74 = 0;
-        var _rtmp378;
+        var _size82 = 0;
+        var _rtmp386;
         this.queries = [];
-        var _etype77 = 0;
-        _rtmp378 = input.readListBegin();
-        _etype77 = _rtmp378.etype;
-        _size74 = _rtmp378.size;
-        for (var _i79 = 0; _i79 < _size74; ++_i79)
+        var _etype85 = 0;
+        _rtmp386 = input.readListBegin();
+        _etype85 = _rtmp386.etype;
+        _size82 = _rtmp386.size;
+        for (var _i87 = 0; _i87 < _size82; ++_i87)
         {
-          var elem80 = null;
-          elem80 = new MetricQueryRequest();
-          elem80.read(input);
-          this.queries.push(elem80);
+          var elem88 = null;
+          elem88 = new MetricQueryRequest();
+          elem88.read(input);
+          this.queries.push(elem88);
         }
         input.readListEnd();
       } else {
@@ -2138,12 +2259,12 @@ AdminService_queryMetrics_args.prototype.write = function(output) {
   if (this.queries !== null && this.queries !== undefined) {
     output.writeFieldBegin('queries', Thrift.Type.LIST, 1);
     output.writeListBegin(Thrift.Type.STRUCT, this.queries.length);
-    for (var iter81 in this.queries)
+    for (var iter89 in this.queries)
     {
-      if (this.queries.hasOwnProperty(iter81))
+      if (this.queries.hasOwnProperty(iter89))
       {
-        iter81 = this.queries[iter81];
-        iter81.write(output);
+        iter89 = this.queries[iter89];
+        iter89.write(output);
       }
     }
     output.writeListEnd();
@@ -2186,19 +2307,19 @@ AdminService_queryMetrics_result.prototype.read = function(input) {
     {
       case 0:
       if (ftype == Thrift.Type.LIST) {
-        var _size82 = 0;
-        var _rtmp386;
+        var _size90 = 0;
+        var _rtmp394;
         this.success = [];
-        var _etype85 = 0;
-        _rtmp386 = input.readListBegin();
-        _etype85 = _rtmp386.etype;
-        _size82 = _rtmp386.size;
-        for (var _i87 = 0; _i87 < _size82; ++_i87)
+        var _etype93 = 0;
+        _rtmp394 = input.readListBegin();
+        _etype93 = _rtmp394.etype;
+        _size90 = _rtmp394.size;
+        for (var _i95 = 0; _i95 < _size90; ++_i95)
         {
-          var elem88 = null;
-          elem88 = new TimeSeriesData();
-          elem88.read(input);
-          this.success.push(elem88);
+          var elem96 = null;
+          elem96 = new TimeSeriesData();
+          elem96.read(input);
+          this.success.push(elem96);
         }
         input.readListEnd();
       } else {
@@ -2227,12 +2348,12 @@ AdminService_queryMetrics_result.prototype.write = function(output) {
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
     output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
-    for (var iter89 in this.success)
+    for (var iter97 in this.success)
     {
-      if (this.success.hasOwnProperty(iter89))
+      if (this.success.hasOwnProperty(iter97))
       {
-        iter89 = this.success[iter89];
-        iter89.write(output);
+        iter97 = this.success[iter97];
+        iter97.write(output);
       }
     }
     output.writeListEnd();
@@ -2308,19 +2429,19 @@ AdminService_findAllAppInfo_result.prototype.read = function(input) {
     {
       case 0:
       if (ftype == Thrift.Type.LIST) {
-        var _size90 = 0;
-        var _rtmp394;
+        var _size98 = 0;
+        var _rtmp3102;
         this.success = [];
-        var _etype93 = 0;
-        _rtmp394 = input.readListBegin();
-        _etype93 = _rtmp394.etype;
-        _size90 = _rtmp394.size;
-        for (var _i95 = 0; _i95 < _size90; ++_i95)
+        var _etype101 = 0;
+        _rtmp3102 = input.readListBegin();
+        _etype101 = _rtmp3102.etype;
+        _size98 = _rtmp3102.size;
+        for (var _i103 = 0; _i103 < _size98; ++_i103)
         {
-          var elem96 = null;
-          elem96 = new AppInfo();
-          elem96.read(input);
-          this.success.push(elem96);
+          var elem104 = null;
+          elem104 = new AppInfo();
+          elem104.read(input);
+          this.success.push(elem104);
         }
         input.readListEnd();
       } else {
@@ -2349,12 +2470,12 @@ AdminService_findAllAppInfo_result.prototype.write = function(output) {
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
     output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
-    for (var iter97 in this.success)
+    for (var iter105 in this.success)
     {
-      if (this.success.hasOwnProperty(iter97))
+      if (this.success.hasOwnProperty(iter105))
       {
-        iter97 = this.success[iter97];
-        iter97.write(output);
+        iter105 = this.success[iter105];
+        iter105.write(output);
       }
     }
     output.writeListEnd();
@@ -2543,6 +2664,48 @@ AdminServiceClient.prototype.recv_findAllTables = function() {
   }
   throw 'findAllTables failed: unknown result';
 };
+AdminServiceClient.prototype.cleanAllLazyDroppedTables = function(callback) {
+  if (callback === undefined) {
+    this.send_cleanAllLazyDroppedTables();
+    return this.recv_cleanAllLazyDroppedTables();
+  } else {
+    var postData = this.send_cleanAllLazyDroppedTables(true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_cleanAllLazyDroppedTables);
+  }
+};
+
+AdminServiceClient.prototype.send_cleanAllLazyDroppedTables = function(callback) {
+  this.output.writeMessageBegin('cleanAllLazyDroppedTables', Thrift.MessageType.CALL, this.seqid);
+  var args = new AdminService_cleanAllLazyDroppedTables_args();
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+AdminServiceClient.prototype.recv_cleanAllLazyDroppedTables = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new AdminService_cleanAllLazyDroppedTables_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.se) {
+    throw result.se;
+  }
+  if (null !== result.success) {
+    return result.success;
+  }
+  throw 'cleanAllLazyDroppedTables failed: unknown result';
+};
 AdminServiceClient.prototype.createTable = function(tableName, tableSpec, callback) {
   if (callback === undefined) {
     this.send_createTable(tableName, tableSpec);
@@ -2627,27 +2790,27 @@ AdminServiceClient.prototype.recv_dropTable = function() {
   }
   return;
 };
-AdminServiceClient.prototype.lazyDropTable = function(tableName, callback) {
+AdminServiceClient.prototype.restoreTable = function(tableName, callback) {
   if (callback === undefined) {
-    this.send_lazyDropTable(tableName);
-    this.recv_lazyDropTable();
+    this.send_restoreTable(tableName);
+    this.recv_restoreTable();
   } else {
-    var postData = this.send_lazyDropTable(tableName, true);
+    var postData = this.send_restoreTable(tableName, true);
     return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_lazyDropTable);
+      .jqRequest(this, postData, arguments, this.recv_restoreTable);
   }
 };
 
-AdminServiceClient.prototype.send_lazyDropTable = function(tableName, callback) {
-  this.output.writeMessageBegin('lazyDropTable', Thrift.MessageType.CALL, this.seqid);
-  var args = new AdminService_lazyDropTable_args();
+AdminServiceClient.prototype.send_restoreTable = function(tableName, callback) {
+  this.output.writeMessageBegin('restoreTable', Thrift.MessageType.CALL, this.seqid);
+  var args = new AdminService_restoreTable_args();
   args.tableName = tableName;
   args.write(this.output);
   this.output.writeMessageEnd();
   return this.output.getTransport().flush(callback);
 };
 
-AdminServiceClient.prototype.recv_lazyDropTable = function() {
+AdminServiceClient.prototype.recv_restoreTable = function() {
   var ret = this.input.readMessageBegin();
   var fname = ret.fname;
   var mtype = ret.mtype;
@@ -2658,7 +2821,7 @@ AdminServiceClient.prototype.recv_lazyDropTable = function() {
     this.input.readMessageEnd();
     throw x;
   }
-  var result = new AdminService_lazyDropTable_result();
+  var result = new AdminService_restoreTable_result();
   result.read(this.input);
   this.input.readMessageEnd();
 

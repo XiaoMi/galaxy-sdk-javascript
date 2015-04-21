@@ -13,7 +13,7 @@ ThriftProtocol = {
 Version = function(args) {
   this.major = 1;
   this.minor = 0;
-  this.patch = 'd2d950cb';
+  this.patch = 'fee5636b';
   this.comments = '';
   if (args) {
     if (args.major !== undefined) {
@@ -123,9 +123,16 @@ DEFAULT_THRIFT_HEADER = 'application/x-thrift';
 THRIFT_JSON_HEADER = 'application/x-thrift-json';
 THRIFT_COMPACT_HEADER = 'application/x-thrift-compact';
 THRIFT_BINARY_HEADER = 'application/x-thrift-binary';
+THRIFT_JSON_PROTOCOL_CLASS = 'TJSONProtocol';
+THRIFT_BINARY_PROTOCOL_CLASS = 'TBinaryProtocol';
+THRIFT_COMPACT_PROTOCOL_CLASS = 'TCompactProtocol';
 THRIFT_HEADER_MAP = {0 : 'application/x-thrift-compact',
 1 : 'application/x-thrift-json',
 2 : 'application/x-thrift-binary'
+};
+THRIFT_PROTOCOL_MAP = {0 : 'TCompactProtocol',
+1 : 'TJSONProtocol',
+2 : 'TBinaryProtocol'
 };
 HEADER_THRIFT_MAP = {'application/x-thrift-compact' : 0,
 'application/x-thrift-json' : 1,

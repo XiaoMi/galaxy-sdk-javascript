@@ -115,6 +115,7 @@ HttpAuthorizationHeader = function(args) {
   this.signature = null;
   this.algorithm = null;
   this.signedHeaders = [];
+  this.supportAccountKey = false;
   if (args) {
     if (args.version !== undefined) {
       this.version = args.version;
@@ -136,6 +137,9 @@ HttpAuthorizationHeader = function(args) {
     }
     if (args.signedHeaders !== undefined) {
       this.signedHeaders = args.signedHeaders;
+    }
+    if (args.supportAccountKey !== undefined) {
+      this.supportAccountKey = args.supportAccountKey;
     }
   }
 };
@@ -215,6 +219,13 @@ HttpAuthorizationHeader.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 8:
+      if (ftype == Thrift.Type.BOOL) {
+        this.supportAccountKey = input.readBool().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -268,6 +279,11 @@ HttpAuthorizationHeader.prototype.write = function(output) {
       }
     }
     output.writeListEnd();
+    output.writeFieldEnd();
+  }
+  if (this.supportAccountKey !== null && this.supportAccountKey !== undefined) {
+    output.writeFieldBegin('supportAccountKey', Thrift.Type.BOOL, 8);
+    output.writeBool(this.supportAccountKey);
     output.writeFieldEnd();
   }
   output.writeFieldStop();

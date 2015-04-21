@@ -1743,6 +1743,7 @@ SimpleCondition = function(args) {
   this.operator = null;
   this.field = null;
   this.value = null;
+  this.rowExist = null;
   if (args) {
     if (args.operator !== undefined) {
       this.operator = args.operator;
@@ -1752,6 +1753,9 @@ SimpleCondition = function(args) {
     }
     if (args.value !== undefined) {
       this.value = args.value;
+    }
+    if (args.rowExist !== undefined) {
+      this.rowExist = args.rowExist;
     }
   }
 };
@@ -1791,6 +1795,13 @@ SimpleCondition.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 4:
+      if (ftype == Thrift.Type.BOOL) {
+        this.rowExist = input.readBool().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -1815,6 +1826,11 @@ SimpleCondition.prototype.write = function(output) {
   if (this.value !== null && this.value !== undefined) {
     output.writeFieldBegin('value', Thrift.Type.STRUCT, 3);
     this.value.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.rowExist !== null && this.rowExist !== undefined) {
+    output.writeFieldBegin('rowExist', Thrift.Type.BOOL, 4);
+    output.writeBool(this.rowExist);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
