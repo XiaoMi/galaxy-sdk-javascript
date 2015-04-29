@@ -2491,6 +2491,130 @@ AdminService_findAllAppInfo_result.prototype.write = function(output) {
   return;
 };
 
+AdminService_getTableSize_args = function(args) {
+  this.tableName = null;
+  if (args) {
+    if (args.tableName !== undefined) {
+      this.tableName = args.tableName;
+    }
+  }
+};
+AdminService_getTableSize_args.prototype = {};
+AdminService_getTableSize_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.tableName = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+AdminService_getTableSize_args.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_getTableSize_args');
+  if (this.tableName !== null && this.tableName !== undefined) {
+    output.writeFieldBegin('tableName', Thrift.Type.STRING, 1);
+    output.writeString(this.tableName);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+AdminService_getTableSize_result = function(args) {
+  this.success = null;
+  this.se = null;
+  if (args instanceof ServiceException) {
+    this.se = args;
+    return;
+  }
+  if (args) {
+    if (args.success !== undefined) {
+      this.success = args.success;
+    }
+    if (args.se !== undefined) {
+      this.se = args.se;
+    }
+  }
+};
+AdminService_getTableSize_result.prototype = {};
+AdminService_getTableSize_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+      if (ftype == Thrift.Type.I64) {
+        this.success = input.readI64().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.se = new ServiceException();
+        this.se.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+AdminService_getTableSize_result.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_getTableSize_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.I64, 0);
+    output.writeI64(this.success);
+    output.writeFieldEnd();
+  }
+  if (this.se !== null && this.se !== undefined) {
+    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
+    this.se.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
 AdminServiceClient = function(input, output) {
     this.input = input;
     this.output = (!output) ? input : output;
@@ -3294,4 +3418,47 @@ AdminServiceClient.prototype.recv_findAllAppInfo = function() {
     return result.success;
   }
   throw 'findAllAppInfo failed: unknown result';
+};
+AdminServiceClient.prototype.getTableSize = function(tableName, callback) {
+  if (callback === undefined) {
+    this.send_getTableSize(tableName);
+    return this.recv_getTableSize();
+  } else {
+    var postData = this.send_getTableSize(tableName, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_getTableSize);
+  }
+};
+
+AdminServiceClient.prototype.send_getTableSize = function(tableName, callback) {
+  this.output.writeMessageBegin('getTableSize', Thrift.MessageType.CALL, this.seqid);
+  var args = new AdminService_getTableSize_args();
+  args.tableName = tableName;
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+AdminServiceClient.prototype.recv_getTableSize = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new AdminService_getTableSize_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.se) {
+    throw result.se;
+  }
+  if (null !== result.success) {
+    return result.success;
+  }
+  throw 'getTableSize failed: unknown result';
 };

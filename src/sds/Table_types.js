@@ -55,9 +55,11 @@ TableState = {
   'ENABLED' : 3,
   'DISABLING' : 4,
   'DISABLED' : 5,
-  'DELETING' : 6,
-  'DELETED' : 7,
-  'LAZY_DELETE' : 8
+  'DROPPING' : 6,
+  'DROPPED' : 7,
+  'LAZY_DROPPING' : 8,
+  'LAZY_DROP' : 9,
+  'RESTORING' : 10
 };
 ScanOp = {
   'COUNT' : 0,
