@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>EMQ jQuery Client Test</title>
+  </head>
+  <body>
+    <input type="button" id="runTest" value="Test EMQ Server API" >
+
+    <table style="width:600px">
+    <tr>
+      <td>API</td>
+      <td>Result</td>
+    </tr>
+    <tr>
+      <td>getServiceVersion</td>
+      <td id="getServiceVersion">NA</td>
+    </tr>
+    <tr>
+      <td>deleteQueue</td>
+      <td id="deleteQueue">NA</td>
+    </tr>
+    <tr>
+      <td>listQueue</td>
+      <td id="listQueue">NA</td>
+    </tr>
+    </table>
+
+    <script src="../src/jquery.js"></script>
+    <script src="../src/rpc/thrift.js"></script>
+    <script src="../src/emq/Common_types.js"></script>
+    <script src="../src/emq/EMQBaseService.js"></script>
+    <script src="../src/emq/Message_types.js"></script>
+    <script src="../src/emq/MessageService.js"></script>
+    <script src="../src/emq/Queue_types.js"></script>
+    <script src="../src/emq/QueueService.js"></script>
+
+    <script>
+      (function() {
+        var transport = new Thrift.TXHRTransport("http://emq.api.xiaomi.com/v1/api/queue");
+        var protocol  = new Thrift.TJSONProtocol(transport);
+        var client    = new QueueServiceClient(protocol);
+        var serviceVersionElement = document.getElementById("getServiceVersion");
+        var deleteQueue = document.getElementById("deleteQueue");
+        var listQueueElement = document.getElementById("listQueue");
+        document.getElementById("runTest")
+          .addEventListener("click", function() {
+            client.getServiceVersion(function(ver) {
+              serviceVersionElement.innerHTML = "Server Version: " + ver.major +
+              "." + ver.minor + "." + ver.revision;
+            });
+            var listQueueRequest = new ListQueueRequest({queueNamePrefix: ''});
+            client.listQueue(listQueueRequest, function(queueList) {
+              listQueueElement.innerHTML = "";
+              for(var index in queueList.queueName) {
+                listQueueElement.innerHTML = listQueueElement.innerHTML +
+                    queueList.queueName[index] + "<br>";
+              }
+            });
+            // exception handling
+            var deleteQueueRequest = new DeleteQueueRequest({
+              queueName : "id/nonExist"});
+            client.deleteQueue(deleteQueueRequest, function(){}).
+                    error(function(xhr, status, e) {
+                deleteQueue.innerHTML = "requestId:" + e.requestId +
+                "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" + e.errMsg;
+            });
+          });
+      })();
+    </script>
+  </body>
+</html>
