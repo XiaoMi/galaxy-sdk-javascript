@@ -25,6 +25,7 @@ QueueAttribute = function(args) {
   this.messageRetentionSeconds = null;
   this.messageMaximumBytes = null;
   this.partitionNumber = null;
+  this.userAttributes = null;
   if (args) {
     if (args.delaySeconds !== undefined) {
       this.delaySeconds = args.delaySeconds;
@@ -46,6 +47,9 @@ QueueAttribute = function(args) {
     }
     if (args.partitionNumber !== undefined) {
       this.partitionNumber = args.partitionNumber;
+    }
+    if (args.userAttributes !== undefined) {
+      this.userAttributes = args.userAttributes;
     }
   }
 };
@@ -112,6 +116,35 @@ QueueAttribute.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 8:
+      if (ftype == Thrift.Type.MAP) {
+        var _size0 = 0;
+        var _rtmp34;
+        this.userAttributes = {};
+        var _ktype1 = 0;
+        var _vtype2 = 0;
+        _rtmp34 = input.readMapBegin();
+        _ktype1 = _rtmp34.ktype;
+        _vtype2 = _rtmp34.vtype;
+        _size0 = _rtmp34.size;
+        for (var _i5 = 0; _i5 < _size0; ++_i5)
+        {
+          if (_i5 > 0 ) {
+            if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
+              input.rstack.pop();
+            }
+          }
+          var key6 = null;
+          var val7 = null;
+          key6 = input.readString().value;
+          val7 = input.readString().value;
+          this.userAttributes[key6] = val7;
+        }
+        input.readMapEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -156,6 +189,21 @@ QueueAttribute.prototype.write = function(output) {
   if (this.partitionNumber !== null && this.partitionNumber !== undefined) {
     output.writeFieldBegin('partitionNumber', Thrift.Type.I32, 7);
     output.writeI32(this.partitionNumber);
+    output.writeFieldEnd();
+  }
+  if (this.userAttributes !== null && this.userAttributes !== undefined) {
+    output.writeFieldBegin('userAttributes', Thrift.Type.MAP, 8);
+    output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRING, Thrift.objectLength(this.userAttributes));
+    for (var kiter8 in this.userAttributes)
+    {
+      if (this.userAttributes.hasOwnProperty(kiter8))
+      {
+        var viter9 = this.userAttributes[kiter8];
+        output.writeString(kiter8);
+        output.writeString(viter9);
+      }
+    }
+    output.writeMapEnd();
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -901,18 +949,18 @@ ListQueueResponse.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.LIST) {
-        var _size0 = 0;
-        var _rtmp34;
+        var _size10 = 0;
+        var _rtmp314;
         this.queueName = [];
-        var _etype3 = 0;
-        _rtmp34 = input.readListBegin();
-        _etype3 = _rtmp34.etype;
-        _size0 = _rtmp34.size;
-        for (var _i5 = 0; _i5 < _size0; ++_i5)
+        var _etype13 = 0;
+        _rtmp314 = input.readListBegin();
+        _etype13 = _rtmp314.etype;
+        _size10 = _rtmp314.size;
+        for (var _i15 = 0; _i15 < _size10; ++_i15)
         {
-          var elem6 = null;
-          elem6 = input.readString().value;
-          this.queueName.push(elem6);
+          var elem16 = null;
+          elem16 = input.readString().value;
+          this.queueName.push(elem16);
         }
         input.readListEnd();
       } else {
@@ -936,12 +984,12 @@ ListQueueResponse.prototype.write = function(output) {
   if (this.queueName !== null && this.queueName !== undefined) {
     output.writeFieldBegin('queueName', Thrift.Type.LIST, 1);
     output.writeListBegin(Thrift.Type.STRING, this.queueName.length);
-    for (var iter7 in this.queueName)
+    for (var iter17 in this.queueName)
     {
-      if (this.queueName.hasOwnProperty(iter7))
+      if (this.queueName.hasOwnProperty(iter17))
       {
-        iter7 = this.queueName[iter7];
-        output.writeString(iter7);
+        iter17 = this.queueName[iter17];
+        output.writeString(iter17);
       }
     }
     output.writeListEnd();
@@ -1424,27 +1472,27 @@ ListPermissionsResponse.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.MAP) {
-        var _size8 = 0;
-        var _rtmp312;
+        var _size18 = 0;
+        var _rtmp322;
         this.permissionList = {};
-        var _ktype9 = 0;
-        var _vtype10 = 0;
-        _rtmp312 = input.readMapBegin();
-        _ktype9 = _rtmp312.ktype;
-        _vtype10 = _rtmp312.vtype;
-        _size8 = _rtmp312.size;
-        for (var _i13 = 0; _i13 < _size8; ++_i13)
+        var _ktype19 = 0;
+        var _vtype20 = 0;
+        _rtmp322 = input.readMapBegin();
+        _ktype19 = _rtmp322.ktype;
+        _vtype20 = _rtmp322.vtype;
+        _size18 = _rtmp322.size;
+        for (var _i23 = 0; _i23 < _size18; ++_i23)
         {
-          if (_i13 > 0 ) {
+          if (_i23 > 0 ) {
             if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
               input.rstack.pop();
             }
           }
-          var key14 = null;
-          var val15 = null;
-          key14 = input.readString().value;
-          val15 = input.readI32().value;
-          this.permissionList[key14] = val15;
+          var key24 = null;
+          var val25 = null;
+          key24 = input.readString().value;
+          val25 = input.readI32().value;
+          this.permissionList[key24] = val25;
         }
         input.readMapEnd();
       } else {
@@ -1468,13 +1516,13 @@ ListPermissionsResponse.prototype.write = function(output) {
   if (this.permissionList !== null && this.permissionList !== undefined) {
     output.writeFieldBegin('permissionList', Thrift.Type.MAP, 1);
     output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.I32, Thrift.objectLength(this.permissionList));
-    for (var kiter16 in this.permissionList)
+    for (var kiter26 in this.permissionList)
     {
-      if (this.permissionList.hasOwnProperty(kiter16))
+      if (this.permissionList.hasOwnProperty(kiter26))
       {
-        var viter17 = this.permissionList[kiter16];
-        output.writeString(kiter16);
-        output.writeI32(viter17);
+        var viter27 = this.permissionList[kiter26];
+        output.writeString(kiter26);
+        output.writeI32(viter27);
       }
     }
     output.writeMapEnd();

@@ -345,19 +345,19 @@ MessageService_receiveMessage_result.prototype.read = function(input) {
     {
       case 0:
       if (ftype == Thrift.Type.LIST) {
-        var _size72 = 0;
-        var _rtmp376;
+        var _size96 = 0;
+        var _rtmp3100;
         this.success = [];
-        var _etype75 = 0;
-        _rtmp376 = input.readListBegin();
-        _etype75 = _rtmp376.etype;
-        _size72 = _rtmp376.size;
-        for (var _i77 = 0; _i77 < _size72; ++_i77)
+        var _etype99 = 0;
+        _rtmp3100 = input.readListBegin();
+        _etype99 = _rtmp3100.etype;
+        _size96 = _rtmp3100.size;
+        for (var _i101 = 0; _i101 < _size96; ++_i101)
         {
-          var elem78 = null;
-          elem78 = new ReceiveMessageResponse();
-          elem78.read(input);
-          this.success.push(elem78);
+          var elem102 = null;
+          elem102 = new ReceiveMessageResponse();
+          elem102.read(input);
+          this.success.push(elem102);
         }
         input.readListEnd();
       } else {
@@ -386,12 +386,12 @@ MessageService_receiveMessage_result.prototype.write = function(output) {
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
     output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
-    for (var iter79 in this.success)
+    for (var iter103 in this.success)
     {
-      if (this.success.hasOwnProperty(iter79))
+      if (this.success.hasOwnProperty(iter103))
       {
-        iter79 = this.success[iter79];
-        iter79.write(output);
+        iter103 = this.success[iter103];
+        iter103.write(output);
       }
     }
     output.writeListEnd();
