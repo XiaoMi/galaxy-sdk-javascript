@@ -6,16 +6,10 @@
 
 
 MessageAttribute = function(args) {
-  this.name = null;
   this.type = null;
   this.stringValue = null;
   this.binaryValue = null;
   if (args) {
-    if (args.name !== undefined) {
-      this.name = args.name;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field name is unset!');
-    }
     if (args.type !== undefined) {
       this.type = args.type;
     } else {
@@ -45,26 +39,19 @@ MessageAttribute.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.name = input.readString().value;
+        this.type = input.readString().value;
       } else {
         input.skip(ftype);
       }
       break;
       case 2:
       if (ftype == Thrift.Type.STRING) {
-        this.type = input.readString().value;
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 3:
-      if (ftype == Thrift.Type.STRING) {
         this.stringValue = input.readString().value;
       } else {
         input.skip(ftype);
       }
       break;
-      case 4:
+      case 3:
       if (ftype == Thrift.Type.STRING) {
         this.binaryValue = input.readBinary().value;
       } else {
@@ -82,23 +69,18 @@ MessageAttribute.prototype.read = function(input) {
 
 MessageAttribute.prototype.write = function(output) {
   output.writeStructBegin('MessageAttribute');
-  if (this.name !== null && this.name !== undefined) {
-    output.writeFieldBegin('name', Thrift.Type.STRING, 1);
-    output.writeString(this.name);
-    output.writeFieldEnd();
-  }
   if (this.type !== null && this.type !== undefined) {
-    output.writeFieldBegin('type', Thrift.Type.STRING, 2);
+    output.writeFieldBegin('type', Thrift.Type.STRING, 1);
     output.writeString(this.type);
     output.writeFieldEnd();
   }
   if (this.stringValue !== null && this.stringValue !== undefined) {
-    output.writeFieldBegin('stringValue', Thrift.Type.STRING, 3);
+    output.writeFieldBegin('stringValue', Thrift.Type.STRING, 2);
     output.writeString(this.stringValue);
     output.writeFieldEnd();
   }
   if (this.binaryValue !== null && this.binaryValue !== undefined) {
-    output.writeFieldBegin('binaryValue', Thrift.Type.STRING, 4);
+    output.writeFieldBegin('binaryValue', Thrift.Type.STRING, 3);
     output.writeBinary(this.binaryValue);
     output.writeFieldEnd();
   }
@@ -178,22 +160,31 @@ SendMessageRequest.prototype.read = function(input) {
       }
       break;
       case 5:
-      if (ftype == Thrift.Type.LIST) {
+      if (ftype == Thrift.Type.MAP) {
         var _size0 = 0;
         var _rtmp34;
-        this.messageAttributes = [];
-        var _etype3 = 0;
-        _rtmp34 = input.readListBegin();
-        _etype3 = _rtmp34.etype;
+        this.messageAttributes = {};
+        var _ktype1 = 0;
+        var _vtype2 = 0;
+        _rtmp34 = input.readMapBegin();
+        _ktype1 = _rtmp34.ktype;
+        _vtype2 = _rtmp34.vtype;
         _size0 = _rtmp34.size;
         for (var _i5 = 0; _i5 < _size0; ++_i5)
         {
-          var elem6 = null;
-          elem6 = new MessageAttribute();
-          elem6.read(input);
-          this.messageAttributes.push(elem6);
+          if (_i5 > 0 ) {
+            if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
+              input.rstack.pop();
+            }
+          }
+          var key6 = null;
+          var val7 = null;
+          key6 = input.readString().value;
+          val7 = new MessageAttribute();
+          val7.read(input);
+          this.messageAttributes[key6] = val7;
         }
-        input.readListEnd();
+        input.readMapEnd();
       } else {
         input.skip(ftype);
       }
@@ -230,17 +221,18 @@ SendMessageRequest.prototype.write = function(output) {
     output.writeFieldEnd();
   }
   if (this.messageAttributes !== null && this.messageAttributes !== undefined) {
-    output.writeFieldBegin('messageAttributes', Thrift.Type.LIST, 5);
-    output.writeListBegin(Thrift.Type.STRUCT, this.messageAttributes.length);
-    for (var iter7 in this.messageAttributes)
+    output.writeFieldBegin('messageAttributes', Thrift.Type.MAP, 5);
+    output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRUCT, Thrift.objectLength(this.messageAttributes));
+    for (var kiter8 in this.messageAttributes)
     {
-      if (this.messageAttributes.hasOwnProperty(iter7))
+      if (this.messageAttributes.hasOwnProperty(kiter8))
       {
-        iter7 = this.messageAttributes[iter7];
-        iter7.write(output);
+        var viter9 = this.messageAttributes[kiter8];
+        output.writeString(kiter8);
+        viter9.write(output);
       }
     }
-    output.writeListEnd();
+    output.writeMapEnd();
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -250,11 +242,23 @@ SendMessageRequest.prototype.write = function(output) {
 
 SendMessageResponse = function(args) {
   this.messageID = null;
+  this.bodyLength = null;
+  this.bodyMd5 = null;
+  this.sendTimestamp = null;
   if (args) {
     if (args.messageID !== undefined) {
       this.messageID = args.messageID;
     } else {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field messageID is unset!');
+    }
+    if (args.bodyLength !== undefined) {
+      this.bodyLength = args.bodyLength;
+    }
+    if (args.bodyMd5 !== undefined) {
+      this.bodyMd5 = args.bodyMd5;
+    }
+    if (args.sendTimestamp !== undefined) {
+      this.sendTimestamp = args.sendTimestamp;
     }
   }
 };
@@ -279,9 +283,27 @@ SendMessageResponse.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
-      case 0:
+      case 2:
+      if (ftype == Thrift.Type.I32) {
+        this.bodyLength = input.readI32().value;
+      } else {
         input.skip(ftype);
-        break;
+      }
+      break;
+      case 3:
+      if (ftype == Thrift.Type.STRING) {
+        this.bodyMd5 = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 4:
+      if (ftype == Thrift.Type.I64) {
+        this.sendTimestamp = input.readI64().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -296,6 +318,21 @@ SendMessageResponse.prototype.write = function(output) {
   if (this.messageID !== null && this.messageID !== undefined) {
     output.writeFieldBegin('messageID', Thrift.Type.STRING, 1);
     output.writeString(this.messageID);
+    output.writeFieldEnd();
+  }
+  if (this.bodyLength !== null && this.bodyLength !== undefined) {
+    output.writeFieldBegin('bodyLength', Thrift.Type.I32, 2);
+    output.writeI32(this.bodyLength);
+    output.writeFieldEnd();
+  }
+  if (this.bodyMd5 !== null && this.bodyMd5 !== undefined) {
+    output.writeFieldBegin('bodyMd5', Thrift.Type.STRING, 3);
+    output.writeString(this.bodyMd5);
+    output.writeFieldEnd();
+  }
+  if (this.sendTimestamp !== null && this.sendTimestamp !== undefined) {
+    output.writeFieldBegin('sendTimestamp', Thrift.Type.I64, 4);
+    output.writeI64(this.sendTimestamp);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -374,22 +411,31 @@ SendMessageBatchRequestEntry.prototype.read = function(input) {
       }
       break;
       case 5:
-      if (ftype == Thrift.Type.LIST) {
-        var _size8 = 0;
-        var _rtmp312;
-        this.messageAttributes = [];
-        var _etype11 = 0;
-        _rtmp312 = input.readListBegin();
-        _etype11 = _rtmp312.etype;
-        _size8 = _rtmp312.size;
-        for (var _i13 = 0; _i13 < _size8; ++_i13)
+      if (ftype == Thrift.Type.MAP) {
+        var _size10 = 0;
+        var _rtmp314;
+        this.messageAttributes = {};
+        var _ktype11 = 0;
+        var _vtype12 = 0;
+        _rtmp314 = input.readMapBegin();
+        _ktype11 = _rtmp314.ktype;
+        _vtype12 = _rtmp314.vtype;
+        _size10 = _rtmp314.size;
+        for (var _i15 = 0; _i15 < _size10; ++_i15)
         {
-          var elem14 = null;
-          elem14 = new MessageAttribute();
-          elem14.read(input);
-          this.messageAttributes.push(elem14);
+          if (_i15 > 0 ) {
+            if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
+              input.rstack.pop();
+            }
+          }
+          var key16 = null;
+          var val17 = null;
+          key16 = input.readString().value;
+          val17 = new MessageAttribute();
+          val17.read(input);
+          this.messageAttributes[key16] = val17;
         }
-        input.readListEnd();
+        input.readMapEnd();
       } else {
         input.skip(ftype);
       }
@@ -426,17 +472,18 @@ SendMessageBatchRequestEntry.prototype.write = function(output) {
     output.writeFieldEnd();
   }
   if (this.messageAttributes !== null && this.messageAttributes !== undefined) {
-    output.writeFieldBegin('messageAttributes', Thrift.Type.LIST, 5);
-    output.writeListBegin(Thrift.Type.STRUCT, this.messageAttributes.length);
-    for (var iter15 in this.messageAttributes)
+    output.writeFieldBegin('messageAttributes', Thrift.Type.MAP, 5);
+    output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRUCT, Thrift.objectLength(this.messageAttributes));
+    for (var kiter18 in this.messageAttributes)
     {
-      if (this.messageAttributes.hasOwnProperty(iter15))
+      if (this.messageAttributes.hasOwnProperty(kiter18))
       {
-        iter15 = this.messageAttributes[iter15];
-        iter15.write(output);
+        var viter19 = this.messageAttributes[kiter18];
+        output.writeString(kiter18);
+        viter19.write(output);
       }
     }
-    output.writeListEnd();
+    output.writeMapEnd();
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -483,19 +530,19 @@ SendMessageBatchRequest.prototype.read = function(input) {
       break;
       case 2:
       if (ftype == Thrift.Type.LIST) {
-        var _size16 = 0;
-        var _rtmp320;
+        var _size20 = 0;
+        var _rtmp324;
         this.sendMessageBatchRequestEntryList = [];
-        var _etype19 = 0;
-        _rtmp320 = input.readListBegin();
-        _etype19 = _rtmp320.etype;
-        _size16 = _rtmp320.size;
-        for (var _i21 = 0; _i21 < _size16; ++_i21)
+        var _etype23 = 0;
+        _rtmp324 = input.readListBegin();
+        _etype23 = _rtmp324.etype;
+        _size20 = _rtmp324.size;
+        for (var _i25 = 0; _i25 < _size20; ++_i25)
         {
-          var elem22 = null;
-          elem22 = new SendMessageBatchRequestEntry();
-          elem22.read(input);
-          this.sendMessageBatchRequestEntryList.push(elem22);
+          var elem26 = null;
+          elem26 = new SendMessageBatchRequestEntry();
+          elem26.read(input);
+          this.sendMessageBatchRequestEntryList.push(elem26);
         }
         input.readListEnd();
       } else {
@@ -521,12 +568,12 @@ SendMessageBatchRequest.prototype.write = function(output) {
   if (this.sendMessageBatchRequestEntryList !== null && this.sendMessageBatchRequestEntryList !== undefined) {
     output.writeFieldBegin('sendMessageBatchRequestEntryList', Thrift.Type.LIST, 2);
     output.writeListBegin(Thrift.Type.STRUCT, this.sendMessageBatchRequestEntryList.length);
-    for (var iter23 in this.sendMessageBatchRequestEntryList)
+    for (var iter27 in this.sendMessageBatchRequestEntryList)
     {
-      if (this.sendMessageBatchRequestEntryList.hasOwnProperty(iter23))
+      if (this.sendMessageBatchRequestEntryList.hasOwnProperty(iter27))
       {
-        iter23 = this.sendMessageBatchRequestEntryList[iter23];
-        iter23.write(output);
+        iter27 = this.sendMessageBatchRequestEntryList[iter27];
+        iter27.write(output);
       }
     }
     output.writeListEnd();
@@ -540,6 +587,9 @@ SendMessageBatchRequest.prototype.write = function(output) {
 SendMessageBatchResponseEntry = function(args) {
   this.entryId = null;
   this.messageID = null;
+  this.bodyLength = null;
+  this.bodyMd5 = null;
+  this.sendTimestamp = null;
   if (args) {
     if (args.entryId !== undefined) {
       this.entryId = args.entryId;
@@ -550,6 +600,15 @@ SendMessageBatchResponseEntry = function(args) {
       this.messageID = args.messageID;
     } else {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field messageID is unset!');
+    }
+    if (args.bodyLength !== undefined) {
+      this.bodyLength = args.bodyLength;
+    }
+    if (args.bodyMd5 !== undefined) {
+      this.bodyMd5 = args.bodyMd5;
+    }
+    if (args.sendTimestamp !== undefined) {
+      this.sendTimestamp = args.sendTimestamp;
     }
   }
 };
@@ -581,6 +640,27 @@ SendMessageBatchResponseEntry.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 3:
+      if (ftype == Thrift.Type.I32) {
+        this.bodyLength = input.readI32().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 4:
+      if (ftype == Thrift.Type.STRING) {
+        this.bodyMd5 = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 5:
+      if (ftype == Thrift.Type.I64) {
+        this.sendTimestamp = input.readI64().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -600,6 +680,21 @@ SendMessageBatchResponseEntry.prototype.write = function(output) {
   if (this.messageID !== null && this.messageID !== undefined) {
     output.writeFieldBegin('messageID', Thrift.Type.STRING, 2);
     output.writeString(this.messageID);
+    output.writeFieldEnd();
+  }
+  if (this.bodyLength !== null && this.bodyLength !== undefined) {
+    output.writeFieldBegin('bodyLength', Thrift.Type.I32, 3);
+    output.writeI32(this.bodyLength);
+    output.writeFieldEnd();
+  }
+  if (this.bodyMd5 !== null && this.bodyMd5 !== undefined) {
+    output.writeFieldBegin('bodyMd5', Thrift.Type.STRING, 4);
+    output.writeString(this.bodyMd5);
+    output.writeFieldEnd();
+  }
+  if (this.sendTimestamp !== null && this.sendTimestamp !== undefined) {
+    output.writeFieldBegin('sendTimestamp', Thrift.Type.I64, 5);
+    output.writeI64(this.sendTimestamp);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -710,19 +805,19 @@ SendMessageBatchResponse.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.LIST) {
-        var _size24 = 0;
-        var _rtmp328;
+        var _size28 = 0;
+        var _rtmp332;
         this.successful = [];
-        var _etype27 = 0;
-        _rtmp328 = input.readListBegin();
-        _etype27 = _rtmp328.etype;
-        _size24 = _rtmp328.size;
-        for (var _i29 = 0; _i29 < _size24; ++_i29)
+        var _etype31 = 0;
+        _rtmp332 = input.readListBegin();
+        _etype31 = _rtmp332.etype;
+        _size28 = _rtmp332.size;
+        for (var _i33 = 0; _i33 < _size28; ++_i33)
         {
-          var elem30 = null;
-          elem30 = new SendMessageBatchResponseEntry();
-          elem30.read(input);
-          this.successful.push(elem30);
+          var elem34 = null;
+          elem34 = new SendMessageBatchResponseEntry();
+          elem34.read(input);
+          this.successful.push(elem34);
         }
         input.readListEnd();
       } else {
@@ -731,19 +826,19 @@ SendMessageBatchResponse.prototype.read = function(input) {
       break;
       case 2:
       if (ftype == Thrift.Type.LIST) {
-        var _size31 = 0;
-        var _rtmp335;
+        var _size35 = 0;
+        var _rtmp339;
         this.failed = [];
-        var _etype34 = 0;
-        _rtmp335 = input.readListBegin();
-        _etype34 = _rtmp335.etype;
-        _size31 = _rtmp335.size;
-        for (var _i36 = 0; _i36 < _size31; ++_i36)
+        var _etype38 = 0;
+        _rtmp339 = input.readListBegin();
+        _etype38 = _rtmp339.etype;
+        _size35 = _rtmp339.size;
+        for (var _i40 = 0; _i40 < _size35; ++_i40)
         {
-          var elem37 = null;
-          elem37 = new MessageBatchErrorEntry();
-          elem37.read(input);
-          this.failed.push(elem37);
+          var elem41 = null;
+          elem41 = new MessageBatchErrorEntry();
+          elem41.read(input);
+          this.failed.push(elem41);
         }
         input.readListEnd();
       } else {
@@ -764,12 +859,12 @@ SendMessageBatchResponse.prototype.write = function(output) {
   if (this.successful !== null && this.successful !== undefined) {
     output.writeFieldBegin('successful', Thrift.Type.LIST, 1);
     output.writeListBegin(Thrift.Type.STRUCT, this.successful.length);
-    for (var iter38 in this.successful)
+    for (var iter42 in this.successful)
     {
-      if (this.successful.hasOwnProperty(iter38))
+      if (this.successful.hasOwnProperty(iter42))
       {
-        iter38 = this.successful[iter38];
-        iter38.write(output);
+        iter42 = this.successful[iter42];
+        iter42.write(output);
       }
     }
     output.writeListEnd();
@@ -778,12 +873,12 @@ SendMessageBatchResponse.prototype.write = function(output) {
   if (this.failed !== null && this.failed !== undefined) {
     output.writeFieldBegin('failed', Thrift.Type.LIST, 2);
     output.writeListBegin(Thrift.Type.STRUCT, this.failed.length);
-    for (var iter39 in this.failed)
+    for (var iter43 in this.failed)
     {
-      if (this.failed.hasOwnProperty(iter39))
+      if (this.failed.hasOwnProperty(iter43))
       {
-        iter39 = this.failed[iter39];
-        iter39.write(output);
+        iter43 = this.failed[iter43];
+        iter43.write(output);
       }
     }
     output.writeListEnd();
@@ -882,6 +977,7 @@ ReceiveMessageResponse = function(args) {
   this.messageID = null;
   this.receiptHandle = null;
   this.messageBody = null;
+  this.attributes = null;
   this.messageAttributes = null;
   if (args) {
     if (args.messageID !== undefined) {
@@ -898,6 +994,9 @@ ReceiveMessageResponse = function(args) {
       this.messageBody = args.messageBody;
     } else {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field messageBody is unset!');
+    }
+    if (args.attributes !== undefined) {
+      this.attributes = args.attributes;
     }
     if (args.messageAttributes !== undefined) {
       this.messageAttributes = args.messageAttributes;
@@ -940,22 +1039,60 @@ ReceiveMessageResponse.prototype.read = function(input) {
       }
       break;
       case 4:
-      if (ftype == Thrift.Type.LIST) {
-        var _size40 = 0;
-        var _rtmp344;
-        this.messageAttributes = [];
-        var _etype43 = 0;
-        _rtmp344 = input.readListBegin();
-        _etype43 = _rtmp344.etype;
-        _size40 = _rtmp344.size;
-        for (var _i45 = 0; _i45 < _size40; ++_i45)
+      if (ftype == Thrift.Type.MAP) {
+        var _size44 = 0;
+        var _rtmp348;
+        this.attributes = {};
+        var _ktype45 = 0;
+        var _vtype46 = 0;
+        _rtmp348 = input.readMapBegin();
+        _ktype45 = _rtmp348.ktype;
+        _vtype46 = _rtmp348.vtype;
+        _size44 = _rtmp348.size;
+        for (var _i49 = 0; _i49 < _size44; ++_i49)
         {
-          var elem46 = null;
-          elem46 = new MessageAttribute();
-          elem46.read(input);
-          this.messageAttributes.push(elem46);
+          if (_i49 > 0 ) {
+            if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
+              input.rstack.pop();
+            }
+          }
+          var key50 = null;
+          var val51 = null;
+          key50 = input.readString().value;
+          val51 = input.readString().value;
+          this.attributes[key50] = val51;
         }
-        input.readListEnd();
+        input.readMapEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 5:
+      if (ftype == Thrift.Type.MAP) {
+        var _size52 = 0;
+        var _rtmp356;
+        this.messageAttributes = {};
+        var _ktype53 = 0;
+        var _vtype54 = 0;
+        _rtmp356 = input.readMapBegin();
+        _ktype53 = _rtmp356.ktype;
+        _vtype54 = _rtmp356.vtype;
+        _size52 = _rtmp356.size;
+        for (var _i57 = 0; _i57 < _size52; ++_i57)
+        {
+          if (_i57 > 0 ) {
+            if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
+              input.rstack.pop();
+            }
+          }
+          var key58 = null;
+          var val59 = null;
+          key58 = input.readString().value;
+          val59 = new MessageAttribute();
+          val59.read(input);
+          this.messageAttributes[key58] = val59;
+        }
+        input.readMapEnd();
       } else {
         input.skip(ftype);
       }
@@ -986,18 +1123,34 @@ ReceiveMessageResponse.prototype.write = function(output) {
     output.writeString(this.messageBody);
     output.writeFieldEnd();
   }
-  if (this.messageAttributes !== null && this.messageAttributes !== undefined) {
-    output.writeFieldBegin('messageAttributes', Thrift.Type.LIST, 4);
-    output.writeListBegin(Thrift.Type.STRUCT, this.messageAttributes.length);
-    for (var iter47 in this.messageAttributes)
+  if (this.attributes !== null && this.attributes !== undefined) {
+    output.writeFieldBegin('attributes', Thrift.Type.MAP, 4);
+    output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRING, Thrift.objectLength(this.attributes));
+    for (var kiter60 in this.attributes)
     {
-      if (this.messageAttributes.hasOwnProperty(iter47))
+      if (this.attributes.hasOwnProperty(kiter60))
       {
-        iter47 = this.messageAttributes[iter47];
-        iter47.write(output);
+        var viter61 = this.attributes[kiter60];
+        output.writeString(kiter60);
+        output.writeString(viter61);
       }
     }
-    output.writeListEnd();
+    output.writeMapEnd();
+    output.writeFieldEnd();
+  }
+  if (this.messageAttributes !== null && this.messageAttributes !== undefined) {
+    output.writeFieldBegin('messageAttributes', Thrift.Type.MAP, 5);
+    output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRUCT, Thrift.objectLength(this.messageAttributes));
+    for (var kiter62 in this.messageAttributes)
+    {
+      if (this.messageAttributes.hasOwnProperty(kiter62))
+      {
+        var viter63 = this.messageAttributes[kiter62];
+        output.writeString(kiter62);
+        viter63.write(output);
+      }
+    }
+    output.writeMapEnd();
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -1202,19 +1355,19 @@ ChangeMessageVisibilityBatchRequest.prototype.read = function(input) {
       break;
       case 2:
       if (ftype == Thrift.Type.LIST) {
-        var _size48 = 0;
-        var _rtmp352;
+        var _size64 = 0;
+        var _rtmp368;
         this.changeMessageVisibilityRequestEntryList = [];
-        var _etype51 = 0;
-        _rtmp352 = input.readListBegin();
-        _etype51 = _rtmp352.etype;
-        _size48 = _rtmp352.size;
-        for (var _i53 = 0; _i53 < _size48; ++_i53)
+        var _etype67 = 0;
+        _rtmp368 = input.readListBegin();
+        _etype67 = _rtmp368.etype;
+        _size64 = _rtmp368.size;
+        for (var _i69 = 0; _i69 < _size64; ++_i69)
         {
-          var elem54 = null;
-          elem54 = new ChangeMessageVisibilityBatchRequestEntry();
-          elem54.read(input);
-          this.changeMessageVisibilityRequestEntryList.push(elem54);
+          var elem70 = null;
+          elem70 = new ChangeMessageVisibilityBatchRequestEntry();
+          elem70.read(input);
+          this.changeMessageVisibilityRequestEntryList.push(elem70);
         }
         input.readListEnd();
       } else {
@@ -1240,12 +1393,12 @@ ChangeMessageVisibilityBatchRequest.prototype.write = function(output) {
   if (this.changeMessageVisibilityRequestEntryList !== null && this.changeMessageVisibilityRequestEntryList !== undefined) {
     output.writeFieldBegin('changeMessageVisibilityRequestEntryList', Thrift.Type.LIST, 2);
     output.writeListBegin(Thrift.Type.STRUCT, this.changeMessageVisibilityRequestEntryList.length);
-    for (var iter55 in this.changeMessageVisibilityRequestEntryList)
+    for (var iter71 in this.changeMessageVisibilityRequestEntryList)
     {
-      if (this.changeMessageVisibilityRequestEntryList.hasOwnProperty(iter55))
+      if (this.changeMessageVisibilityRequestEntryList.hasOwnProperty(iter71))
       {
-        iter55 = this.changeMessageVisibilityRequestEntryList[iter55];
-        iter55.write(output);
+        iter71 = this.changeMessageVisibilityRequestEntryList[iter71];
+        iter71.write(output);
       }
     }
     output.writeListEnd();
@@ -1284,18 +1437,18 @@ ChangeMessageVisibilityBatchResponse.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.LIST) {
-        var _size56 = 0;
-        var _rtmp360;
+        var _size72 = 0;
+        var _rtmp376;
         this.successful = [];
-        var _etype59 = 0;
-        _rtmp360 = input.readListBegin();
-        _etype59 = _rtmp360.etype;
-        _size56 = _rtmp360.size;
-        for (var _i61 = 0; _i61 < _size56; ++_i61)
+        var _etype75 = 0;
+        _rtmp376 = input.readListBegin();
+        _etype75 = _rtmp376.etype;
+        _size72 = _rtmp376.size;
+        for (var _i77 = 0; _i77 < _size72; ++_i77)
         {
-          var elem62 = null;
-          elem62 = input.readString().value;
-          this.successful.push(elem62);
+          var elem78 = null;
+          elem78 = input.readString().value;
+          this.successful.push(elem78);
         }
         input.readListEnd();
       } else {
@@ -1304,19 +1457,19 @@ ChangeMessageVisibilityBatchResponse.prototype.read = function(input) {
       break;
       case 2:
       if (ftype == Thrift.Type.LIST) {
-        var _size63 = 0;
-        var _rtmp367;
+        var _size79 = 0;
+        var _rtmp383;
         this.failed = [];
-        var _etype66 = 0;
-        _rtmp367 = input.readListBegin();
-        _etype66 = _rtmp367.etype;
-        _size63 = _rtmp367.size;
-        for (var _i68 = 0; _i68 < _size63; ++_i68)
+        var _etype82 = 0;
+        _rtmp383 = input.readListBegin();
+        _etype82 = _rtmp383.etype;
+        _size79 = _rtmp383.size;
+        for (var _i84 = 0; _i84 < _size79; ++_i84)
         {
-          var elem69 = null;
-          elem69 = new MessageBatchErrorEntry();
-          elem69.read(input);
-          this.failed.push(elem69);
+          var elem85 = null;
+          elem85 = new MessageBatchErrorEntry();
+          elem85.read(input);
+          this.failed.push(elem85);
         }
         input.readListEnd();
       } else {
@@ -1337,12 +1490,12 @@ ChangeMessageVisibilityBatchResponse.prototype.write = function(output) {
   if (this.successful !== null && this.successful !== undefined) {
     output.writeFieldBegin('successful', Thrift.Type.LIST, 1);
     output.writeListBegin(Thrift.Type.STRING, this.successful.length);
-    for (var iter70 in this.successful)
+    for (var iter86 in this.successful)
     {
-      if (this.successful.hasOwnProperty(iter70))
+      if (this.successful.hasOwnProperty(iter86))
       {
-        iter70 = this.successful[iter70];
-        output.writeString(iter70);
+        iter86 = this.successful[iter86];
+        output.writeString(iter86);
       }
     }
     output.writeListEnd();
@@ -1351,12 +1504,12 @@ ChangeMessageVisibilityBatchResponse.prototype.write = function(output) {
   if (this.failed !== null && this.failed !== undefined) {
     output.writeFieldBegin('failed', Thrift.Type.LIST, 2);
     output.writeListBegin(Thrift.Type.STRUCT, this.failed.length);
-    for (var iter71 in this.failed)
+    for (var iter87 in this.failed)
     {
-      if (this.failed.hasOwnProperty(iter71))
+      if (this.failed.hasOwnProperty(iter87))
       {
-        iter71 = this.failed[iter71];
-        iter71.write(output);
+        iter87 = this.failed[iter87];
+        iter87.write(output);
       }
     }
     output.writeListEnd();
@@ -1531,19 +1684,19 @@ DeleteMessageBatchRequest.prototype.read = function(input) {
       break;
       case 2:
       if (ftype == Thrift.Type.LIST) {
-        var _size72 = 0;
-        var _rtmp376;
+        var _size88 = 0;
+        var _rtmp392;
         this.deleteMessageBatchRequestEntryList = [];
-        var _etype75 = 0;
-        _rtmp376 = input.readListBegin();
-        _etype75 = _rtmp376.etype;
-        _size72 = _rtmp376.size;
-        for (var _i77 = 0; _i77 < _size72; ++_i77)
+        var _etype91 = 0;
+        _rtmp392 = input.readListBegin();
+        _etype91 = _rtmp392.etype;
+        _size88 = _rtmp392.size;
+        for (var _i93 = 0; _i93 < _size88; ++_i93)
         {
-          var elem78 = null;
-          elem78 = new DeleteMessageBatchRequestEntry();
-          elem78.read(input);
-          this.deleteMessageBatchRequestEntryList.push(elem78);
+          var elem94 = null;
+          elem94 = new DeleteMessageBatchRequestEntry();
+          elem94.read(input);
+          this.deleteMessageBatchRequestEntryList.push(elem94);
         }
         input.readListEnd();
       } else {
@@ -1569,12 +1722,12 @@ DeleteMessageBatchRequest.prototype.write = function(output) {
   if (this.deleteMessageBatchRequestEntryList !== null && this.deleteMessageBatchRequestEntryList !== undefined) {
     output.writeFieldBegin('deleteMessageBatchRequestEntryList', Thrift.Type.LIST, 2);
     output.writeListBegin(Thrift.Type.STRUCT, this.deleteMessageBatchRequestEntryList.length);
-    for (var iter79 in this.deleteMessageBatchRequestEntryList)
+    for (var iter95 in this.deleteMessageBatchRequestEntryList)
     {
-      if (this.deleteMessageBatchRequestEntryList.hasOwnProperty(iter79))
+      if (this.deleteMessageBatchRequestEntryList.hasOwnProperty(iter95))
       {
-        iter79 = this.deleteMessageBatchRequestEntryList[iter79];
-        iter79.write(output);
+        iter95 = this.deleteMessageBatchRequestEntryList[iter95];
+        iter95.write(output);
       }
     }
     output.writeListEnd();
@@ -1613,18 +1766,18 @@ DeleteMessageBatchResponse.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.LIST) {
-        var _size80 = 0;
-        var _rtmp384;
+        var _size96 = 0;
+        var _rtmp3100;
         this.successful = [];
-        var _etype83 = 0;
-        _rtmp384 = input.readListBegin();
-        _etype83 = _rtmp384.etype;
-        _size80 = _rtmp384.size;
-        for (var _i85 = 0; _i85 < _size80; ++_i85)
+        var _etype99 = 0;
+        _rtmp3100 = input.readListBegin();
+        _etype99 = _rtmp3100.etype;
+        _size96 = _rtmp3100.size;
+        for (var _i101 = 0; _i101 < _size96; ++_i101)
         {
-          var elem86 = null;
-          elem86 = input.readString().value;
-          this.successful.push(elem86);
+          var elem102 = null;
+          elem102 = input.readString().value;
+          this.successful.push(elem102);
         }
         input.readListEnd();
       } else {
@@ -1633,19 +1786,19 @@ DeleteMessageBatchResponse.prototype.read = function(input) {
       break;
       case 2:
       if (ftype == Thrift.Type.LIST) {
-        var _size87 = 0;
-        var _rtmp391;
+        var _size103 = 0;
+        var _rtmp3107;
         this.failed = [];
-        var _etype90 = 0;
-        _rtmp391 = input.readListBegin();
-        _etype90 = _rtmp391.etype;
-        _size87 = _rtmp391.size;
-        for (var _i92 = 0; _i92 < _size87; ++_i92)
+        var _etype106 = 0;
+        _rtmp3107 = input.readListBegin();
+        _etype106 = _rtmp3107.etype;
+        _size103 = _rtmp3107.size;
+        for (var _i108 = 0; _i108 < _size103; ++_i108)
         {
-          var elem93 = null;
-          elem93 = new MessageBatchErrorEntry();
-          elem93.read(input);
-          this.failed.push(elem93);
+          var elem109 = null;
+          elem109 = new MessageBatchErrorEntry();
+          elem109.read(input);
+          this.failed.push(elem109);
         }
         input.readListEnd();
       } else {
@@ -1666,12 +1819,12 @@ DeleteMessageBatchResponse.prototype.write = function(output) {
   if (this.successful !== null && this.successful !== undefined) {
     output.writeFieldBegin('successful', Thrift.Type.LIST, 1);
     output.writeListBegin(Thrift.Type.STRING, this.successful.length);
-    for (var iter94 in this.successful)
+    for (var iter110 in this.successful)
     {
-      if (this.successful.hasOwnProperty(iter94))
+      if (this.successful.hasOwnProperty(iter110))
       {
-        iter94 = this.successful[iter94];
-        output.writeString(iter94);
+        iter110 = this.successful[iter110];
+        output.writeString(iter110);
       }
     }
     output.writeListEnd();
@@ -1680,12 +1833,12 @@ DeleteMessageBatchResponse.prototype.write = function(output) {
   if (this.failed !== null && this.failed !== undefined) {
     output.writeFieldBegin('failed', Thrift.Type.LIST, 2);
     output.writeListBegin(Thrift.Type.STRUCT, this.failed.length);
-    for (var iter95 in this.failed)
+    for (var iter111 in this.failed)
     {
-      if (this.failed.hasOwnProperty(iter95))
+      if (this.failed.hasOwnProperty(iter111))
       {
-        iter95 = this.failed[iter95];
-        iter95.write(output);
+        iter111 = this.failed[iter111];
+        iter111.write(output);
       }
     }
     output.writeListEnd();
