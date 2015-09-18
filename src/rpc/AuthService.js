@@ -168,9 +168,13 @@ AuthServiceClient = function(input, output) {
 };
 Thrift.inherits(AuthServiceClient, BaseServiceClient);
 AuthServiceClient.prototype.createCredential = function(xiaomiAppId, appUserAuthProvider, authToken, callback) {
-  this.send_createCredential(xiaomiAppId, appUserAuthProvider, authToken, callback); 
-  if (!callback) {
+  if (callback === undefined) {
+    this.send_createCredential(xiaomiAppId, appUserAuthProvider, authToken);
     return this.recv_createCredential();
+  } else {
+    var postData = this.send_createCredential(xiaomiAppId, appUserAuthProvider, authToken, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_createCredential);
   }
 };
 
@@ -182,20 +186,7 @@ AuthServiceClient.prototype.send_createCredential = function(xiaomiAppId, appUse
   args.authToken = authToken;
   args.write(this.output);
   this.output.writeMessageEnd();
-  if (callback) {
-    var self = this;
-    this.output.getTransport().flush(true, function() {
-      var result = null;
-      try {
-        result = self.recv_createCredential();
-      } catch (e) {
-        result = e;
-      }
-      callback(result);
-    });
-  } else {
-    return this.output.getTransport().flush();
-  }
+  return this.output.getTransport().flush(callback);
 };
 
 AuthServiceClient.prototype.recv_createCredential = function() {

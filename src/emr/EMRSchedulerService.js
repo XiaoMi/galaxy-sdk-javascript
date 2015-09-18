@@ -283,19 +283,19 @@ EMRSchedulerService_addInstanceGroups_args.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.LIST) {
-        var _size100 = 0;
-        var _rtmp3104;
+        var _size110 = 0;
+        var _rtmp3114;
         this.instanceGroups = [];
-        var _etype103 = 0;
-        _rtmp3104 = input.readListBegin();
-        _etype103 = _rtmp3104.etype;
-        _size100 = _rtmp3104.size;
-        for (var _i105 = 0; _i105 < _size100; ++_i105)
+        var _etype113 = 0;
+        _rtmp3114 = input.readListBegin();
+        _etype113 = _rtmp3114.etype;
+        _size110 = _rtmp3114.size;
+        for (var _i115 = 0; _i115 < _size110; ++_i115)
         {
-          var elem106 = null;
-          elem106 = new AddInstanceGroupRequest();
-          elem106.read(input);
-          this.instanceGroups.push(elem106);
+          var elem116 = null;
+          elem116 = new AddInstanceGroupRequest();
+          elem116.read(input);
+          this.instanceGroups.push(elem116);
         }
         input.readListEnd();
       } else {
@@ -319,12 +319,12 @@ EMRSchedulerService_addInstanceGroups_args.prototype.write = function(output) {
   if (this.instanceGroups !== null && this.instanceGroups !== undefined) {
     output.writeFieldBegin('instanceGroups', Thrift.Type.LIST, 1);
     output.writeListBegin(Thrift.Type.STRUCT, this.instanceGroups.length);
-    for (var iter107 in this.instanceGroups)
+    for (var iter117 in this.instanceGroups)
     {
-      if (this.instanceGroups.hasOwnProperty(iter107))
+      if (this.instanceGroups.hasOwnProperty(iter117))
       {
-        iter107 = this.instanceGroups[iter107];
-        iter107.write(output);
+        iter117 = this.instanceGroups[iter117];
+        iter117.write(output);
       }
     }
     output.writeListEnd();
@@ -367,19 +367,19 @@ EMRSchedulerService_addInstanceGroups_result.prototype.read = function(input) {
     {
       case 0:
       if (ftype == Thrift.Type.LIST) {
-        var _size108 = 0;
-        var _rtmp3112;
+        var _size118 = 0;
+        var _rtmp3122;
         this.success = [];
-        var _etype111 = 0;
-        _rtmp3112 = input.readListBegin();
-        _etype111 = _rtmp3112.etype;
-        _size108 = _rtmp3112.size;
-        for (var _i113 = 0; _i113 < _size108; ++_i113)
+        var _etype121 = 0;
+        _rtmp3122 = input.readListBegin();
+        _etype121 = _rtmp3122.etype;
+        _size118 = _rtmp3122.size;
+        for (var _i123 = 0; _i123 < _size118; ++_i123)
         {
-          var elem114 = null;
-          elem114 = new AddInstanceGroupResponse();
-          elem114.read(input);
-          this.success.push(elem114);
+          var elem124 = null;
+          elem124 = new AddInstanceGroupResponse();
+          elem124.read(input);
+          this.success.push(elem124);
         }
         input.readListEnd();
       } else {
@@ -408,12 +408,12 @@ EMRSchedulerService_addInstanceGroups_result.prototype.write = function(output) 
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
     output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
-    for (var iter115 in this.success)
+    for (var iter125 in this.success)
     {
-      if (this.success.hasOwnProperty(iter115))
+      if (this.success.hasOwnProperty(iter125))
       {
-        iter115 = this.success[iter115];
-        iter115.write(output);
+        iter125 = this.success[iter125];
+        iter125.write(output);
       }
     }
     output.writeListEnd();
@@ -579,19 +579,19 @@ EMRSchedulerService_submitJobs_args.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.LIST) {
-        var _size116 = 0;
-        var _rtmp3120;
+        var _size126 = 0;
+        var _rtmp3130;
         this.jobs = [];
-        var _etype119 = 0;
-        _rtmp3120 = input.readListBegin();
-        _etype119 = _rtmp3120.etype;
-        _size116 = _rtmp3120.size;
-        for (var _i121 = 0; _i121 < _size116; ++_i121)
+        var _etype129 = 0;
+        _rtmp3130 = input.readListBegin();
+        _etype129 = _rtmp3130.etype;
+        _size126 = _rtmp3130.size;
+        for (var _i131 = 0; _i131 < _size126; ++_i131)
         {
-          var elem122 = null;
-          elem122 = new SubmitJobRequest();
-          elem122.read(input);
-          this.jobs.push(elem122);
+          var elem132 = null;
+          elem132 = new SubmitJobRequest();
+          elem132.read(input);
+          this.jobs.push(elem132);
         }
         input.readListEnd();
       } else {
@@ -615,12 +615,12 @@ EMRSchedulerService_submitJobs_args.prototype.write = function(output) {
   if (this.jobs !== null && this.jobs !== undefined) {
     output.writeFieldBegin('jobs', Thrift.Type.LIST, 1);
     output.writeListBegin(Thrift.Type.STRUCT, this.jobs.length);
-    for (var iter123 in this.jobs)
+    for (var iter133 in this.jobs)
     {
-      if (this.jobs.hasOwnProperty(iter123))
+      if (this.jobs.hasOwnProperty(iter133))
       {
-        iter123 = this.jobs[iter123];
-        iter123.write(output);
+        iter133 = this.jobs[iter133];
+        iter133.write(output);
       }
     }
     output.writeListEnd();
@@ -663,19 +663,19 @@ EMRSchedulerService_submitJobs_result.prototype.read = function(input) {
     {
       case 0:
       if (ftype == Thrift.Type.LIST) {
-        var _size124 = 0;
-        var _rtmp3128;
+        var _size134 = 0;
+        var _rtmp3138;
         this.success = [];
-        var _etype127 = 0;
-        _rtmp3128 = input.readListBegin();
-        _etype127 = _rtmp3128.etype;
-        _size124 = _rtmp3128.size;
-        for (var _i129 = 0; _i129 < _size124; ++_i129)
+        var _etype137 = 0;
+        _rtmp3138 = input.readListBegin();
+        _etype137 = _rtmp3138.etype;
+        _size134 = _rtmp3138.size;
+        for (var _i139 = 0; _i139 < _size134; ++_i139)
         {
-          var elem130 = null;
-          elem130 = new SubmitJobResponse();
-          elem130.read(input);
-          this.success.push(elem130);
+          var elem140 = null;
+          elem140 = new SubmitJobResponse();
+          elem140.read(input);
+          this.success.push(elem140);
         }
         input.readListEnd();
       } else {
@@ -704,12 +704,12 @@ EMRSchedulerService_submitJobs_result.prototype.write = function(output) {
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
     output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
-    for (var iter131 in this.success)
+    for (var iter141 in this.success)
     {
-      if (this.success.hasOwnProperty(iter131))
+      if (this.success.hasOwnProperty(iter141))
       {
-        iter131 = this.success[iter131];
-        iter131.write(output);
+        iter141 = this.success[iter141];
+        iter141.write(output);
       }
     }
     output.writeListEnd();
@@ -1600,19 +1600,19 @@ EMRSchedulerService_listClusters_result.prototype.read = function(input) {
     {
       case 0:
       if (ftype == Thrift.Type.LIST) {
-        var _size132 = 0;
-        var _rtmp3136;
+        var _size142 = 0;
+        var _rtmp3146;
         this.success = [];
-        var _etype135 = 0;
-        _rtmp3136 = input.readListBegin();
-        _etype135 = _rtmp3136.etype;
-        _size132 = _rtmp3136.size;
-        for (var _i137 = 0; _i137 < _size132; ++_i137)
+        var _etype145 = 0;
+        _rtmp3146 = input.readListBegin();
+        _etype145 = _rtmp3146.etype;
+        _size142 = _rtmp3146.size;
+        for (var _i147 = 0; _i147 < _size142; ++_i147)
         {
-          var elem138 = null;
-          elem138 = new ClusterDetail();
-          elem138.read(input);
-          this.success.push(elem138);
+          var elem148 = null;
+          elem148 = new ClusterDetail();
+          elem148.read(input);
+          this.success.push(elem148);
         }
         input.readListEnd();
       } else {
@@ -1641,12 +1641,12 @@ EMRSchedulerService_listClusters_result.prototype.write = function(output) {
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
     output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
-    for (var iter139 in this.success)
+    for (var iter149 in this.success)
     {
-      if (this.success.hasOwnProperty(iter139))
+      if (this.success.hasOwnProperty(iter149))
       {
-        iter139 = this.success[iter139];
-        iter139.write(output);
+        iter149 = this.success[iter149];
+        iter149.write(output);
       }
     }
     output.writeListEnd();
@@ -1747,19 +1747,19 @@ EMRSchedulerService_listInstanceGroups_result.prototype.read = function(input) {
     {
       case 0:
       if (ftype == Thrift.Type.LIST) {
-        var _size140 = 0;
-        var _rtmp3144;
+        var _size150 = 0;
+        var _rtmp3154;
         this.success = [];
-        var _etype143 = 0;
-        _rtmp3144 = input.readListBegin();
-        _etype143 = _rtmp3144.etype;
-        _size140 = _rtmp3144.size;
-        for (var _i145 = 0; _i145 < _size140; ++_i145)
+        var _etype153 = 0;
+        _rtmp3154 = input.readListBegin();
+        _etype153 = _rtmp3154.etype;
+        _size150 = _rtmp3154.size;
+        for (var _i155 = 0; _i155 < _size150; ++_i155)
         {
-          var elem146 = null;
-          elem146 = new InstanceGroupDetail();
-          elem146.read(input);
-          this.success.push(elem146);
+          var elem156 = null;
+          elem156 = new InstanceGroupDetail();
+          elem156.read(input);
+          this.success.push(elem156);
         }
         input.readListEnd();
       } else {
@@ -1788,12 +1788,12 @@ EMRSchedulerService_listInstanceGroups_result.prototype.write = function(output)
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
     output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
-    for (var iter147 in this.success)
+    for (var iter157 in this.success)
     {
-      if (this.success.hasOwnProperty(iter147))
+      if (this.success.hasOwnProperty(iter157))
       {
-        iter147 = this.success[iter147];
-        iter147.write(output);
+        iter157 = this.success[iter157];
+        iter157.write(output);
       }
     }
     output.writeListEnd();
@@ -1894,19 +1894,19 @@ EMRSchedulerService_listInstancesInCluster_result.prototype.read = function(inpu
     {
       case 0:
       if (ftype == Thrift.Type.LIST) {
-        var _size148 = 0;
-        var _rtmp3152;
+        var _size158 = 0;
+        var _rtmp3162;
         this.success = [];
-        var _etype151 = 0;
-        _rtmp3152 = input.readListBegin();
-        _etype151 = _rtmp3152.etype;
-        _size148 = _rtmp3152.size;
-        for (var _i153 = 0; _i153 < _size148; ++_i153)
+        var _etype161 = 0;
+        _rtmp3162 = input.readListBegin();
+        _etype161 = _rtmp3162.etype;
+        _size158 = _rtmp3162.size;
+        for (var _i163 = 0; _i163 < _size158; ++_i163)
         {
-          var elem154 = null;
-          elem154 = new InstanceDetail();
-          elem154.read(input);
-          this.success.push(elem154);
+          var elem164 = null;
+          elem164 = new InstanceDetail();
+          elem164.read(input);
+          this.success.push(elem164);
         }
         input.readListEnd();
       } else {
@@ -1935,12 +1935,12 @@ EMRSchedulerService_listInstancesInCluster_result.prototype.write = function(out
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
     output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
-    for (var iter155 in this.success)
+    for (var iter165 in this.success)
     {
-      if (this.success.hasOwnProperty(iter155))
+      if (this.success.hasOwnProperty(iter165))
       {
-        iter155 = this.success[iter155];
-        iter155.write(output);
+        iter165 = this.success[iter165];
+        iter165.write(output);
       }
     }
     output.writeListEnd();
@@ -2070,19 +2070,19 @@ EMRSchedulerService_listInstancesInGroup_result.prototype.read = function(input)
     {
       case 0:
       if (ftype == Thrift.Type.LIST) {
-        var _size156 = 0;
-        var _rtmp3160;
+        var _size166 = 0;
+        var _rtmp3170;
         this.success = [];
-        var _etype159 = 0;
-        _rtmp3160 = input.readListBegin();
-        _etype159 = _rtmp3160.etype;
-        _size156 = _rtmp3160.size;
-        for (var _i161 = 0; _i161 < _size156; ++_i161)
+        var _etype169 = 0;
+        _rtmp3170 = input.readListBegin();
+        _etype169 = _rtmp3170.etype;
+        _size166 = _rtmp3170.size;
+        for (var _i171 = 0; _i171 < _size166; ++_i171)
         {
-          var elem162 = null;
-          elem162 = new InstanceDetail();
-          elem162.read(input);
-          this.success.push(elem162);
+          var elem172 = null;
+          elem172 = new InstanceDetail();
+          elem172.read(input);
+          this.success.push(elem172);
         }
         input.readListEnd();
       } else {
@@ -2111,12 +2111,12 @@ EMRSchedulerService_listInstancesInGroup_result.prototype.write = function(outpu
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
     output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
-    for (var iter163 in this.success)
+    for (var iter173 in this.success)
     {
-      if (this.success.hasOwnProperty(iter163))
+      if (this.success.hasOwnProperty(iter173))
       {
-        iter163 = this.success[iter163];
-        iter163.write(output);
+        iter173 = this.success[iter173];
+        iter173.write(output);
       }
     }
     output.writeListEnd();
@@ -2217,19 +2217,19 @@ EMRSchedulerService_listJobs_result.prototype.read = function(input) {
     {
       case 0:
       if (ftype == Thrift.Type.LIST) {
-        var _size164 = 0;
-        var _rtmp3168;
+        var _size174 = 0;
+        var _rtmp3178;
         this.success = [];
-        var _etype167 = 0;
-        _rtmp3168 = input.readListBegin();
-        _etype167 = _rtmp3168.etype;
-        _size164 = _rtmp3168.size;
-        for (var _i169 = 0; _i169 < _size164; ++_i169)
+        var _etype177 = 0;
+        _rtmp3178 = input.readListBegin();
+        _etype177 = _rtmp3178.etype;
+        _size174 = _rtmp3178.size;
+        for (var _i179 = 0; _i179 < _size174; ++_i179)
         {
-          var elem170 = null;
-          elem170 = new JobDetail();
-          elem170.read(input);
-          this.success.push(elem170);
+          var elem180 = null;
+          elem180 = new JobDetail();
+          elem180.read(input);
+          this.success.push(elem180);
         }
         input.readListEnd();
       } else {
@@ -2258,15 +2258,491 @@ EMRSchedulerService_listJobs_result.prototype.write = function(output) {
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
     output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
-    for (var iter171 in this.success)
+    for (var iter181 in this.success)
     {
-      if (this.success.hasOwnProperty(iter171))
+      if (this.success.hasOwnProperty(iter181))
       {
-        iter171 = this.success[iter171];
-        iter171.write(output);
+        iter181 = this.success[iter181];
+        iter181.write(output);
       }
     }
     output.writeListEnd();
+    output.writeFieldEnd();
+  }
+  if (this.se !== null && this.se !== undefined) {
+    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
+    this.se.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+EMRSchedulerService_setPermission_args = function(args) {
+  this.request = null;
+  if (args) {
+    if (args.request !== undefined) {
+      this.request = args.request;
+    }
+  }
+};
+EMRSchedulerService_setPermission_args.prototype = {};
+EMRSchedulerService_setPermission_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.request = new SetPermissionRequest();
+        this.request.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+EMRSchedulerService_setPermission_args.prototype.write = function(output) {
+  output.writeStructBegin('EMRSchedulerService_setPermission_args');
+  if (this.request !== null && this.request !== undefined) {
+    output.writeFieldBegin('request', Thrift.Type.STRUCT, 1);
+    this.request.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+EMRSchedulerService_setPermission_result = function(args) {
+  this.se = null;
+  if (args instanceof ServiceException) {
+    this.se = args;
+    return;
+  }
+  if (args) {
+    if (args.se !== undefined) {
+      this.se = args.se;
+    }
+  }
+};
+EMRSchedulerService_setPermission_result.prototype = {};
+EMRSchedulerService_setPermission_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.se = new ServiceException();
+        this.se.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+EMRSchedulerService_setPermission_result.prototype.write = function(output) {
+  output.writeStructBegin('EMRSchedulerService_setPermission_result');
+  if (this.se !== null && this.se !== undefined) {
+    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
+    this.se.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+EMRSchedulerService_revokePermission_args = function(args) {
+  this.request = null;
+  if (args) {
+    if (args.request !== undefined) {
+      this.request = args.request;
+    }
+  }
+};
+EMRSchedulerService_revokePermission_args.prototype = {};
+EMRSchedulerService_revokePermission_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.request = new RevokePermissionRequest();
+        this.request.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+EMRSchedulerService_revokePermission_args.prototype.write = function(output) {
+  output.writeStructBegin('EMRSchedulerService_revokePermission_args');
+  if (this.request !== null && this.request !== undefined) {
+    output.writeFieldBegin('request', Thrift.Type.STRUCT, 1);
+    this.request.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+EMRSchedulerService_revokePermission_result = function(args) {
+  this.se = null;
+  if (args instanceof ServiceException) {
+    this.se = args;
+    return;
+  }
+  if (args) {
+    if (args.se !== undefined) {
+      this.se = args.se;
+    }
+  }
+};
+EMRSchedulerService_revokePermission_result.prototype = {};
+EMRSchedulerService_revokePermission_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.se = new ServiceException();
+        this.se.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+EMRSchedulerService_revokePermission_result.prototype.write = function(output) {
+  output.writeStructBegin('EMRSchedulerService_revokePermission_result');
+  if (this.se !== null && this.se !== undefined) {
+    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
+    this.se.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+EMRSchedulerService_queryPermission_args = function(args) {
+  this.request = null;
+  if (args) {
+    if (args.request !== undefined) {
+      this.request = args.request;
+    }
+  }
+};
+EMRSchedulerService_queryPermission_args.prototype = {};
+EMRSchedulerService_queryPermission_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.request = new QueryPermissionRequest();
+        this.request.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+EMRSchedulerService_queryPermission_args.prototype.write = function(output) {
+  output.writeStructBegin('EMRSchedulerService_queryPermission_args');
+  if (this.request !== null && this.request !== undefined) {
+    output.writeFieldBegin('request', Thrift.Type.STRUCT, 1);
+    this.request.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+EMRSchedulerService_queryPermission_result = function(args) {
+  this.success = null;
+  this.se = null;
+  if (args instanceof ServiceException) {
+    this.se = args;
+    return;
+  }
+  if (args) {
+    if (args.success !== undefined) {
+      this.success = args.success;
+    }
+    if (args.se !== undefined) {
+      this.se = args.se;
+    }
+  }
+};
+EMRSchedulerService_queryPermission_result.prototype = {};
+EMRSchedulerService_queryPermission_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.success = new QueryPermissionResponse();
+        this.success.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.se = new ServiceException();
+        this.se.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+EMRSchedulerService_queryPermission_result.prototype.write = function(output) {
+  output.writeStructBegin('EMRSchedulerService_queryPermission_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+    this.success.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.se !== null && this.se !== undefined) {
+    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
+    this.se.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+EMRSchedulerService_listPermissions_args = function(args) {
+  this.request = null;
+  if (args) {
+    if (args.request !== undefined) {
+      this.request = args.request;
+    }
+  }
+};
+EMRSchedulerService_listPermissions_args.prototype = {};
+EMRSchedulerService_listPermissions_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.request = new ListPermissionRequest();
+        this.request.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+EMRSchedulerService_listPermissions_args.prototype.write = function(output) {
+  output.writeStructBegin('EMRSchedulerService_listPermissions_args');
+  if (this.request !== null && this.request !== undefined) {
+    output.writeFieldBegin('request', Thrift.Type.STRUCT, 1);
+    this.request.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+EMRSchedulerService_listPermissions_result = function(args) {
+  this.success = null;
+  this.se = null;
+  if (args instanceof ServiceException) {
+    this.se = args;
+    return;
+  }
+  if (args) {
+    if (args.success !== undefined) {
+      this.success = args.success;
+    }
+    if (args.se !== undefined) {
+      this.se = args.se;
+    }
+  }
+};
+EMRSchedulerService_listPermissions_result.prototype = {};
+EMRSchedulerService_listPermissions_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.success = new ListPermissionResponse();
+        this.success.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.se = new ServiceException();
+        this.se.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+EMRSchedulerService_listPermissions_result.prototype.write = function(output) {
+  output.writeStructBegin('EMRSchedulerService_listPermissions_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+    this.success.write(output);
     output.writeFieldEnd();
   }
   if (this.se !== null && this.se !== undefined) {
@@ -2286,9 +2762,13 @@ EMRSchedulerServiceClient = function(input, output) {
 };
 Thrift.inherits(EMRSchedulerServiceClient, BaseServiceClient);
 EMRSchedulerServiceClient.prototype.createCluster = function(cluster, callback) {
-  this.send_createCluster(cluster, callback); 
-  if (!callback) {
+  if (callback === undefined) {
+    this.send_createCluster(cluster);
     return this.recv_createCluster();
+  } else {
+    var postData = this.send_createCluster(cluster, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_createCluster);
   }
 };
 
@@ -2298,20 +2778,7 @@ EMRSchedulerServiceClient.prototype.send_createCluster = function(cluster, callb
   args.cluster = cluster;
   args.write(this.output);
   this.output.writeMessageEnd();
-  if (callback) {
-    var self = this;
-    this.output.getTransport().flush(true, function() {
-      var result = null;
-      try {
-        result = self.recv_createCluster();
-      } catch (e) {
-        result = e;
-      }
-      callback(result);
-    });
-  } else {
-    return this.output.getTransport().flush();
-  }
+  return this.output.getTransport().flush(callback);
 };
 
 EMRSchedulerServiceClient.prototype.recv_createCluster = function() {
@@ -2338,9 +2805,13 @@ EMRSchedulerServiceClient.prototype.recv_createCluster = function() {
   throw 'createCluster failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.addInstanceGroup = function(instanceGroup, callback) {
-  this.send_addInstanceGroup(instanceGroup, callback); 
-  if (!callback) {
+  if (callback === undefined) {
+    this.send_addInstanceGroup(instanceGroup);
     return this.recv_addInstanceGroup();
+  } else {
+    var postData = this.send_addInstanceGroup(instanceGroup, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_addInstanceGroup);
   }
 };
 
@@ -2350,20 +2821,7 @@ EMRSchedulerServiceClient.prototype.send_addInstanceGroup = function(instanceGro
   args.instanceGroup = instanceGroup;
   args.write(this.output);
   this.output.writeMessageEnd();
-  if (callback) {
-    var self = this;
-    this.output.getTransport().flush(true, function() {
-      var result = null;
-      try {
-        result = self.recv_addInstanceGroup();
-      } catch (e) {
-        result = e;
-      }
-      callback(result);
-    });
-  } else {
-    return this.output.getTransport().flush();
-  }
+  return this.output.getTransport().flush(callback);
 };
 
 EMRSchedulerServiceClient.prototype.recv_addInstanceGroup = function() {
@@ -2390,9 +2848,13 @@ EMRSchedulerServiceClient.prototype.recv_addInstanceGroup = function() {
   throw 'addInstanceGroup failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.addInstanceGroups = function(instanceGroups, callback) {
-  this.send_addInstanceGroups(instanceGroups, callback); 
-  if (!callback) {
+  if (callback === undefined) {
+    this.send_addInstanceGroups(instanceGroups);
     return this.recv_addInstanceGroups();
+  } else {
+    var postData = this.send_addInstanceGroups(instanceGroups, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_addInstanceGroups);
   }
 };
 
@@ -2402,20 +2864,7 @@ EMRSchedulerServiceClient.prototype.send_addInstanceGroups = function(instanceGr
   args.instanceGroups = instanceGroups;
   args.write(this.output);
   this.output.writeMessageEnd();
-  if (callback) {
-    var self = this;
-    this.output.getTransport().flush(true, function() {
-      var result = null;
-      try {
-        result = self.recv_addInstanceGroups();
-      } catch (e) {
-        result = e;
-      }
-      callback(result);
-    });
-  } else {
-    return this.output.getTransport().flush();
-  }
+  return this.output.getTransport().flush(callback);
 };
 
 EMRSchedulerServiceClient.prototype.recv_addInstanceGroups = function() {
@@ -2442,9 +2891,13 @@ EMRSchedulerServiceClient.prototype.recv_addInstanceGroups = function() {
   throw 'addInstanceGroups failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.submitJob = function(job, callback) {
-  this.send_submitJob(job, callback); 
-  if (!callback) {
+  if (callback === undefined) {
+    this.send_submitJob(job);
     return this.recv_submitJob();
+  } else {
+    var postData = this.send_submitJob(job, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_submitJob);
   }
 };
 
@@ -2454,20 +2907,7 @@ EMRSchedulerServiceClient.prototype.send_submitJob = function(job, callback) {
   args.job = job;
   args.write(this.output);
   this.output.writeMessageEnd();
-  if (callback) {
-    var self = this;
-    this.output.getTransport().flush(true, function() {
-      var result = null;
-      try {
-        result = self.recv_submitJob();
-      } catch (e) {
-        result = e;
-      }
-      callback(result);
-    });
-  } else {
-    return this.output.getTransport().flush();
-  }
+  return this.output.getTransport().flush(callback);
 };
 
 EMRSchedulerServiceClient.prototype.recv_submitJob = function() {
@@ -2494,9 +2934,13 @@ EMRSchedulerServiceClient.prototype.recv_submitJob = function() {
   throw 'submitJob failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.submitJobs = function(jobs, callback) {
-  this.send_submitJobs(jobs, callback); 
-  if (!callback) {
+  if (callback === undefined) {
+    this.send_submitJobs(jobs);
     return this.recv_submitJobs();
+  } else {
+    var postData = this.send_submitJobs(jobs, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_submitJobs);
   }
 };
 
@@ -2506,20 +2950,7 @@ EMRSchedulerServiceClient.prototype.send_submitJobs = function(jobs, callback) {
   args.jobs = jobs;
   args.write(this.output);
   this.output.writeMessageEnd();
-  if (callback) {
-    var self = this;
-    this.output.getTransport().flush(true, function() {
-      var result = null;
-      try {
-        result = self.recv_submitJobs();
-      } catch (e) {
-        result = e;
-      }
-      callback(result);
-    });
-  } else {
-    return this.output.getTransport().flush();
-  }
+  return this.output.getTransport().flush(callback);
 };
 
 EMRSchedulerServiceClient.prototype.recv_submitJobs = function() {
@@ -2546,9 +2977,13 @@ EMRSchedulerServiceClient.prototype.recv_submitJobs = function() {
   throw 'submitJobs failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.terminateCluster = function(terminateCluster, callback) {
-  this.send_terminateCluster(terminateCluster, callback); 
-  if (!callback) {
+  if (callback === undefined) {
+    this.send_terminateCluster(terminateCluster);
     return this.recv_terminateCluster();
+  } else {
+    var postData = this.send_terminateCluster(terminateCluster, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_terminateCluster);
   }
 };
 
@@ -2558,20 +2993,7 @@ EMRSchedulerServiceClient.prototype.send_terminateCluster = function(terminateCl
   args.terminateCluster = terminateCluster;
   args.write(this.output);
   this.output.writeMessageEnd();
-  if (callback) {
-    var self = this;
-    this.output.getTransport().flush(true, function() {
-      var result = null;
-      try {
-        result = self.recv_terminateCluster();
-      } catch (e) {
-        result = e;
-      }
-      callback(result);
-    });
-  } else {
-    return this.output.getTransport().flush();
-  }
+  return this.output.getTransport().flush(callback);
 };
 
 EMRSchedulerServiceClient.prototype.recv_terminateCluster = function() {
@@ -2598,9 +3020,13 @@ EMRSchedulerServiceClient.prototype.recv_terminateCluster = function() {
   throw 'terminateCluster failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.modifyInstanceGroup = function(instanceGroup, callback) {
-  this.send_modifyInstanceGroup(instanceGroup, callback); 
-  if (!callback) {
+  if (callback === undefined) {
+    this.send_modifyInstanceGroup(instanceGroup);
     return this.recv_modifyInstanceGroup();
+  } else {
+    var postData = this.send_modifyInstanceGroup(instanceGroup, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_modifyInstanceGroup);
   }
 };
 
@@ -2610,20 +3036,7 @@ EMRSchedulerServiceClient.prototype.send_modifyInstanceGroup = function(instance
   args.instanceGroup = instanceGroup;
   args.write(this.output);
   this.output.writeMessageEnd();
-  if (callback) {
-    var self = this;
-    this.output.getTransport().flush(true, function() {
-      var result = null;
-      try {
-        result = self.recv_modifyInstanceGroup();
-      } catch (e) {
-        result = e;
-      }
-      callback(result);
-    });
-  } else {
-    return this.output.getTransport().flush();
-  }
+  return this.output.getTransport().flush(callback);
 };
 
 EMRSchedulerServiceClient.prototype.recv_modifyInstanceGroup = function() {
@@ -2650,9 +3063,13 @@ EMRSchedulerServiceClient.prototype.recv_modifyInstanceGroup = function() {
   throw 'modifyInstanceGroup failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.describeCluster = function(clusterId, callback) {
-  this.send_describeCluster(clusterId, callback); 
-  if (!callback) {
+  if (callback === undefined) {
+    this.send_describeCluster(clusterId);
     return this.recv_describeCluster();
+  } else {
+    var postData = this.send_describeCluster(clusterId, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_describeCluster);
   }
 };
 
@@ -2662,20 +3079,7 @@ EMRSchedulerServiceClient.prototype.send_describeCluster = function(clusterId, c
   args.clusterId = clusterId;
   args.write(this.output);
   this.output.writeMessageEnd();
-  if (callback) {
-    var self = this;
-    this.output.getTransport().flush(true, function() {
-      var result = null;
-      try {
-        result = self.recv_describeCluster();
-      } catch (e) {
-        result = e;
-      }
-      callback(result);
-    });
-  } else {
-    return this.output.getTransport().flush();
-  }
+  return this.output.getTransport().flush(callback);
 };
 
 EMRSchedulerServiceClient.prototype.recv_describeCluster = function() {
@@ -2702,9 +3106,13 @@ EMRSchedulerServiceClient.prototype.recv_describeCluster = function() {
   throw 'describeCluster failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.describeInstanceGroup = function(instanceGroupId, callback) {
-  this.send_describeInstanceGroup(instanceGroupId, callback); 
-  if (!callback) {
+  if (callback === undefined) {
+    this.send_describeInstanceGroup(instanceGroupId);
     return this.recv_describeInstanceGroup();
+  } else {
+    var postData = this.send_describeInstanceGroup(instanceGroupId, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_describeInstanceGroup);
   }
 };
 
@@ -2714,20 +3122,7 @@ EMRSchedulerServiceClient.prototype.send_describeInstanceGroup = function(instan
   args.instanceGroupId = instanceGroupId;
   args.write(this.output);
   this.output.writeMessageEnd();
-  if (callback) {
-    var self = this;
-    this.output.getTransport().flush(true, function() {
-      var result = null;
-      try {
-        result = self.recv_describeInstanceGroup();
-      } catch (e) {
-        result = e;
-      }
-      callback(result);
-    });
-  } else {
-    return this.output.getTransport().flush();
-  }
+  return this.output.getTransport().flush(callback);
 };
 
 EMRSchedulerServiceClient.prototype.recv_describeInstanceGroup = function() {
@@ -2754,9 +3149,13 @@ EMRSchedulerServiceClient.prototype.recv_describeInstanceGroup = function() {
   throw 'describeInstanceGroup failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.describeInstance = function(clusterId, instanceId, callback) {
-  this.send_describeInstance(clusterId, instanceId, callback); 
-  if (!callback) {
+  if (callback === undefined) {
+    this.send_describeInstance(clusterId, instanceId);
     return this.recv_describeInstance();
+  } else {
+    var postData = this.send_describeInstance(clusterId, instanceId, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_describeInstance);
   }
 };
 
@@ -2767,20 +3166,7 @@ EMRSchedulerServiceClient.prototype.send_describeInstance = function(clusterId, 
   args.instanceId = instanceId;
   args.write(this.output);
   this.output.writeMessageEnd();
-  if (callback) {
-    var self = this;
-    this.output.getTransport().flush(true, function() {
-      var result = null;
-      try {
-        result = self.recv_describeInstance();
-      } catch (e) {
-        result = e;
-      }
-      callback(result);
-    });
-  } else {
-    return this.output.getTransport().flush();
-  }
+  return this.output.getTransport().flush(callback);
 };
 
 EMRSchedulerServiceClient.prototype.recv_describeInstance = function() {
@@ -2807,9 +3193,13 @@ EMRSchedulerServiceClient.prototype.recv_describeInstance = function() {
   throw 'describeInstance failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.describeJob = function(clusterId, jobId, callback) {
-  this.send_describeJob(clusterId, jobId, callback); 
-  if (!callback) {
+  if (callback === undefined) {
+    this.send_describeJob(clusterId, jobId);
     return this.recv_describeJob();
+  } else {
+    var postData = this.send_describeJob(clusterId, jobId, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_describeJob);
   }
 };
 
@@ -2820,20 +3210,7 @@ EMRSchedulerServiceClient.prototype.send_describeJob = function(clusterId, jobId
   args.jobId = jobId;
   args.write(this.output);
   this.output.writeMessageEnd();
-  if (callback) {
-    var self = this;
-    this.output.getTransport().flush(true, function() {
-      var result = null;
-      try {
-        result = self.recv_describeJob();
-      } catch (e) {
-        result = e;
-      }
-      callback(result);
-    });
-  } else {
-    return this.output.getTransport().flush();
-  }
+  return this.output.getTransport().flush(callback);
 };
 
 EMRSchedulerServiceClient.prototype.recv_describeJob = function() {
@@ -2860,9 +3237,13 @@ EMRSchedulerServiceClient.prototype.recv_describeJob = function() {
   throw 'describeJob failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.listClusters = function(createdAfter, createdBefore, callback) {
-  this.send_listClusters(createdAfter, createdBefore, callback); 
-  if (!callback) {
+  if (callback === undefined) {
+    this.send_listClusters(createdAfter, createdBefore);
     return this.recv_listClusters();
+  } else {
+    var postData = this.send_listClusters(createdAfter, createdBefore, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_listClusters);
   }
 };
 
@@ -2873,20 +3254,7 @@ EMRSchedulerServiceClient.prototype.send_listClusters = function(createdAfter, c
   args.createdBefore = createdBefore;
   args.write(this.output);
   this.output.writeMessageEnd();
-  if (callback) {
-    var self = this;
-    this.output.getTransport().flush(true, function() {
-      var result = null;
-      try {
-        result = self.recv_listClusters();
-      } catch (e) {
-        result = e;
-      }
-      callback(result);
-    });
-  } else {
-    return this.output.getTransport().flush();
-  }
+  return this.output.getTransport().flush(callback);
 };
 
 EMRSchedulerServiceClient.prototype.recv_listClusters = function() {
@@ -2913,9 +3281,13 @@ EMRSchedulerServiceClient.prototype.recv_listClusters = function() {
   throw 'listClusters failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.listInstanceGroups = function(clusterId, callback) {
-  this.send_listInstanceGroups(clusterId, callback); 
-  if (!callback) {
+  if (callback === undefined) {
+    this.send_listInstanceGroups(clusterId);
     return this.recv_listInstanceGroups();
+  } else {
+    var postData = this.send_listInstanceGroups(clusterId, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_listInstanceGroups);
   }
 };
 
@@ -2925,20 +3297,7 @@ EMRSchedulerServiceClient.prototype.send_listInstanceGroups = function(clusterId
   args.clusterId = clusterId;
   args.write(this.output);
   this.output.writeMessageEnd();
-  if (callback) {
-    var self = this;
-    this.output.getTransport().flush(true, function() {
-      var result = null;
-      try {
-        result = self.recv_listInstanceGroups();
-      } catch (e) {
-        result = e;
-      }
-      callback(result);
-    });
-  } else {
-    return this.output.getTransport().flush();
-  }
+  return this.output.getTransport().flush(callback);
 };
 
 EMRSchedulerServiceClient.prototype.recv_listInstanceGroups = function() {
@@ -2965,9 +3324,13 @@ EMRSchedulerServiceClient.prototype.recv_listInstanceGroups = function() {
   throw 'listInstanceGroups failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.listInstancesInCluster = function(clusterId, callback) {
-  this.send_listInstancesInCluster(clusterId, callback); 
-  if (!callback) {
+  if (callback === undefined) {
+    this.send_listInstancesInCluster(clusterId);
     return this.recv_listInstancesInCluster();
+  } else {
+    var postData = this.send_listInstancesInCluster(clusterId, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_listInstancesInCluster);
   }
 };
 
@@ -2977,20 +3340,7 @@ EMRSchedulerServiceClient.prototype.send_listInstancesInCluster = function(clust
   args.clusterId = clusterId;
   args.write(this.output);
   this.output.writeMessageEnd();
-  if (callback) {
-    var self = this;
-    this.output.getTransport().flush(true, function() {
-      var result = null;
-      try {
-        result = self.recv_listInstancesInCluster();
-      } catch (e) {
-        result = e;
-      }
-      callback(result);
-    });
-  } else {
-    return this.output.getTransport().flush();
-  }
+  return this.output.getTransport().flush(callback);
 };
 
 EMRSchedulerServiceClient.prototype.recv_listInstancesInCluster = function() {
@@ -3017,9 +3367,13 @@ EMRSchedulerServiceClient.prototype.recv_listInstancesInCluster = function() {
   throw 'listInstancesInCluster failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.listInstancesInGroup = function(clusterId, groupId, groupRole, callback) {
-  this.send_listInstancesInGroup(clusterId, groupId, groupRole, callback); 
-  if (!callback) {
+  if (callback === undefined) {
+    this.send_listInstancesInGroup(clusterId, groupId, groupRole);
     return this.recv_listInstancesInGroup();
+  } else {
+    var postData = this.send_listInstancesInGroup(clusterId, groupId, groupRole, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_listInstancesInGroup);
   }
 };
 
@@ -3031,20 +3385,7 @@ EMRSchedulerServiceClient.prototype.send_listInstancesInGroup = function(cluster
   args.groupRole = groupRole;
   args.write(this.output);
   this.output.writeMessageEnd();
-  if (callback) {
-    var self = this;
-    this.output.getTransport().flush(true, function() {
-      var result = null;
-      try {
-        result = self.recv_listInstancesInGroup();
-      } catch (e) {
-        result = e;
-      }
-      callback(result);
-    });
-  } else {
-    return this.output.getTransport().flush();
-  }
+  return this.output.getTransport().flush(callback);
 };
 
 EMRSchedulerServiceClient.prototype.recv_listInstancesInGroup = function() {
@@ -3071,9 +3412,13 @@ EMRSchedulerServiceClient.prototype.recv_listInstancesInGroup = function() {
   throw 'listInstancesInGroup failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.listJobs = function(clusterId, callback) {
-  this.send_listJobs(clusterId, callback); 
-  if (!callback) {
+  if (callback === undefined) {
+    this.send_listJobs(clusterId);
     return this.recv_listJobs();
+  } else {
+    var postData = this.send_listJobs(clusterId, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_listJobs);
   }
 };
 
@@ -3083,20 +3428,7 @@ EMRSchedulerServiceClient.prototype.send_listJobs = function(clusterId, callback
   args.clusterId = clusterId;
   args.write(this.output);
   this.output.writeMessageEnd();
-  if (callback) {
-    var self = this;
-    this.output.getTransport().flush(true, function() {
-      var result = null;
-      try {
-        result = self.recv_listJobs();
-      } catch (e) {
-        result = e;
-      }
-      callback(result);
-    });
-  } else {
-    return this.output.getTransport().flush();
-  }
+  return this.output.getTransport().flush(callback);
 };
 
 EMRSchedulerServiceClient.prototype.recv_listJobs = function() {
@@ -3121,4 +3453,170 @@ EMRSchedulerServiceClient.prototype.recv_listJobs = function() {
     return result.success;
   }
   throw 'listJobs failed: unknown result';
+};
+EMRSchedulerServiceClient.prototype.setPermission = function(request, callback) {
+  if (callback === undefined) {
+    this.send_setPermission(request);
+    this.recv_setPermission();
+  } else {
+    var postData = this.send_setPermission(request, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_setPermission);
+  }
+};
+
+EMRSchedulerServiceClient.prototype.send_setPermission = function(request, callback) {
+  this.output.writeMessageBegin('setPermission', Thrift.MessageType.CALL, this.seqid);
+  var args = new EMRSchedulerService_setPermission_args();
+  args.request = request;
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+EMRSchedulerServiceClient.prototype.recv_setPermission = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new EMRSchedulerService_setPermission_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.se) {
+    throw result.se;
+  }
+  return;
+};
+EMRSchedulerServiceClient.prototype.revokePermission = function(request, callback) {
+  if (callback === undefined) {
+    this.send_revokePermission(request);
+    this.recv_revokePermission();
+  } else {
+    var postData = this.send_revokePermission(request, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_revokePermission);
+  }
+};
+
+EMRSchedulerServiceClient.prototype.send_revokePermission = function(request, callback) {
+  this.output.writeMessageBegin('revokePermission', Thrift.MessageType.CALL, this.seqid);
+  var args = new EMRSchedulerService_revokePermission_args();
+  args.request = request;
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+EMRSchedulerServiceClient.prototype.recv_revokePermission = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new EMRSchedulerService_revokePermission_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.se) {
+    throw result.se;
+  }
+  return;
+};
+EMRSchedulerServiceClient.prototype.queryPermission = function(request, callback) {
+  if (callback === undefined) {
+    this.send_queryPermission(request);
+    return this.recv_queryPermission();
+  } else {
+    var postData = this.send_queryPermission(request, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_queryPermission);
+  }
+};
+
+EMRSchedulerServiceClient.prototype.send_queryPermission = function(request, callback) {
+  this.output.writeMessageBegin('queryPermission', Thrift.MessageType.CALL, this.seqid);
+  var args = new EMRSchedulerService_queryPermission_args();
+  args.request = request;
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+EMRSchedulerServiceClient.prototype.recv_queryPermission = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new EMRSchedulerService_queryPermission_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.se) {
+    throw result.se;
+  }
+  if (null !== result.success) {
+    return result.success;
+  }
+  throw 'queryPermission failed: unknown result';
+};
+EMRSchedulerServiceClient.prototype.listPermissions = function(request, callback) {
+  if (callback === undefined) {
+    this.send_listPermissions(request);
+    return this.recv_listPermissions();
+  } else {
+    var postData = this.send_listPermissions(request, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_listPermissions);
+  }
+};
+
+EMRSchedulerServiceClient.prototype.send_listPermissions = function(request, callback) {
+  this.output.writeMessageBegin('listPermissions', Thrift.MessageType.CALL, this.seqid);
+  var args = new EMRSchedulerService_listPermissions_args();
+  args.request = request;
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+EMRSchedulerServiceClient.prototype.recv_listPermissions = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new EMRSchedulerService_listPermissions_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.se) {
+    throw result.se;
+  }
+  if (null !== result.success) {
+    return result.success;
+  }
+  throw 'listPermissions failed: unknown result';
 };

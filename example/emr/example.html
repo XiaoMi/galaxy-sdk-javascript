@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!--
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>EMR jQuery Client Test</title>
+  </head>
+  <body>
+    <input type="button" id="runTest" value="Test EMR Server API" >
+
+    <table style="width:600px">
+    <tr>
+      <td>API</td>
+      <td>Result</td>
+    </tr>
+    <tr>
+      <td>getServerVersion</td>
+      <td id="getServerVersion">NA</td>
+    </tr>
+    <tr>
+      <td>createCluster</td>
+      <td id="createCluster">NA</td>
+    </tr>
+    <tr>
+      <td>listClusters</td>
+      <td id="listClusters">NA</td>
+    </tr>
+    <tr>
+      <td>terminateCluster</td>
+      <td id="terminateCluster">NA</td>
+    </tr>
+    </table>
+
+    <script src="../../src/jquery.js"></script>
+    <script src="../../src/rpc/thrift.js"></script>
+    <script src="../../src/rpc/Common_types.js"></script>
+    <script src="../../src/rpc/Errors_types.js"></script>
+    <script src="../../src/rpc/BaseService.js"></script>
+    <script src="../../src/emr/EMRService_types.js"></script>
+    <script src="../../src/emr/EMRSchedulerService.js"></script>
+
+    <script>
+      (function() {
+        var transport = new Thrift.TXHRTransport("http://emr.api.xiaomi.com/v1/api/scheduler");
+        var protocol  = new Thrift.TJSONProtocol(transport);
+        var client    = new EMRSchedulerServiceClient(protocol);
+        var serverVersionElement = document.getElementById("getServerVersion");
+        var createClusterElement = document.getElementById("createCluster");
+        var listClustersElement = document.getElementById("listClusters");
+        var terminateClusterElment = document.getElementById("terminateCluster");
+        document.getElementById("runTest")
+          .addEventListener("click", function() {
+            client.getServerVersion(function(ver) {
+              serverVersionElement.innerHTML = "Server Version: " + ver.major +
+              "." + ver.minor + "." + ver.revision;
+            });
+
+            // createCluster
+            var createClusterRequest = new CreateClusterRequest();
+            createClusterRequest.name = "CreateClusterTest";
+            createClusterRequest.region="ec2.cn-norht-1";
+            createClusterRequest.purpose="emr";
+            createClusterRequest.addInstanceGroupRequests = [
+              new AddInstanceGroupRequest({
+                name: "master",
+                role: InstanceGroupRole.MASTER,
+                type: "master.test",
+                requestedInstanceCount: 1}),
+              new AddInstanceGroupRequest({
+                name: "control",
+                role: InstanceGroupRole.CONTROL,
+                type: "control.test",
+                requestedInstanceCount: 3}),
+              new AddInstanceGroupRequest({
+                name: "task",
+                role: InstanceGroupRole.TASK,
+                type: "task.test",
+                requestedInstanceCount: 1}),
+            ];
+            // send request to server
+            var clusterId = null;
+            client.createCluster(createClusterRequest, function(createClusterResponse) {
+              clusterId = createClusterResponse.cluserId;
+              createClusterElement.innerHTML = "CreateClusterResponse: " + createClusterResponse;
+            }).error(function(xhr, status, e) {
+              createClusterElement.innerHTML = "Error code " + e.errorCode + ": " + e.errorMessage;
+            });
+
+            client.listClusters(0, 0x7FFFFFFF, function(clusterList){
+              for (var idx in clusterList) {
+                listClusterElement.innerHTML = listClusterElement.innerHTML + 
+                "[id:" + clusterList[idx].clusterId + ",name:" + clusterList[idx].name + "]<br>";
+              }
+            }).error(function(xhr, status, e) {
+              listClustersElement.innerHTML = "Error code " + e.errorCode + ": " + e.errorMessage;
+            });
+
+            if (clusterId != null) {
+              client.terminateCluster(new TerminateClusterRequest({clusterId: clusterId}), function(response) {
+                terminateClusterElment.innerHTML = "terminate cluster " + clusterId + " " + response;
+              }).error(function(xhr, status, e) {
+                terminateClusterElment.innerHTML = "Error code " + e.errorCode + ": " + e.errorMessage;
+              });
+            }
+          });
+      })();
+    </script>
+  </body>
+</html>

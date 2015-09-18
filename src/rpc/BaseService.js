@@ -307,9 +307,13 @@ BaseServiceClient = function(input, output) {
 };
 BaseServiceClient.prototype = {};
 BaseServiceClient.prototype.getServerVersion = function(callback) {
-  this.send_getServerVersion(callback); 
-  if (!callback) {
+  if (callback === undefined) {
+    this.send_getServerVersion();
     return this.recv_getServerVersion();
+  } else {
+    var postData = this.send_getServerVersion(true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_getServerVersion);
   }
 };
 
@@ -318,20 +322,7 @@ BaseServiceClient.prototype.send_getServerVersion = function(callback) {
   var args = new BaseService_getServerVersion_args();
   args.write(this.output);
   this.output.writeMessageEnd();
-  if (callback) {
-    var self = this;
-    this.output.getTransport().flush(true, function() {
-      var result = null;
-      try {
-        result = self.recv_getServerVersion();
-      } catch (e) {
-        result = e;
-      }
-      callback(result);
-    });
-  } else {
-    return this.output.getTransport().flush();
-  }
+  return this.output.getTransport().flush(callback);
 };
 
 BaseServiceClient.prototype.recv_getServerVersion = function() {
@@ -358,9 +349,13 @@ BaseServiceClient.prototype.recv_getServerVersion = function() {
   throw 'getServerVersion failed: unknown result';
 };
 BaseServiceClient.prototype.validateClientVersion = function(clientVersion, callback) {
-  this.send_validateClientVersion(clientVersion, callback); 
-  if (!callback) {
-  this.recv_validateClientVersion();
+  if (callback === undefined) {
+    this.send_validateClientVersion(clientVersion);
+    this.recv_validateClientVersion();
+  } else {
+    var postData = this.send_validateClientVersion(clientVersion, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_validateClientVersion);
   }
 };
 
@@ -370,20 +365,7 @@ BaseServiceClient.prototype.send_validateClientVersion = function(clientVersion,
   args.clientVersion = clientVersion;
   args.write(this.output);
   this.output.writeMessageEnd();
-  if (callback) {
-    var self = this;
-    this.output.getTransport().flush(true, function() {
-      var result = null;
-      try {
-        result = self.recv_validateClientVersion();
-      } catch (e) {
-        result = e;
-      }
-      callback(result);
-    });
-  } else {
-    return this.output.getTransport().flush();
-  }
+  return this.output.getTransport().flush(callback);
 };
 
 BaseServiceClient.prototype.recv_validateClientVersion = function() {
@@ -407,9 +389,13 @@ BaseServiceClient.prototype.recv_validateClientVersion = function() {
   return;
 };
 BaseServiceClient.prototype.getServerTime = function(callback) {
-  this.send_getServerTime(callback); 
-  if (!callback) {
+  if (callback === undefined) {
+    this.send_getServerTime();
     return this.recv_getServerTime();
+  } else {
+    var postData = this.send_getServerTime(true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_getServerTime);
   }
 };
 
@@ -418,20 +404,7 @@ BaseServiceClient.prototype.send_getServerTime = function(callback) {
   var args = new BaseService_getServerTime_args();
   args.write(this.output);
   this.output.writeMessageEnd();
-  if (callback) {
-    var self = this;
-    this.output.getTransport().flush(true, function() {
-      var result = null;
-      try {
-        result = self.recv_getServerTime();
-      } catch (e) {
-        result = e;
-      }
-      callback(result);
-    });
-  } else {
-    return this.output.getTransport().flush();
-  }
+  return this.output.getTransport().flush(callback);
 };
 
 BaseServiceClient.prototype.recv_getServerTime = function() {
