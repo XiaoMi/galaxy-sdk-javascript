@@ -893,6 +893,8 @@ ReceiveMessageRequest = function(args) {
   this.queueName = null;
   this.maxReceiveMessageNumber = 100;
   this.maxReceiveMessageWaitSeconds = 0;
+  this.attributeName = null;
+  this.attributeValue = null;
   if (args) {
     if (args.queueName !== undefined) {
       this.queueName = args.queueName;
@@ -904,6 +906,12 @@ ReceiveMessageRequest = function(args) {
     }
     if (args.maxReceiveMessageWaitSeconds !== undefined) {
       this.maxReceiveMessageWaitSeconds = args.maxReceiveMessageWaitSeconds;
+    }
+    if (args.attributeName !== undefined) {
+      this.attributeName = args.attributeName;
+    }
+    if (args.attributeValue !== undefined) {
+      this.attributeValue = args.attributeValue;
     }
   }
 };
@@ -942,6 +950,21 @@ ReceiveMessageRequest.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 4:
+      if (ftype == Thrift.Type.STRING) {
+        this.attributeName = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 5:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.attributeValue = new MessageAttribute();
+        this.attributeValue.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -966,6 +989,16 @@ ReceiveMessageRequest.prototype.write = function(output) {
   if (this.maxReceiveMessageWaitSeconds !== null && this.maxReceiveMessageWaitSeconds !== undefined) {
     output.writeFieldBegin('maxReceiveMessageWaitSeconds', Thrift.Type.I32, 3);
     output.writeI32(this.maxReceiveMessageWaitSeconds);
+    output.writeFieldEnd();
+  }
+  if (this.attributeName !== null && this.attributeName !== undefined) {
+    output.writeFieldBegin('attributeName', Thrift.Type.STRING, 4);
+    output.writeString(this.attributeName);
+    output.writeFieldEnd();
+  }
+  if (this.attributeValue !== null && this.attributeValue !== undefined) {
+    output.writeFieldBegin('attributeValue', Thrift.Type.STRUCT, 5);
+    this.attributeValue.write(output);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
