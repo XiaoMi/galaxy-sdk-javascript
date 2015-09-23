@@ -625,8 +625,6 @@ CreateQueueResponse = function(args) {
     }
     if (args.queueQuota !== undefined) {
       this.queueQuota = args.queueQuota;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field queueQuota is unset!');
     }
   }
 };
@@ -1164,8 +1162,6 @@ GetQueueInfoResponse = function(args) {
     }
     if (args.queueQuota !== undefined) {
       this.queueQuota = args.queueQuota;
-    } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field queueQuota is unset!');
     }
   }
 };
