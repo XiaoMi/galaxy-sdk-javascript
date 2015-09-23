@@ -5,6 +5,37 @@
 //
 
 
+ErrorCode = {
+  'INVALID_ACTION' : 1,
+  'INVALID_ATTRIBUTE' : 2,
+  'QUEUE_DELETED_RECENTLY' : 3,
+  'QUEUE_EXIST' : 4,
+  'QUEUE_NAME_MISSING' : 5,
+  'QUEUE_NOT_EXIST' : 6,
+  'QUEUE_INUSE' : 7,
+  'QUEUE_URI_CONFLICT' : 8,
+  'INVALID_RECEIPT_HANDLE' : 9,
+  'MESSAGE_BODY_MISSING' : 10,
+  'RECEIPT_HANDLE_NOT_EXIST' : 11,
+  'INDEX_NOT_UNIQUE' : 12,
+  'PERMISSION_DENIED' : 13,
+  'BAD_REQUEST' : 34,
+  'INTERNAL_ERROR' : 14,
+  'PARTITION_NOT_EXIST' : 15,
+  'PARTITION_NOT_RUNNING' : 16,
+  'QUEUE_NOT_CACHED' : 17,
+  'PARTITION_NOT_SERVING' : 18,
+  'TTRANSPORT_ERROR' : 19,
+  'QUOTA_EXCEEDED' : 20,
+  'QUOTA_NOT_EXIST' : 21,
+  'QUOTA_LOCK_FAILED' : 22,
+  'UNKNOWN' : 30
+};
+RetryType = {
+  'SAFE' : 0,
+  'UNSAFE' : 1,
+  'UNSURE' : 2
+};
 GalaxyEmqServiceException = function(args) {
   this.errorCode = null;
   this.errMsg = null;
@@ -226,3 +257,20 @@ Version.prototype.write = function(output) {
   return;
 };
 
+ERROR_BACKOFF = {15 : 1000,
+18 : 1000,
+16 : 1000,
+17 : 1000,
+7 : 1000,
+14 : 1000,
+19 : 1000
+};
+ERROR_RETRY_TYPE = {15 : 0,
+18 : 0,
+16 : 0,
+17 : 0,
+7 : 0,
+14 : 1,
+19 : 2
+};
+MAX_RETRY = 3;

@@ -335,9 +335,197 @@ QueueState.prototype.write = function(output) {
   return;
 };
 
+Throughput = function(args) {
+  this.readQps = null;
+  this.writeQps = null;
+  if (args) {
+    if (args.readQps !== undefined) {
+      this.readQps = args.readQps;
+    }
+    if (args.writeQps !== undefined) {
+      this.writeQps = args.writeQps;
+    }
+  }
+};
+Throughput.prototype = {};
+Throughput.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.I64) {
+        this.readQps = input.readI64().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.I64) {
+        this.writeQps = input.readI64().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+Throughput.prototype.write = function(output) {
+  output.writeStructBegin('Throughput');
+  if (this.readQps !== null && this.readQps !== undefined) {
+    output.writeFieldBegin('readQps', Thrift.Type.I64, 1);
+    output.writeI64(this.readQps);
+    output.writeFieldEnd();
+  }
+  if (this.writeQps !== null && this.writeQps !== undefined) {
+    output.writeFieldBegin('writeQps', Thrift.Type.I64, 2);
+    output.writeI64(this.writeQps);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+SpaceQuota = function(args) {
+  this.size = null;
+  if (args) {
+    if (args.size !== undefined) {
+      this.size = args.size;
+    }
+  }
+};
+SpaceQuota.prototype = {};
+SpaceQuota.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.I64) {
+        this.size = input.readI64().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+SpaceQuota.prototype.write = function(output) {
+  output.writeStructBegin('SpaceQuota');
+  if (this.size !== null && this.size !== undefined) {
+    output.writeFieldBegin('size', Thrift.Type.I64, 1);
+    output.writeI64(this.size);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+QueueQuota = function(args) {
+  this.spaceQuota = null;
+  this.throughput = null;
+  if (args) {
+    if (args.spaceQuota !== undefined) {
+      this.spaceQuota = args.spaceQuota;
+    }
+    if (args.throughput !== undefined) {
+      this.throughput = args.throughput;
+    }
+  }
+};
+QueueQuota.prototype = {};
+QueueQuota.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.spaceQuota = new SpaceQuota();
+        this.spaceQuota.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.throughput = new Throughput();
+        this.throughput.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+QueueQuota.prototype.write = function(output) {
+  output.writeStructBegin('QueueQuota');
+  if (this.spaceQuota !== null && this.spaceQuota !== undefined) {
+    output.writeFieldBegin('spaceQuota', Thrift.Type.STRUCT, 1);
+    this.spaceQuota.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.throughput !== null && this.throughput !== undefined) {
+    output.writeFieldBegin('throughput', Thrift.Type.STRUCT, 2);
+    this.throughput.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
 CreateQueueRequest = function(args) {
   this.queueName = null;
   this.queueAttribute = null;
+  this.queueQuota = null;
   if (args) {
     if (args.queueName !== undefined) {
       this.queueName = args.queueName;
@@ -346,6 +534,9 @@ CreateQueueRequest = function(args) {
     }
     if (args.queueAttribute !== undefined) {
       this.queueAttribute = args.queueAttribute;
+    }
+    if (args.queueQuota !== undefined) {
+      this.queueQuota = args.queueQuota;
     }
   }
 };
@@ -378,6 +569,14 @@ CreateQueueRequest.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 3:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.queueQuota = new QueueQuota();
+        this.queueQuota.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -399,6 +598,11 @@ CreateQueueRequest.prototype.write = function(output) {
     this.queueAttribute.write(output);
     output.writeFieldEnd();
   }
+  if (this.queueQuota !== null && this.queueQuota !== undefined) {
+    output.writeFieldBegin('queueQuota', Thrift.Type.STRUCT, 3);
+    this.queueQuota.write(output);
+    output.writeFieldEnd();
+  }
   output.writeFieldStop();
   output.writeStructEnd();
   return;
@@ -407,6 +611,7 @@ CreateQueueRequest.prototype.write = function(output) {
 CreateQueueResponse = function(args) {
   this.queueName = null;
   this.queueAttribute = null;
+  this.queueQuota = null;
   if (args) {
     if (args.queueName !== undefined) {
       this.queueName = args.queueName;
@@ -417,6 +622,11 @@ CreateQueueResponse = function(args) {
       this.queueAttribute = args.queueAttribute;
     } else {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field queueAttribute is unset!');
+    }
+    if (args.queueQuota !== undefined) {
+      this.queueQuota = args.queueQuota;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field queueQuota is unset!');
     }
   }
 };
@@ -449,6 +659,14 @@ CreateQueueResponse.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 3:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.queueQuota = new QueueQuota();
+        this.queueQuota.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -468,6 +686,11 @@ CreateQueueResponse.prototype.write = function(output) {
   if (this.queueAttribute !== null && this.queueAttribute !== undefined) {
     output.writeFieldBegin('queueAttribute', Thrift.Type.STRUCT, 2);
     this.queueAttribute.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.queueQuota !== null && this.queueQuota !== undefined) {
+    output.writeFieldBegin('queueQuota', Thrift.Type.STRUCT, 3);
+    this.queueQuota.write(output);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -725,6 +948,144 @@ SetQueueAttributesResponse.prototype.write = function(output) {
   return;
 };
 
+SetQueueQuotaRequest = function(args) {
+  this.queueName = null;
+  this.queueQuota = null;
+  if (args) {
+    if (args.queueName !== undefined) {
+      this.queueName = args.queueName;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field queueName is unset!');
+    }
+    if (args.queueQuota !== undefined) {
+      this.queueQuota = args.queueQuota;
+    }
+  }
+};
+SetQueueQuotaRequest.prototype = {};
+SetQueueQuotaRequest.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.queueName = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.queueQuota = new QueueQuota();
+        this.queueQuota.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+SetQueueQuotaRequest.prototype.write = function(output) {
+  output.writeStructBegin('SetQueueQuotaRequest');
+  if (this.queueName !== null && this.queueName !== undefined) {
+    output.writeFieldBegin('queueName', Thrift.Type.STRING, 1);
+    output.writeString(this.queueName);
+    output.writeFieldEnd();
+  }
+  if (this.queueQuota !== null && this.queueQuota !== undefined) {
+    output.writeFieldBegin('queueQuota', Thrift.Type.STRUCT, 2);
+    this.queueQuota.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+SetQueueQuotaResponse = function(args) {
+  this.queueName = null;
+  this.queueQuota = null;
+  if (args) {
+    if (args.queueName !== undefined) {
+      this.queueName = args.queueName;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field queueName is unset!');
+    }
+    if (args.queueQuota !== undefined) {
+      this.queueQuota = args.queueQuota;
+    }
+  }
+};
+SetQueueQuotaResponse.prototype = {};
+SetQueueQuotaResponse.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.queueName = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.queueQuota = new QueueQuota();
+        this.queueQuota.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+SetQueueQuotaResponse.prototype.write = function(output) {
+  output.writeStructBegin('SetQueueQuotaResponse');
+  if (this.queueName !== null && this.queueName !== undefined) {
+    output.writeFieldBegin('queueName', Thrift.Type.STRING, 1);
+    output.writeString(this.queueName);
+    output.writeFieldEnd();
+  }
+  if (this.queueQuota !== null && this.queueQuota !== undefined) {
+    output.writeFieldBegin('queueQuota', Thrift.Type.STRUCT, 2);
+    this.queueQuota.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
 GetQueueInfoRequest = function(args) {
   this.queueName = null;
   if (args) {
@@ -784,6 +1145,7 @@ GetQueueInfoResponse = function(args) {
   this.queueName = null;
   this.queueAttribute = null;
   this.queueState = null;
+  this.queueQuota = null;
   if (args) {
     if (args.queueName !== undefined) {
       this.queueName = args.queueName;
@@ -799,6 +1161,11 @@ GetQueueInfoResponse = function(args) {
       this.queueState = args.queueState;
     } else {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field queueState is unset!');
+    }
+    if (args.queueQuota !== undefined) {
+      this.queueQuota = args.queueQuota;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field queueQuota is unset!');
     }
   }
 };
@@ -839,6 +1206,14 @@ GetQueueInfoResponse.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 4:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.queueQuota = new QueueQuota();
+        this.queueQuota.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -863,6 +1238,11 @@ GetQueueInfoResponse.prototype.write = function(output) {
   if (this.queueState !== null && this.queueState !== undefined) {
     output.writeFieldBegin('queueState', Thrift.Type.STRUCT, 3);
     this.queueState.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.queueQuota !== null && this.queueQuota !== undefined) {
+    output.writeFieldBegin('queueQuota', Thrift.Type.STRUCT, 4);
+    this.queueQuota.write(output);
     output.writeFieldEnd();
   }
   output.writeFieldStop();

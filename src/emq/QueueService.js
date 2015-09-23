@@ -483,6 +483,132 @@ QueueService_setQueueAttribute_result.prototype.write = function(output) {
   return;
 };
 
+QueueService_setQueueQuota_args = function(args) {
+  this.request = null;
+  if (args) {
+    if (args.request !== undefined) {
+      this.request = args.request;
+    }
+  }
+};
+QueueService_setQueueQuota_args.prototype = {};
+QueueService_setQueueQuota_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.request = new SetQueueQuotaRequest();
+        this.request.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+QueueService_setQueueQuota_args.prototype.write = function(output) {
+  output.writeStructBegin('QueueService_setQueueQuota_args');
+  if (this.request !== null && this.request !== undefined) {
+    output.writeFieldBegin('request', Thrift.Type.STRUCT, 1);
+    this.request.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+QueueService_setQueueQuota_result = function(args) {
+  this.success = null;
+  this.e = null;
+  if (args instanceof GalaxyEmqServiceException) {
+    this.e = args;
+    return;
+  }
+  if (args) {
+    if (args.success !== undefined) {
+      this.success = args.success;
+    }
+    if (args.e !== undefined) {
+      this.e = args.e;
+    }
+  }
+};
+QueueService_setQueueQuota_result.prototype = {};
+QueueService_setQueueQuota_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.success = new SetQueueQuotaResponse();
+        this.success.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.e = new GalaxyEmqServiceException();
+        this.e.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+QueueService_setQueueQuota_result.prototype.write = function(output) {
+  output.writeStructBegin('QueueService_setQueueQuota_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+    this.success.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.e !== null && this.e !== undefined) {
+    output.writeFieldBegin('e', Thrift.Type.STRUCT, 1);
+    this.e.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
 QueueService_getQueueInfo_args = function(args) {
   this.request = null;
   if (args) {
@@ -1508,6 +1634,49 @@ QueueServiceClient.prototype.recv_setQueueAttribute = function() {
     return result.success;
   }
   throw 'setQueueAttribute failed: unknown result';
+};
+QueueServiceClient.prototype.setQueueQuota = function(request, callback) {
+  if (callback === undefined) {
+    this.send_setQueueQuota(request);
+    return this.recv_setQueueQuota();
+  } else {
+    var postData = this.send_setQueueQuota(request, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_setQueueQuota);
+  }
+};
+
+QueueServiceClient.prototype.send_setQueueQuota = function(request, callback) {
+  this.output.writeMessageBegin('setQueueQuota', Thrift.MessageType.CALL, this.seqid);
+  var args = new QueueService_setQueueQuota_args();
+  args.request = request;
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+QueueServiceClient.prototype.recv_setQueueQuota = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new QueueService_setQueueQuota_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.e) {
+    throw result.e;
+  }
+  if (null !== result.success) {
+    return result.success;
+  }
+  throw 'setQueueQuota failed: unknown result';
 };
 QueueServiceClient.prototype.getQueueInfo = function(request, callback) {
   if (callback === undefined) {
