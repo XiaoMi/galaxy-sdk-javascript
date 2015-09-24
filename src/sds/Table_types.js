@@ -55,11 +55,9 @@ TableState = {
   'ENABLED' : 3,
   'DISABLING' : 4,
   'DISABLED' : 5,
-  'DROPPING' : 6,
-  'DROPPED' : 7,
-  'LAZY_DROPPING' : 8,
-  'LAZY_DROP' : 9,
-  'RESTORING' : 10
+  'DELETING' : 6,
+  'DELETED' : 7,
+  'LAZY_DELETE' : 8
 };
 ScanOp = {
   'COUNT' : 0,
@@ -1280,6 +1278,7 @@ TableMetadata = function(args) {
   this.quota = null;
   this.throughput = null;
   this.description = null;
+  this.scanInGlobalOrderEnabled = null;
   if (args) {
     if (args.tableId !== undefined) {
       this.tableId = args.tableId;
@@ -1298,6 +1297,9 @@ TableMetadata = function(args) {
     }
     if (args.description !== undefined) {
       this.description = args.description;
+    }
+    if (args.scanInGlobalOrderEnabled !== undefined) {
+      this.scanInGlobalOrderEnabled = args.scanInGlobalOrderEnabled;
     }
   }
 };
@@ -1394,6 +1396,13 @@ TableMetadata.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 7:
+      if (ftype == Thrift.Type.BOOL) {
+        this.scanInGlobalOrderEnabled = input.readBool().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -1452,6 +1461,11 @@ TableMetadata.prototype.write = function(output) {
   if (this.description !== null && this.description !== undefined) {
     output.writeFieldBegin('description', Thrift.Type.STRING, 6);
     output.writeString(this.description);
+    output.writeFieldEnd();
+  }
+  if (this.scanInGlobalOrderEnabled !== null && this.scanInGlobalOrderEnabled !== undefined) {
+    output.writeFieldBegin('scanInGlobalOrderEnabled', Thrift.Type.BOOL, 7);
+    output.writeBool(this.scanInGlobalOrderEnabled);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -2983,10 +2997,12 @@ ScanRequest = function(args) {
   this.condition = null;
   this.limit = 10;
   this.reverse = false;
-  this.inGlobalOrder = true;
+  this.inGlobalOrder = false;
   this.cacheResult = true;
   this.lookAheadStep = 0;
   this.action = null;
+  this.splitIndex = -1;
+  this.initialStartKey = null;
   if (args) {
     if (args.tableName !== undefined) {
       this.tableName = args.tableName;
@@ -3023,6 +3039,12 @@ ScanRequest = function(args) {
     }
     if (args.action !== undefined) {
       this.action = args.action;
+    }
+    if (args.splitIndex !== undefined) {
+      this.splitIndex = args.splitIndex;
+    }
+    if (args.initialStartKey !== undefined) {
+      this.initialStartKey = args.initialStartKey;
     }
   }
 };
@@ -3184,6 +3206,43 @@ ScanRequest.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 13:
+      if (ftype == Thrift.Type.I32) {
+        this.splitIndex = input.readI32().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 14:
+      if (ftype == Thrift.Type.MAP) {
+        var _size263 = 0;
+        var _rtmp3267;
+        this.initialStartKey = {};
+        var _ktype264 = 0;
+        var _vtype265 = 0;
+        _rtmp3267 = input.readMapBegin();
+        _ktype264 = _rtmp3267.ktype;
+        _vtype265 = _rtmp3267.vtype;
+        _size263 = _rtmp3267.size;
+        for (var _i268 = 0; _i268 < _size263; ++_i268)
+        {
+          if (_i268 > 0 ) {
+            if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
+              input.rstack.pop();
+            }
+          }
+          var key269 = null;
+          var val270 = null;
+          key269 = input.readString().value;
+          val270 = new Datum();
+          val270.read(input);
+          this.initialStartKey[key269] = val270;
+        }
+        input.readMapEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -3208,13 +3267,13 @@ ScanRequest.prototype.write = function(output) {
   if (this.startKey !== null && this.startKey !== undefined) {
     output.writeFieldBegin('startKey', Thrift.Type.MAP, 3);
     output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRUCT, Thrift.objectLength(this.startKey));
-    for (var kiter263 in this.startKey)
+    for (var kiter271 in this.startKey)
     {
-      if (this.startKey.hasOwnProperty(kiter263))
+      if (this.startKey.hasOwnProperty(kiter271))
       {
-        var viter264 = this.startKey[kiter263];
-        output.writeString(kiter263);
-        viter264.write(output);
+        var viter272 = this.startKey[kiter271];
+        output.writeString(kiter271);
+        viter272.write(output);
       }
     }
     output.writeMapEnd();
@@ -3223,13 +3282,13 @@ ScanRequest.prototype.write = function(output) {
   if (this.stopKey !== null && this.stopKey !== undefined) {
     output.writeFieldBegin('stopKey', Thrift.Type.MAP, 4);
     output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRUCT, Thrift.objectLength(this.stopKey));
-    for (var kiter265 in this.stopKey)
+    for (var kiter273 in this.stopKey)
     {
-      if (this.stopKey.hasOwnProperty(kiter265))
+      if (this.stopKey.hasOwnProperty(kiter273))
       {
-        var viter266 = this.stopKey[kiter265];
-        output.writeString(kiter265);
-        viter266.write(output);
+        var viter274 = this.stopKey[kiter273];
+        output.writeString(kiter273);
+        viter274.write(output);
       }
     }
     output.writeMapEnd();
@@ -3238,12 +3297,12 @@ ScanRequest.prototype.write = function(output) {
   if (this.attributes !== null && this.attributes !== undefined) {
     output.writeFieldBegin('attributes', Thrift.Type.LIST, 5);
     output.writeListBegin(Thrift.Type.STRING, this.attributes.length);
-    for (var iter267 in this.attributes)
+    for (var iter275 in this.attributes)
     {
-      if (this.attributes.hasOwnProperty(iter267))
+      if (this.attributes.hasOwnProperty(iter275))
       {
-        iter267 = this.attributes[iter267];
-        output.writeString(iter267);
+        iter275 = this.attributes[iter275];
+        output.writeString(iter275);
       }
     }
     output.writeListEnd();
@@ -3284,6 +3343,26 @@ ScanRequest.prototype.write = function(output) {
     this.action.write(output);
     output.writeFieldEnd();
   }
+  if (this.splitIndex !== null && this.splitIndex !== undefined) {
+    output.writeFieldBegin('splitIndex', Thrift.Type.I32, 13);
+    output.writeI32(this.splitIndex);
+    output.writeFieldEnd();
+  }
+  if (this.initialStartKey !== null && this.initialStartKey !== undefined) {
+    output.writeFieldBegin('initialStartKey', Thrift.Type.MAP, 14);
+    output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRUCT, Thrift.objectLength(this.initialStartKey));
+    for (var kiter276 in this.initialStartKey)
+    {
+      if (this.initialStartKey.hasOwnProperty(kiter276))
+      {
+        var viter277 = this.initialStartKey[kiter276];
+        output.writeString(kiter276);
+        viter277.write(output);
+      }
+    }
+    output.writeMapEnd();
+    output.writeFieldEnd();
+  }
   output.writeFieldStop();
   output.writeStructEnd();
   return;
@@ -3293,6 +3372,7 @@ ScanResult = function(args) {
   this.nextStartKey = null;
   this.records = null;
   this.throttled = null;
+  this.nextSplitIndex = null;
   if (args) {
     if (args.nextStartKey !== undefined) {
       this.nextStartKey = args.nextStartKey;
@@ -3302,6 +3382,9 @@ ScanResult = function(args) {
     }
     if (args.throttled !== undefined) {
       this.throttled = args.throttled;
+    }
+    if (args.nextSplitIndex !== undefined) {
+      this.nextSplitIndex = args.nextSplitIndex;
     }
   }
 };
@@ -3321,28 +3404,28 @@ ScanResult.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.MAP) {
-        var _size268 = 0;
-        var _rtmp3272;
+        var _size278 = 0;
+        var _rtmp3282;
         this.nextStartKey = {};
-        var _ktype269 = 0;
-        var _vtype270 = 0;
-        _rtmp3272 = input.readMapBegin();
-        _ktype269 = _rtmp3272.ktype;
-        _vtype270 = _rtmp3272.vtype;
-        _size268 = _rtmp3272.size;
-        for (var _i273 = 0; _i273 < _size268; ++_i273)
+        var _ktype279 = 0;
+        var _vtype280 = 0;
+        _rtmp3282 = input.readMapBegin();
+        _ktype279 = _rtmp3282.ktype;
+        _vtype280 = _rtmp3282.vtype;
+        _size278 = _rtmp3282.size;
+        for (var _i283 = 0; _i283 < _size278; ++_i283)
         {
-          if (_i273 > 0 ) {
+          if (_i283 > 0 ) {
             if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
               input.rstack.pop();
             }
           }
-          var key274 = null;
-          var val275 = null;
-          key274 = input.readString().value;
-          val275 = new Datum();
-          val275.read(input);
-          this.nextStartKey[key274] = val275;
+          var key284 = null;
+          var val285 = null;
+          key284 = input.readString().value;
+          val285 = new Datum();
+          val285.read(input);
+          this.nextStartKey[key284] = val285;
         }
         input.readMapEnd();
       } else {
@@ -3351,41 +3434,41 @@ ScanResult.prototype.read = function(input) {
       break;
       case 2:
       if (ftype == Thrift.Type.LIST) {
-        var _size276 = 0;
-        var _rtmp3280;
+        var _size286 = 0;
+        var _rtmp3290;
         this.records = [];
-        var _etype279 = 0;
-        _rtmp3280 = input.readListBegin();
-        _etype279 = _rtmp3280.etype;
-        _size276 = _rtmp3280.size;
-        for (var _i281 = 0; _i281 < _size276; ++_i281)
+        var _etype289 = 0;
+        _rtmp3290 = input.readListBegin();
+        _etype289 = _rtmp3290.etype;
+        _size286 = _rtmp3290.size;
+        for (var _i291 = 0; _i291 < _size286; ++_i291)
         {
-          var elem282 = null;
-          var _size283 = 0;
-          var _rtmp3287;
-          elem282 = {};
-          var _ktype284 = 0;
-          var _vtype285 = 0;
-          _rtmp3287 = input.readMapBegin();
-          _ktype284 = _rtmp3287.ktype;
-          _vtype285 = _rtmp3287.vtype;
-          _size283 = _rtmp3287.size;
-          for (var _i288 = 0; _i288 < _size283; ++_i288)
+          var elem292 = null;
+          var _size293 = 0;
+          var _rtmp3297;
+          elem292 = {};
+          var _ktype294 = 0;
+          var _vtype295 = 0;
+          _rtmp3297 = input.readMapBegin();
+          _ktype294 = _rtmp3297.ktype;
+          _vtype295 = _rtmp3297.vtype;
+          _size293 = _rtmp3297.size;
+          for (var _i298 = 0; _i298 < _size293; ++_i298)
           {
-            if (_i288 > 0 ) {
+            if (_i298 > 0 ) {
               if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
                 input.rstack.pop();
               }
             }
-            var key289 = null;
-            var val290 = null;
-            key289 = input.readString().value;
-            val290 = new Datum();
-            val290.read(input);
-            elem282[key289] = val290;
+            var key299 = null;
+            var val300 = null;
+            key299 = input.readString().value;
+            val300 = new Datum();
+            val300.read(input);
+            elem292[key299] = val300;
           }
           input.readMapEnd();
-          this.records.push(elem282);
+          this.records.push(elem292);
         }
         input.readListEnd();
       } else {
@@ -3395,6 +3478,13 @@ ScanResult.prototype.read = function(input) {
       case 3:
       if (ftype == Thrift.Type.BOOL) {
         this.throttled = input.readBool().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 4:
+      if (ftype == Thrift.Type.I32) {
+        this.nextSplitIndex = input.readI32().value;
       } else {
         input.skip(ftype);
       }
@@ -3413,13 +3503,13 @@ ScanResult.prototype.write = function(output) {
   if (this.nextStartKey !== null && this.nextStartKey !== undefined) {
     output.writeFieldBegin('nextStartKey', Thrift.Type.MAP, 1);
     output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRUCT, Thrift.objectLength(this.nextStartKey));
-    for (var kiter291 in this.nextStartKey)
+    for (var kiter301 in this.nextStartKey)
     {
-      if (this.nextStartKey.hasOwnProperty(kiter291))
+      if (this.nextStartKey.hasOwnProperty(kiter301))
       {
-        var viter292 = this.nextStartKey[kiter291];
-        output.writeString(kiter291);
-        viter292.write(output);
+        var viter302 = this.nextStartKey[kiter301];
+        output.writeString(kiter301);
+        viter302.write(output);
       }
     }
     output.writeMapEnd();
@@ -3428,19 +3518,19 @@ ScanResult.prototype.write = function(output) {
   if (this.records !== null && this.records !== undefined) {
     output.writeFieldBegin('records', Thrift.Type.LIST, 2);
     output.writeListBegin(Thrift.Type.MAP, this.records.length);
-    for (var iter293 in this.records)
+    for (var iter303 in this.records)
     {
-      if (this.records.hasOwnProperty(iter293))
+      if (this.records.hasOwnProperty(iter303))
       {
-        iter293 = this.records[iter293];
-        output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRUCT, Thrift.objectLength(iter293));
-        for (var kiter294 in iter293)
+        iter303 = this.records[iter303];
+        output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRUCT, Thrift.objectLength(iter303));
+        for (var kiter304 in iter303)
         {
-          if (iter293.hasOwnProperty(kiter294))
+          if (iter303.hasOwnProperty(kiter304))
           {
-            var viter295 = iter293[kiter294];
-            output.writeString(kiter294);
-            viter295.write(output);
+            var viter305 = iter303[kiter304];
+            output.writeString(kiter304);
+            viter305.write(output);
           }
         }
         output.writeMapEnd();
@@ -3452,6 +3542,11 @@ ScanResult.prototype.write = function(output) {
   if (this.throttled !== null && this.throttled !== undefined) {
     output.writeFieldBegin('throttled', Thrift.Type.BOOL, 3);
     output.writeBool(this.throttled);
+    output.writeFieldEnd();
+  }
+  if (this.nextSplitIndex !== null && this.nextSplitIndex !== undefined) {
+    output.writeFieldBegin('nextSplitIndex', Thrift.Type.I32, 4);
+    output.writeI32(this.nextSplitIndex);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -3756,19 +3851,19 @@ BatchRequest.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.LIST) {
-        var _size296 = 0;
-        var _rtmp3300;
+        var _size306 = 0;
+        var _rtmp3310;
         this.items = [];
-        var _etype299 = 0;
-        _rtmp3300 = input.readListBegin();
-        _etype299 = _rtmp3300.etype;
-        _size296 = _rtmp3300.size;
-        for (var _i301 = 0; _i301 < _size296; ++_i301)
+        var _etype309 = 0;
+        _rtmp3310 = input.readListBegin();
+        _etype309 = _rtmp3310.etype;
+        _size306 = _rtmp3310.size;
+        for (var _i311 = 0; _i311 < _size306; ++_i311)
         {
-          var elem302 = null;
-          elem302 = new BatchRequestItem();
-          elem302.read(input);
-          this.items.push(elem302);
+          var elem312 = null;
+          elem312 = new BatchRequestItem();
+          elem312.read(input);
+          this.items.push(elem312);
         }
         input.readListEnd();
       } else {
@@ -3792,12 +3887,12 @@ BatchRequest.prototype.write = function(output) {
   if (this.items !== null && this.items !== undefined) {
     output.writeFieldBegin('items', Thrift.Type.LIST, 1);
     output.writeListBegin(Thrift.Type.STRUCT, this.items.length);
-    for (var iter303 in this.items)
+    for (var iter313 in this.items)
     {
-      if (this.items.hasOwnProperty(iter303))
+      if (this.items.hasOwnProperty(iter313))
       {
-        iter303 = this.items[iter303];
-        iter303.write(output);
+        iter313 = this.items[iter313];
+        iter313.write(output);
       }
     }
     output.writeListEnd();
@@ -3832,19 +3927,19 @@ BatchResult.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.LIST) {
-        var _size304 = 0;
-        var _rtmp3308;
+        var _size314 = 0;
+        var _rtmp3318;
         this.items = [];
-        var _etype307 = 0;
-        _rtmp3308 = input.readListBegin();
-        _etype307 = _rtmp3308.etype;
-        _size304 = _rtmp3308.size;
-        for (var _i309 = 0; _i309 < _size304; ++_i309)
+        var _etype317 = 0;
+        _rtmp3318 = input.readListBegin();
+        _etype317 = _rtmp3318.etype;
+        _size314 = _rtmp3318.size;
+        for (var _i319 = 0; _i319 < _size314; ++_i319)
         {
-          var elem310 = null;
-          elem310 = new BatchResultItem();
-          elem310.read(input);
-          this.items.push(elem310);
+          var elem320 = null;
+          elem320 = new BatchResultItem();
+          elem320.read(input);
+          this.items.push(elem320);
         }
         input.readListEnd();
       } else {
@@ -3868,12 +3963,12 @@ BatchResult.prototype.write = function(output) {
   if (this.items !== null && this.items !== undefined) {
     output.writeFieldBegin('items', Thrift.Type.LIST, 1);
     output.writeListBegin(Thrift.Type.STRUCT, this.items.length);
-    for (var iter311 in this.items)
+    for (var iter321 in this.items)
     {
-      if (this.items.hasOwnProperty(iter311))
+      if (this.items.hasOwnProperty(iter321))
       {
-        iter311 = this.items[iter311];
-        iter311.write(output);
+        iter321 = this.items[iter321];
+        iter321.write(output);
       }
     }
     output.writeListEnd();

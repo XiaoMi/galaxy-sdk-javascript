@@ -5,6 +5,12 @@
 //
 
 
+ClientMetricType = {
+  'Letency' : 1
+};
+LatencyMetricType = {
+  'ExecutionTime' : 1
+};
 MetricKey = {
   'METER_METRIC_MIN' : 0,
   'READ_ALLOWED' : 1,
@@ -227,6 +233,180 @@ AppInfo.prototype.write = function(output) {
   return;
 };
 
+MetricData = function(args) {
+  this.clientMetricType = null;
+  this.metricName = null;
+  this.value = null;
+  this.timeStamp = null;
+  if (args) {
+    if (args.clientMetricType !== undefined) {
+      this.clientMetricType = args.clientMetricType;
+    }
+    if (args.metricName !== undefined) {
+      this.metricName = args.metricName;
+    }
+    if (args.value !== undefined) {
+      this.value = args.value;
+    }
+    if (args.timeStamp !== undefined) {
+      this.timeStamp = args.timeStamp;
+    }
+  }
+};
+MetricData.prototype = {};
+MetricData.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.I32) {
+        this.clientMetricType = input.readI32().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.STRING) {
+        this.metricName = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 3:
+      if (ftype == Thrift.Type.I64) {
+        this.value = input.readI64().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 4:
+      if (ftype == Thrift.Type.I64) {
+        this.timeStamp = input.readI64().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+MetricData.prototype.write = function(output) {
+  output.writeStructBegin('MetricData');
+  if (this.clientMetricType !== null && this.clientMetricType !== undefined) {
+    output.writeFieldBegin('clientMetricType', Thrift.Type.I32, 1);
+    output.writeI32(this.clientMetricType);
+    output.writeFieldEnd();
+  }
+  if (this.metricName !== null && this.metricName !== undefined) {
+    output.writeFieldBegin('metricName', Thrift.Type.STRING, 2);
+    output.writeString(this.metricName);
+    output.writeFieldEnd();
+  }
+  if (this.value !== null && this.value !== undefined) {
+    output.writeFieldBegin('value', Thrift.Type.I64, 3);
+    output.writeI64(this.value);
+    output.writeFieldEnd();
+  }
+  if (this.timeStamp !== null && this.timeStamp !== undefined) {
+    output.writeFieldBegin('timeStamp', Thrift.Type.I64, 4);
+    output.writeI64(this.timeStamp);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+ClientMetrics = function(args) {
+  this.metricDataList = null;
+  if (args) {
+    if (args.metricDataList !== undefined) {
+      this.metricDataList = args.metricDataList;
+    }
+  }
+};
+ClientMetrics.prototype = {};
+ClientMetrics.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.LIST) {
+        var _size20 = 0;
+        var _rtmp324;
+        this.metricDataList = [];
+        var _etype23 = 0;
+        _rtmp324 = input.readListBegin();
+        _etype23 = _rtmp324.etype;
+        _size20 = _rtmp324.size;
+        for (var _i25 = 0; _i25 < _size20; ++_i25)
+        {
+          var elem26 = null;
+          elem26 = new MetricData();
+          elem26.read(input);
+          this.metricDataList.push(elem26);
+        }
+        input.readListEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+ClientMetrics.prototype.write = function(output) {
+  output.writeStructBegin('ClientMetrics');
+  if (this.metricDataList !== null && this.metricDataList !== undefined) {
+    output.writeFieldBegin('metricDataList', Thrift.Type.LIST, 1);
+    output.writeListBegin(Thrift.Type.STRUCT, this.metricDataList.length);
+    for (var iter27 in this.metricDataList)
+    {
+      if (this.metricDataList.hasOwnProperty(iter27))
+      {
+        iter27 = this.metricDataList[iter27];
+        iter27.write(output);
+      }
+    }
+    output.writeListEnd();
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
 MetricQueryRequest = function(args) {
   this.tableName = null;
   this.startTime = null;
@@ -430,27 +610,27 @@ TimeSeriesData.prototype.read = function(input) {
       break;
       case 4:
       if (ftype == Thrift.Type.MAP) {
-        var _size20 = 0;
-        var _rtmp324;
+        var _size28 = 0;
+        var _rtmp332;
         this.data = {};
-        var _ktype21 = 0;
-        var _vtype22 = 0;
-        _rtmp324 = input.readMapBegin();
-        _ktype21 = _rtmp324.ktype;
-        _vtype22 = _rtmp324.vtype;
-        _size20 = _rtmp324.size;
-        for (var _i25 = 0; _i25 < _size20; ++_i25)
+        var _ktype29 = 0;
+        var _vtype30 = 0;
+        _rtmp332 = input.readMapBegin();
+        _ktype29 = _rtmp332.ktype;
+        _vtype30 = _rtmp332.vtype;
+        _size28 = _rtmp332.size;
+        for (var _i33 = 0; _i33 < _size28; ++_i33)
         {
-          if (_i25 > 0 ) {
+          if (_i33 > 0 ) {
             if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
               input.rstack.pop();
             }
           }
-          var key26 = null;
-          var val27 = null;
-          key26 = input.readI64().value;
-          val27 = input.readDouble().value;
-          this.data[key26] = val27;
+          var key34 = null;
+          var val35 = null;
+          key34 = input.readI64().value;
+          val35 = input.readDouble().value;
+          this.data[key34] = val35;
         }
         input.readMapEnd();
       } else {
@@ -486,13 +666,13 @@ TimeSeriesData.prototype.write = function(output) {
   if (this.data !== null && this.data !== undefined) {
     output.writeFieldBegin('data', Thrift.Type.MAP, 4);
     output.writeMapBegin(Thrift.Type.I64, Thrift.Type.DOUBLE, Thrift.objectLength(this.data));
-    for (var kiter28 in this.data)
+    for (var kiter36 in this.data)
     {
-      if (this.data.hasOwnProperty(kiter28))
+      if (this.data.hasOwnProperty(kiter36))
       {
-        var viter29 = this.data[kiter28];
-        output.writeI64(kiter28);
-        output.writeDouble(viter29);
+        var viter37 = this.data[kiter36];
+        output.writeI64(kiter36);
+        output.writeDouble(viter37);
       }
     }
     output.writeMapEnd();

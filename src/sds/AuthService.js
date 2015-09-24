@@ -8,18 +8,10 @@
 //HELPER FUNCTIONS AND STRUCTURES
 
 AuthService_createCredential_args = function(args) {
-  this.xiaomiAppId = null;
-  this.appUserAuthProvider = null;
-  this.authToken = null;
+  this.oauthInfo = null;
   if (args) {
-    if (args.xiaomiAppId !== undefined) {
-      this.xiaomiAppId = args.xiaomiAppId;
-    }
-    if (args.appUserAuthProvider !== undefined) {
-      this.appUserAuthProvider = args.appUserAuthProvider;
-    }
-    if (args.authToken !== undefined) {
-      this.authToken = args.authToken;
+    if (args.oauthInfo !== undefined) {
+      this.oauthInfo = args.oauthInfo;
     }
   }
 };
@@ -38,26 +30,16 @@ AuthService_createCredential_args.prototype.read = function(input) {
     switch (fid)
     {
       case 1:
-      if (ftype == Thrift.Type.STRING) {
-        this.xiaomiAppId = input.readString().value;
+      if (ftype == Thrift.Type.STRUCT) {
+        this.oauthInfo = new OAuthInfo();
+        this.oauthInfo.read(input);
       } else {
         input.skip(ftype);
       }
       break;
-      case 2:
-      if (ftype == Thrift.Type.I32) {
-        this.appUserAuthProvider = input.readI32().value;
-      } else {
+      case 0:
         input.skip(ftype);
-      }
-      break;
-      case 3:
-      if (ftype == Thrift.Type.STRING) {
-        this.authToken = input.readString().value;
-      } else {
-        input.skip(ftype);
-      }
-      break;
+        break;
       default:
         input.skip(ftype);
     }
@@ -69,19 +51,9 @@ AuthService_createCredential_args.prototype.read = function(input) {
 
 AuthService_createCredential_args.prototype.write = function(output) {
   output.writeStructBegin('AuthService_createCredential_args');
-  if (this.xiaomiAppId !== null && this.xiaomiAppId !== undefined) {
-    output.writeFieldBegin('xiaomiAppId', Thrift.Type.STRING, 1);
-    output.writeString(this.xiaomiAppId);
-    output.writeFieldEnd();
-  }
-  if (this.appUserAuthProvider !== null && this.appUserAuthProvider !== undefined) {
-    output.writeFieldBegin('appUserAuthProvider', Thrift.Type.I32, 2);
-    output.writeI32(this.appUserAuthProvider);
-    output.writeFieldEnd();
-  }
-  if (this.authToken !== null && this.authToken !== undefined) {
-    output.writeFieldBegin('authToken', Thrift.Type.STRING, 3);
-    output.writeString(this.authToken);
+  if (this.oauthInfo !== null && this.oauthInfo !== undefined) {
+    output.writeFieldBegin('oauthInfo', Thrift.Type.STRUCT, 1);
+    this.oauthInfo.write(output);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -167,23 +139,21 @@ AuthServiceClient = function(input, output) {
     this.seqid = 0;
 };
 Thrift.inherits(AuthServiceClient, BaseServiceClient);
-AuthServiceClient.prototype.createCredential = function(xiaomiAppId, appUserAuthProvider, authToken, callback) {
+AuthServiceClient.prototype.createCredential = function(oauthInfo, callback) {
   if (callback === undefined) {
-    this.send_createCredential(xiaomiAppId, appUserAuthProvider, authToken);
+    this.send_createCredential(oauthInfo);
     return this.recv_createCredential();
   } else {
-    var postData = this.send_createCredential(xiaomiAppId, appUserAuthProvider, authToken, true);
+    var postData = this.send_createCredential(oauthInfo, true);
     return this.output.getTransport()
       .jqRequest(this, postData, arguments, this.recv_createCredential);
   }
 };
 
-AuthServiceClient.prototype.send_createCredential = function(xiaomiAppId, appUserAuthProvider, authToken, callback) {
+AuthServiceClient.prototype.send_createCredential = function(oauthInfo, callback) {
   this.output.writeMessageBegin('createCredential', Thrift.MessageType.CALL, this.seqid);
   var args = new AuthService_createCredential_args();
-  args.xiaomiAppId = xiaomiAppId;
-  args.appUserAuthProvider = appUserAuthProvider;
-  args.authToken = authToken;
+  args.oauthInfo = oauthInfo;
   args.write(this.output);
   this.output.writeMessageEnd();
   return this.output.getTransport().flush(callback);

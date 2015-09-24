@@ -304,19 +304,19 @@ AdminService_findAllApps_result.prototype.read = function(input) {
     {
       case 0:
       if (ftype == Thrift.Type.LIST) {
-        var _size30 = 0;
-        var _rtmp334;
+        var _size38 = 0;
+        var _rtmp342;
         this.success = [];
-        var _etype33 = 0;
-        _rtmp334 = input.readListBegin();
-        _etype33 = _rtmp334.etype;
-        _size30 = _rtmp334.size;
-        for (var _i35 = 0; _i35 < _size30; ++_i35)
+        var _etype41 = 0;
+        _rtmp342 = input.readListBegin();
+        _etype41 = _rtmp342.etype;
+        _size38 = _rtmp342.size;
+        for (var _i43 = 0; _i43 < _size38; ++_i43)
         {
-          var elem36 = null;
-          elem36 = new AppInfo();
-          elem36.read(input);
-          this.success.push(elem36);
+          var elem44 = null;
+          elem44 = new AppInfo();
+          elem44.read(input);
+          this.success.push(elem44);
         }
         input.readListEnd();
       } else {
@@ -345,12 +345,12 @@ AdminService_findAllApps_result.prototype.write = function(output) {
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
     output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
-    for (var iter37 in this.success)
+    for (var iter45 in this.success)
     {
-      if (this.success.hasOwnProperty(iter37))
+      if (this.success.hasOwnProperty(iter45))
       {
-        iter37 = this.success[iter37];
-        iter37.write(output);
+        iter45 = this.success[iter45];
+        iter45.write(output);
       }
     }
     output.writeListEnd();
@@ -426,19 +426,19 @@ AdminService_findAllTables_result.prototype.read = function(input) {
     {
       case 0:
       if (ftype == Thrift.Type.LIST) {
-        var _size38 = 0;
-        var _rtmp342;
+        var _size46 = 0;
+        var _rtmp350;
         this.success = [];
-        var _etype41 = 0;
-        _rtmp342 = input.readListBegin();
-        _etype41 = _rtmp342.etype;
-        _size38 = _rtmp342.size;
-        for (var _i43 = 0; _i43 < _size38; ++_i43)
+        var _etype49 = 0;
+        _rtmp350 = input.readListBegin();
+        _etype49 = _rtmp350.etype;
+        _size46 = _rtmp350.size;
+        for (var _i51 = 0; _i51 < _size46; ++_i51)
         {
-          var elem44 = null;
-          elem44 = new TableInfo();
-          elem44.read(input);
-          this.success.push(elem44);
+          var elem52 = null;
+          elem52 = new TableInfo();
+          elem52.read(input);
+          this.success.push(elem52);
         }
         input.readListEnd();
       } else {
@@ -467,133 +467,12 @@ AdminService_findAllTables_result.prototype.write = function(output) {
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
     output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
-    for (var iter45 in this.success)
-    {
-      if (this.success.hasOwnProperty(iter45))
-      {
-        iter45 = this.success[iter45];
-        iter45.write(output);
-      }
-    }
-    output.writeListEnd();
-    output.writeFieldEnd();
-  }
-  if (this.se !== null && this.se !== undefined) {
-    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
-    this.se.write(output);
-    output.writeFieldEnd();
-  }
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
-};
-
-AdminService_cleanAllLazyDroppedTables_args = function(args) {
-};
-AdminService_cleanAllLazyDroppedTables_args.prototype = {};
-AdminService_cleanAllLazyDroppedTables_args.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true)
-  {
-    var ret = input.readFieldBegin();
-    var fname = ret.fname;
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
-    }
-    input.skip(ftype);
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
-};
-
-AdminService_cleanAllLazyDroppedTables_args.prototype.write = function(output) {
-  output.writeStructBegin('AdminService_cleanAllLazyDroppedTables_args');
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
-};
-
-AdminService_cleanAllLazyDroppedTables_result = function(args) {
-  this.success = null;
-  this.se = null;
-  if (args instanceof ServiceException) {
-    this.se = args;
-    return;
-  }
-  if (args) {
-    if (args.success !== undefined) {
-      this.success = args.success;
-    }
-    if (args.se !== undefined) {
-      this.se = args.se;
-    }
-  }
-};
-AdminService_cleanAllLazyDroppedTables_result.prototype = {};
-AdminService_cleanAllLazyDroppedTables_result.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true)
-  {
-    var ret = input.readFieldBegin();
-    var fname = ret.fname;
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 0:
-      if (ftype == Thrift.Type.LIST) {
-        var _size46 = 0;
-        var _rtmp350;
-        this.success = [];
-        var _etype49 = 0;
-        _rtmp350 = input.readListBegin();
-        _etype49 = _rtmp350.etype;
-        _size46 = _rtmp350.size;
-        for (var _i51 = 0; _i51 < _size46; ++_i51)
-        {
-          var elem52 = null;
-          elem52 = input.readString().value;
-          this.success.push(elem52);
-        }
-        input.readListEnd();
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 1:
-      if (ftype == Thrift.Type.STRUCT) {
-        this.se = new ServiceException();
-        this.se.read(input);
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      default:
-        input.skip(ftype);
-    }
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
-};
-
-AdminService_cleanAllLazyDroppedTables_result.prototype.write = function(output) {
-  output.writeStructBegin('AdminService_cleanAllLazyDroppedTables_result');
-  if (this.success !== null && this.success !== undefined) {
-    output.writeFieldBegin('success', Thrift.Type.LIST, 0);
-    output.writeListBegin(Thrift.Type.STRING, this.success.length);
     for (var iter53 in this.success)
     {
       if (this.success.hasOwnProperty(iter53))
       {
         iter53 = this.success[iter53];
-        output.writeString(iter53);
+        iter53.write(output);
       }
     }
     output.writeListEnd();
@@ -859,7 +738,7 @@ AdminService_dropTable_result.prototype.write = function(output) {
   return;
 };
 
-AdminService_restoreTable_args = function(args) {
+AdminService_lazyDropTable_args = function(args) {
   this.tableName = null;
   if (args) {
     if (args.tableName !== undefined) {
@@ -867,8 +746,8 @@ AdminService_restoreTable_args = function(args) {
     }
   }
 };
-AdminService_restoreTable_args.prototype = {};
-AdminService_restoreTable_args.prototype.read = function(input) {
+AdminService_lazyDropTable_args.prototype = {};
+AdminService_lazyDropTable_args.prototype.read = function(input) {
   input.readStructBegin();
   while (true)
   {
@@ -900,8 +779,8 @@ AdminService_restoreTable_args.prototype.read = function(input) {
   return;
 };
 
-AdminService_restoreTable_args.prototype.write = function(output) {
-  output.writeStructBegin('AdminService_restoreTable_args');
+AdminService_lazyDropTable_args.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_lazyDropTable_args');
   if (this.tableName !== null && this.tableName !== undefined) {
     output.writeFieldBegin('tableName', Thrift.Type.STRING, 1);
     output.writeString(this.tableName);
@@ -912,7 +791,7 @@ AdminService_restoreTable_args.prototype.write = function(output) {
   return;
 };
 
-AdminService_restoreTable_result = function(args) {
+AdminService_lazyDropTable_result = function(args) {
   this.se = null;
   if (args instanceof ServiceException) {
     this.se = args;
@@ -924,8 +803,8 @@ AdminService_restoreTable_result = function(args) {
     }
   }
 };
-AdminService_restoreTable_result.prototype = {};
-AdminService_restoreTable_result.prototype.read = function(input) {
+AdminService_lazyDropTable_result.prototype = {};
+AdminService_lazyDropTable_result.prototype.read = function(input) {
   input.readStructBegin();
   while (true)
   {
@@ -958,8 +837,8 @@ AdminService_restoreTable_result.prototype.read = function(input) {
   return;
 };
 
-AdminService_restoreTable_result.prototype.write = function(output) {
-  output.writeStructBegin('AdminService_restoreTable_result');
+AdminService_lazyDropTable_result.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_lazyDropTable_result');
   if (this.se !== null && this.se !== undefined) {
     output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
     this.se.write(output);
@@ -2615,6 +2494,1091 @@ AdminService_getTableSize_result.prototype.write = function(output) {
   return;
 };
 
+AdminService_putClientMetrics_args = function(args) {
+  this.clientMetrics = null;
+  if (args) {
+    if (args.clientMetrics !== undefined) {
+      this.clientMetrics = args.clientMetrics;
+    }
+  }
+};
+AdminService_putClientMetrics_args.prototype = {};
+AdminService_putClientMetrics_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.clientMetrics = new ClientMetrics();
+        this.clientMetrics.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+AdminService_putClientMetrics_args.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_putClientMetrics_args');
+  if (this.clientMetrics !== null && this.clientMetrics !== undefined) {
+    output.writeFieldBegin('clientMetrics', Thrift.Type.STRUCT, 1);
+    this.clientMetrics.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+AdminService_putClientMetrics_result = function(args) {
+  this.se = null;
+  if (args instanceof ServiceException) {
+    this.se = args;
+    return;
+  }
+  if (args) {
+    if (args.se !== undefined) {
+      this.se = args.se;
+    }
+  }
+};
+AdminService_putClientMetrics_result.prototype = {};
+AdminService_putClientMetrics_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.se = new ServiceException();
+        this.se.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+AdminService_putClientMetrics_result.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_putClientMetrics_result');
+  if (this.se !== null && this.se !== undefined) {
+    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
+    this.se.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+AdminService_subscribePhoneAlert_args = function(args) {
+  this.tableName = null;
+  this.phoneNumber = null;
+  if (args) {
+    if (args.tableName !== undefined) {
+      this.tableName = args.tableName;
+    }
+    if (args.phoneNumber !== undefined) {
+      this.phoneNumber = args.phoneNumber;
+    }
+  }
+};
+AdminService_subscribePhoneAlert_args.prototype = {};
+AdminService_subscribePhoneAlert_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.tableName = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.STRING) {
+        this.phoneNumber = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+AdminService_subscribePhoneAlert_args.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_subscribePhoneAlert_args');
+  if (this.tableName !== null && this.tableName !== undefined) {
+    output.writeFieldBegin('tableName', Thrift.Type.STRING, 1);
+    output.writeString(this.tableName);
+    output.writeFieldEnd();
+  }
+  if (this.phoneNumber !== null && this.phoneNumber !== undefined) {
+    output.writeFieldBegin('phoneNumber', Thrift.Type.STRING, 2);
+    output.writeString(this.phoneNumber);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+AdminService_subscribePhoneAlert_result = function(args) {
+  this.se = null;
+  if (args instanceof ServiceException) {
+    this.se = args;
+    return;
+  }
+  if (args) {
+    if (args.se !== undefined) {
+      this.se = args.se;
+    }
+  }
+};
+AdminService_subscribePhoneAlert_result.prototype = {};
+AdminService_subscribePhoneAlert_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.se = new ServiceException();
+        this.se.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+AdminService_subscribePhoneAlert_result.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_subscribePhoneAlert_result');
+  if (this.se !== null && this.se !== undefined) {
+    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
+    this.se.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+AdminService_unsubscribePhoneAlert_args = function(args) {
+  this.tableName = null;
+  this.phoneNumber = null;
+  if (args) {
+    if (args.tableName !== undefined) {
+      this.tableName = args.tableName;
+    }
+    if (args.phoneNumber !== undefined) {
+      this.phoneNumber = args.phoneNumber;
+    }
+  }
+};
+AdminService_unsubscribePhoneAlert_args.prototype = {};
+AdminService_unsubscribePhoneAlert_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.tableName = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.STRING) {
+        this.phoneNumber = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+AdminService_unsubscribePhoneAlert_args.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_unsubscribePhoneAlert_args');
+  if (this.tableName !== null && this.tableName !== undefined) {
+    output.writeFieldBegin('tableName', Thrift.Type.STRING, 1);
+    output.writeString(this.tableName);
+    output.writeFieldEnd();
+  }
+  if (this.phoneNumber !== null && this.phoneNumber !== undefined) {
+    output.writeFieldBegin('phoneNumber', Thrift.Type.STRING, 2);
+    output.writeString(this.phoneNumber);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+AdminService_unsubscribePhoneAlert_result = function(args) {
+  this.se = null;
+  if (args instanceof ServiceException) {
+    this.se = args;
+    return;
+  }
+  if (args) {
+    if (args.se !== undefined) {
+      this.se = args.se;
+    }
+  }
+};
+AdminService_unsubscribePhoneAlert_result.prototype = {};
+AdminService_unsubscribePhoneAlert_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.se = new ServiceException();
+        this.se.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+AdminService_unsubscribePhoneAlert_result.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_unsubscribePhoneAlert_result');
+  if (this.se !== null && this.se !== undefined) {
+    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
+    this.se.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+AdminService_subscribeEmailAlert_args = function(args) {
+  this.tableName = null;
+  this.email = null;
+  if (args) {
+    if (args.tableName !== undefined) {
+      this.tableName = args.tableName;
+    }
+    if (args.email !== undefined) {
+      this.email = args.email;
+    }
+  }
+};
+AdminService_subscribeEmailAlert_args.prototype = {};
+AdminService_subscribeEmailAlert_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.tableName = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.STRING) {
+        this.email = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+AdminService_subscribeEmailAlert_args.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_subscribeEmailAlert_args');
+  if (this.tableName !== null && this.tableName !== undefined) {
+    output.writeFieldBegin('tableName', Thrift.Type.STRING, 1);
+    output.writeString(this.tableName);
+    output.writeFieldEnd();
+  }
+  if (this.email !== null && this.email !== undefined) {
+    output.writeFieldBegin('email', Thrift.Type.STRING, 2);
+    output.writeString(this.email);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+AdminService_subscribeEmailAlert_result = function(args) {
+  this.se = null;
+  if (args instanceof ServiceException) {
+    this.se = args;
+    return;
+  }
+  if (args) {
+    if (args.se !== undefined) {
+      this.se = args.se;
+    }
+  }
+};
+AdminService_subscribeEmailAlert_result.prototype = {};
+AdminService_subscribeEmailAlert_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.se = new ServiceException();
+        this.se.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+AdminService_subscribeEmailAlert_result.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_subscribeEmailAlert_result');
+  if (this.se !== null && this.se !== undefined) {
+    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
+    this.se.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+AdminService_unsubscribeEmailAlert_args = function(args) {
+  this.tableName = null;
+  this.email = null;
+  if (args) {
+    if (args.tableName !== undefined) {
+      this.tableName = args.tableName;
+    }
+    if (args.email !== undefined) {
+      this.email = args.email;
+    }
+  }
+};
+AdminService_unsubscribeEmailAlert_args.prototype = {};
+AdminService_unsubscribeEmailAlert_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.tableName = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.STRING) {
+        this.email = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+AdminService_unsubscribeEmailAlert_args.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_unsubscribeEmailAlert_args');
+  if (this.tableName !== null && this.tableName !== undefined) {
+    output.writeFieldBegin('tableName', Thrift.Type.STRING, 1);
+    output.writeString(this.tableName);
+    output.writeFieldEnd();
+  }
+  if (this.email !== null && this.email !== undefined) {
+    output.writeFieldBegin('email', Thrift.Type.STRING, 2);
+    output.writeString(this.email);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+AdminService_unsubscribeEmailAlert_result = function(args) {
+  this.se = null;
+  if (args instanceof ServiceException) {
+    this.se = args;
+    return;
+  }
+  if (args) {
+    if (args.se !== undefined) {
+      this.se = args.se;
+    }
+  }
+};
+AdminService_unsubscribeEmailAlert_result.prototype = {};
+AdminService_unsubscribeEmailAlert_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.se = new ServiceException();
+        this.se.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+AdminService_unsubscribeEmailAlert_result.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_unsubscribeEmailAlert_result');
+  if (this.se !== null && this.se !== undefined) {
+    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
+    this.se.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+AdminService_listSubscribedPhone_args = function(args) {
+  this.tableName = null;
+  if (args) {
+    if (args.tableName !== undefined) {
+      this.tableName = args.tableName;
+    }
+  }
+};
+AdminService_listSubscribedPhone_args.prototype = {};
+AdminService_listSubscribedPhone_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.tableName = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+AdminService_listSubscribedPhone_args.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_listSubscribedPhone_args');
+  if (this.tableName !== null && this.tableName !== undefined) {
+    output.writeFieldBegin('tableName', Thrift.Type.STRING, 1);
+    output.writeString(this.tableName);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+AdminService_listSubscribedPhone_result = function(args) {
+  this.success = null;
+  this.se = null;
+  if (args instanceof ServiceException) {
+    this.se = args;
+    return;
+  }
+  if (args) {
+    if (args.success !== undefined) {
+      this.success = args.success;
+    }
+    if (args.se !== undefined) {
+      this.se = args.se;
+    }
+  }
+};
+AdminService_listSubscribedPhone_result.prototype = {};
+AdminService_listSubscribedPhone_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+      if (ftype == Thrift.Type.LIST) {
+        var _size106 = 0;
+        var _rtmp3110;
+        this.success = [];
+        var _etype109 = 0;
+        _rtmp3110 = input.readListBegin();
+        _etype109 = _rtmp3110.etype;
+        _size106 = _rtmp3110.size;
+        for (var _i111 = 0; _i111 < _size106; ++_i111)
+        {
+          var elem112 = null;
+          elem112 = input.readString().value;
+          this.success.push(elem112);
+        }
+        input.readListEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.se = new ServiceException();
+        this.se.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+AdminService_listSubscribedPhone_result.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_listSubscribedPhone_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.LIST, 0);
+    output.writeListBegin(Thrift.Type.STRING, this.success.length);
+    for (var iter113 in this.success)
+    {
+      if (this.success.hasOwnProperty(iter113))
+      {
+        iter113 = this.success[iter113];
+        output.writeString(iter113);
+      }
+    }
+    output.writeListEnd();
+    output.writeFieldEnd();
+  }
+  if (this.se !== null && this.se !== undefined) {
+    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
+    this.se.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+AdminService_listSubscribedEmail_args = function(args) {
+  this.tableName = null;
+  if (args) {
+    if (args.tableName !== undefined) {
+      this.tableName = args.tableName;
+    }
+  }
+};
+AdminService_listSubscribedEmail_args.prototype = {};
+AdminService_listSubscribedEmail_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.tableName = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+AdminService_listSubscribedEmail_args.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_listSubscribedEmail_args');
+  if (this.tableName !== null && this.tableName !== undefined) {
+    output.writeFieldBegin('tableName', Thrift.Type.STRING, 1);
+    output.writeString(this.tableName);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+AdminService_listSubscribedEmail_result = function(args) {
+  this.success = null;
+  this.se = null;
+  if (args instanceof ServiceException) {
+    this.se = args;
+    return;
+  }
+  if (args) {
+    if (args.success !== undefined) {
+      this.success = args.success;
+    }
+    if (args.se !== undefined) {
+      this.se = args.se;
+    }
+  }
+};
+AdminService_listSubscribedEmail_result.prototype = {};
+AdminService_listSubscribedEmail_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+      if (ftype == Thrift.Type.LIST) {
+        var _size114 = 0;
+        var _rtmp3118;
+        this.success = [];
+        var _etype117 = 0;
+        _rtmp3118 = input.readListBegin();
+        _etype117 = _rtmp3118.etype;
+        _size114 = _rtmp3118.size;
+        for (var _i119 = 0; _i119 < _size114; ++_i119)
+        {
+          var elem120 = null;
+          elem120 = input.readString().value;
+          this.success.push(elem120);
+        }
+        input.readListEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.se = new ServiceException();
+        this.se.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+AdminService_listSubscribedEmail_result.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_listSubscribedEmail_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.LIST, 0);
+    output.writeListBegin(Thrift.Type.STRING, this.success.length);
+    for (var iter121 in this.success)
+    {
+      if (this.success.hasOwnProperty(iter121))
+      {
+        iter121 = this.success[iter121];
+        output.writeString(iter121);
+      }
+    }
+    output.writeListEnd();
+    output.writeFieldEnd();
+  }
+  if (this.se !== null && this.se !== undefined) {
+    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
+    this.se.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+AdminService_getTableHistorySize_args = function(args) {
+  this.tableName = null;
+  this.startDate = null;
+  this.stopDate = null;
+  if (args) {
+    if (args.tableName !== undefined) {
+      this.tableName = args.tableName;
+    }
+    if (args.startDate !== undefined) {
+      this.startDate = args.startDate;
+    }
+    if (args.stopDate !== undefined) {
+      this.stopDate = args.stopDate;
+    }
+  }
+};
+AdminService_getTableHistorySize_args.prototype = {};
+AdminService_getTableHistorySize_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.tableName = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.I64) {
+        this.startDate = input.readI64().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 3:
+      if (ftype == Thrift.Type.I64) {
+        this.stopDate = input.readI64().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+AdminService_getTableHistorySize_args.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_getTableHistorySize_args');
+  if (this.tableName !== null && this.tableName !== undefined) {
+    output.writeFieldBegin('tableName', Thrift.Type.STRING, 1);
+    output.writeString(this.tableName);
+    output.writeFieldEnd();
+  }
+  if (this.startDate !== null && this.startDate !== undefined) {
+    output.writeFieldBegin('startDate', Thrift.Type.I64, 2);
+    output.writeI64(this.startDate);
+    output.writeFieldEnd();
+  }
+  if (this.stopDate !== null && this.stopDate !== undefined) {
+    output.writeFieldBegin('stopDate', Thrift.Type.I64, 3);
+    output.writeI64(this.stopDate);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+AdminService_getTableHistorySize_result = function(args) {
+  this.success = null;
+  this.se = null;
+  if (args instanceof ServiceException) {
+    this.se = args;
+    return;
+  }
+  if (args) {
+    if (args.success !== undefined) {
+      this.success = args.success;
+    }
+    if (args.se !== undefined) {
+      this.se = args.se;
+    }
+  }
+};
+AdminService_getTableHistorySize_result.prototype = {};
+AdminService_getTableHistorySize_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+      if (ftype == Thrift.Type.MAP) {
+        var _size122 = 0;
+        var _rtmp3126;
+        this.success = {};
+        var _ktype123 = 0;
+        var _vtype124 = 0;
+        _rtmp3126 = input.readMapBegin();
+        _ktype123 = _rtmp3126.ktype;
+        _vtype124 = _rtmp3126.vtype;
+        _size122 = _rtmp3126.size;
+        for (var _i127 = 0; _i127 < _size122; ++_i127)
+        {
+          if (_i127 > 0 ) {
+            if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
+              input.rstack.pop();
+            }
+          }
+          var key128 = null;
+          var val129 = null;
+          key128 = input.readI64().value;
+          val129 = input.readI64().value;
+          this.success[key128] = val129;
+        }
+        input.readMapEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.se = new ServiceException();
+        this.se.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+AdminService_getTableHistorySize_result.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_getTableHistorySize_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.MAP, 0);
+    output.writeMapBegin(Thrift.Type.I64, Thrift.Type.I64, Thrift.objectLength(this.success));
+    for (var kiter130 in this.success)
+    {
+      if (this.success.hasOwnProperty(kiter130))
+      {
+        var viter131 = this.success[kiter130];
+        output.writeI64(kiter130);
+        output.writeI64(viter131);
+      }
+    }
+    output.writeMapEnd();
+    output.writeFieldEnd();
+  }
+  if (this.se !== null && this.se !== undefined) {
+    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
+    this.se.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
 AdminServiceClient = function(input, output) {
     this.input = input;
     this.output = (!output) ? input : output;
@@ -2788,48 +3752,6 @@ AdminServiceClient.prototype.recv_findAllTables = function() {
   }
   throw 'findAllTables failed: unknown result';
 };
-AdminServiceClient.prototype.cleanAllLazyDroppedTables = function(callback) {
-  if (callback === undefined) {
-    this.send_cleanAllLazyDroppedTables();
-    return this.recv_cleanAllLazyDroppedTables();
-  } else {
-    var postData = this.send_cleanAllLazyDroppedTables(true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_cleanAllLazyDroppedTables);
-  }
-};
-
-AdminServiceClient.prototype.send_cleanAllLazyDroppedTables = function(callback) {
-  this.output.writeMessageBegin('cleanAllLazyDroppedTables', Thrift.MessageType.CALL, this.seqid);
-  var args = new AdminService_cleanAllLazyDroppedTables_args();
-  args.write(this.output);
-  this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
-};
-
-AdminServiceClient.prototype.recv_cleanAllLazyDroppedTables = function() {
-  var ret = this.input.readMessageBegin();
-  var fname = ret.fname;
-  var mtype = ret.mtype;
-  var rseqid = ret.rseqid;
-  if (mtype == Thrift.MessageType.EXCEPTION) {
-    var x = new Thrift.TApplicationException();
-    x.read(this.input);
-    this.input.readMessageEnd();
-    throw x;
-  }
-  var result = new AdminService_cleanAllLazyDroppedTables_result();
-  result.read(this.input);
-  this.input.readMessageEnd();
-
-  if (null !== result.se) {
-    throw result.se;
-  }
-  if (null !== result.success) {
-    return result.success;
-  }
-  throw 'cleanAllLazyDroppedTables failed: unknown result';
-};
 AdminServiceClient.prototype.createTable = function(tableName, tableSpec, callback) {
   if (callback === undefined) {
     this.send_createTable(tableName, tableSpec);
@@ -2914,27 +3836,27 @@ AdminServiceClient.prototype.recv_dropTable = function() {
   }
   return;
 };
-AdminServiceClient.prototype.restoreTable = function(tableName, callback) {
+AdminServiceClient.prototype.lazyDropTable = function(tableName, callback) {
   if (callback === undefined) {
-    this.send_restoreTable(tableName);
-    this.recv_restoreTable();
+    this.send_lazyDropTable(tableName);
+    this.recv_lazyDropTable();
   } else {
-    var postData = this.send_restoreTable(tableName, true);
+    var postData = this.send_lazyDropTable(tableName, true);
     return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_restoreTable);
+      .jqRequest(this, postData, arguments, this.recv_lazyDropTable);
   }
 };
 
-AdminServiceClient.prototype.send_restoreTable = function(tableName, callback) {
-  this.output.writeMessageBegin('restoreTable', Thrift.MessageType.CALL, this.seqid);
-  var args = new AdminService_restoreTable_args();
+AdminServiceClient.prototype.send_lazyDropTable = function(tableName, callback) {
+  this.output.writeMessageBegin('lazyDropTable', Thrift.MessageType.CALL, this.seqid);
+  var args = new AdminService_lazyDropTable_args();
   args.tableName = tableName;
   args.write(this.output);
   this.output.writeMessageEnd();
   return this.output.getTransport().flush(callback);
 };
 
-AdminServiceClient.prototype.recv_restoreTable = function() {
+AdminServiceClient.prototype.recv_lazyDropTable = function() {
   var ret = this.input.readMessageBegin();
   var fname = ret.fname;
   var mtype = ret.mtype;
@@ -2945,7 +3867,7 @@ AdminServiceClient.prototype.recv_restoreTable = function() {
     this.input.readMessageEnd();
     throw x;
   }
-  var result = new AdminService_restoreTable_result();
+  var result = new AdminService_lazyDropTable_result();
   result.read(this.input);
   this.input.readMessageEnd();
 
@@ -3461,4 +4383,339 @@ AdminServiceClient.prototype.recv_getTableSize = function() {
     return result.success;
   }
   throw 'getTableSize failed: unknown result';
+};
+AdminServiceClient.prototype.putClientMetrics = function(clientMetrics, callback) {
+  if (callback === undefined) {
+    this.send_putClientMetrics(clientMetrics);
+    this.recv_putClientMetrics();
+  } else {
+    var postData = this.send_putClientMetrics(clientMetrics, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_putClientMetrics);
+  }
+};
+
+AdminServiceClient.prototype.send_putClientMetrics = function(clientMetrics, callback) {
+  this.output.writeMessageBegin('putClientMetrics', Thrift.MessageType.CALL, this.seqid);
+  var args = new AdminService_putClientMetrics_args();
+  args.clientMetrics = clientMetrics;
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+AdminServiceClient.prototype.recv_putClientMetrics = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new AdminService_putClientMetrics_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.se) {
+    throw result.se;
+  }
+  return;
+};
+AdminServiceClient.prototype.subscribePhoneAlert = function(tableName, phoneNumber, callback) {
+  if (callback === undefined) {
+    this.send_subscribePhoneAlert(tableName, phoneNumber);
+    this.recv_subscribePhoneAlert();
+  } else {
+    var postData = this.send_subscribePhoneAlert(tableName, phoneNumber, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_subscribePhoneAlert);
+  }
+};
+
+AdminServiceClient.prototype.send_subscribePhoneAlert = function(tableName, phoneNumber, callback) {
+  this.output.writeMessageBegin('subscribePhoneAlert', Thrift.MessageType.CALL, this.seqid);
+  var args = new AdminService_subscribePhoneAlert_args();
+  args.tableName = tableName;
+  args.phoneNumber = phoneNumber;
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+AdminServiceClient.prototype.recv_subscribePhoneAlert = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new AdminService_subscribePhoneAlert_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.se) {
+    throw result.se;
+  }
+  return;
+};
+AdminServiceClient.prototype.unsubscribePhoneAlert = function(tableName, phoneNumber, callback) {
+  if (callback === undefined) {
+    this.send_unsubscribePhoneAlert(tableName, phoneNumber);
+    this.recv_unsubscribePhoneAlert();
+  } else {
+    var postData = this.send_unsubscribePhoneAlert(tableName, phoneNumber, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_unsubscribePhoneAlert);
+  }
+};
+
+AdminServiceClient.prototype.send_unsubscribePhoneAlert = function(tableName, phoneNumber, callback) {
+  this.output.writeMessageBegin('unsubscribePhoneAlert', Thrift.MessageType.CALL, this.seqid);
+  var args = new AdminService_unsubscribePhoneAlert_args();
+  args.tableName = tableName;
+  args.phoneNumber = phoneNumber;
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+AdminServiceClient.prototype.recv_unsubscribePhoneAlert = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new AdminService_unsubscribePhoneAlert_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.se) {
+    throw result.se;
+  }
+  return;
+};
+AdminServiceClient.prototype.subscribeEmailAlert = function(tableName, email, callback) {
+  if (callback === undefined) {
+    this.send_subscribeEmailAlert(tableName, email);
+    this.recv_subscribeEmailAlert();
+  } else {
+    var postData = this.send_subscribeEmailAlert(tableName, email, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_subscribeEmailAlert);
+  }
+};
+
+AdminServiceClient.prototype.send_subscribeEmailAlert = function(tableName, email, callback) {
+  this.output.writeMessageBegin('subscribeEmailAlert', Thrift.MessageType.CALL, this.seqid);
+  var args = new AdminService_subscribeEmailAlert_args();
+  args.tableName = tableName;
+  args.email = email;
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+AdminServiceClient.prototype.recv_subscribeEmailAlert = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new AdminService_subscribeEmailAlert_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.se) {
+    throw result.se;
+  }
+  return;
+};
+AdminServiceClient.prototype.unsubscribeEmailAlert = function(tableName, email, callback) {
+  if (callback === undefined) {
+    this.send_unsubscribeEmailAlert(tableName, email);
+    this.recv_unsubscribeEmailAlert();
+  } else {
+    var postData = this.send_unsubscribeEmailAlert(tableName, email, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_unsubscribeEmailAlert);
+  }
+};
+
+AdminServiceClient.prototype.send_unsubscribeEmailAlert = function(tableName, email, callback) {
+  this.output.writeMessageBegin('unsubscribeEmailAlert', Thrift.MessageType.CALL, this.seqid);
+  var args = new AdminService_unsubscribeEmailAlert_args();
+  args.tableName = tableName;
+  args.email = email;
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+AdminServiceClient.prototype.recv_unsubscribeEmailAlert = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new AdminService_unsubscribeEmailAlert_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.se) {
+    throw result.se;
+  }
+  return;
+};
+AdminServiceClient.prototype.listSubscribedPhone = function(tableName, callback) {
+  if (callback === undefined) {
+    this.send_listSubscribedPhone(tableName);
+    return this.recv_listSubscribedPhone();
+  } else {
+    var postData = this.send_listSubscribedPhone(tableName, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_listSubscribedPhone);
+  }
+};
+
+AdminServiceClient.prototype.send_listSubscribedPhone = function(tableName, callback) {
+  this.output.writeMessageBegin('listSubscribedPhone', Thrift.MessageType.CALL, this.seqid);
+  var args = new AdminService_listSubscribedPhone_args();
+  args.tableName = tableName;
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+AdminServiceClient.prototype.recv_listSubscribedPhone = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new AdminService_listSubscribedPhone_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.se) {
+    throw result.se;
+  }
+  if (null !== result.success) {
+    return result.success;
+  }
+  throw 'listSubscribedPhone failed: unknown result';
+};
+AdminServiceClient.prototype.listSubscribedEmail = function(tableName, callback) {
+  if (callback === undefined) {
+    this.send_listSubscribedEmail(tableName);
+    return this.recv_listSubscribedEmail();
+  } else {
+    var postData = this.send_listSubscribedEmail(tableName, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_listSubscribedEmail);
+  }
+};
+
+AdminServiceClient.prototype.send_listSubscribedEmail = function(tableName, callback) {
+  this.output.writeMessageBegin('listSubscribedEmail', Thrift.MessageType.CALL, this.seqid);
+  var args = new AdminService_listSubscribedEmail_args();
+  args.tableName = tableName;
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+AdminServiceClient.prototype.recv_listSubscribedEmail = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new AdminService_listSubscribedEmail_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.se) {
+    throw result.se;
+  }
+  if (null !== result.success) {
+    return result.success;
+  }
+  throw 'listSubscribedEmail failed: unknown result';
+};
+AdminServiceClient.prototype.getTableHistorySize = function(tableName, startDate, stopDate, callback) {
+  if (callback === undefined) {
+    this.send_getTableHistorySize(tableName, startDate, stopDate);
+    return this.recv_getTableHistorySize();
+  } else {
+    var postData = this.send_getTableHistorySize(tableName, startDate, stopDate, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_getTableHistorySize);
+  }
+};
+
+AdminServiceClient.prototype.send_getTableHistorySize = function(tableName, startDate, stopDate, callback) {
+  this.output.writeMessageBegin('getTableHistorySize', Thrift.MessageType.CALL, this.seqid);
+  var args = new AdminService_getTableHistorySize_args();
+  args.tableName = tableName;
+  args.startDate = startDate;
+  args.stopDate = stopDate;
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+AdminServiceClient.prototype.recv_getTableHistorySize = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new AdminService_getTableHistorySize_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.se) {
+    throw result.se;
+  }
+  if (null !== result.success) {
+    return result.success;
+  }
+  throw 'getTableHistorySize failed: unknown result';
 };
