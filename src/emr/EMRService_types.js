@@ -321,6 +321,314 @@ InstanceTypeInfo.prototype.write = function(output) {
   return;
 };
 
+ApplicationInfo = function(args) {
+  this.name = null;
+  this.version = null;
+  if (args) {
+    if (args.name !== undefined) {
+      this.name = args.name;
+    }
+    if (args.version !== undefined) {
+      this.version = args.version;
+    }
+  }
+};
+ApplicationInfo.prototype = {};
+ApplicationInfo.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.name = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.STRING) {
+        this.version = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+ApplicationInfo.prototype.write = function(output) {
+  output.writeStructBegin('ApplicationInfo');
+  if (this.name !== null && this.name !== undefined) {
+    output.writeFieldBegin('name', Thrift.Type.STRING, 1);
+    output.writeString(this.name);
+    output.writeFieldEnd();
+  }
+  if (this.version !== null && this.version !== undefined) {
+    output.writeFieldBegin('version', Thrift.Type.STRING, 2);
+    output.writeString(this.version);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+ApplicationSuite = function(args) {
+  this.name = null;
+  this.version = null;
+  this.coreApplications = null;
+  this.auxApplications = null;
+  if (args) {
+    if (args.name !== undefined) {
+      this.name = args.name;
+    }
+    if (args.version !== undefined) {
+      this.version = args.version;
+    }
+    if (args.coreApplications !== undefined) {
+      this.coreApplications = args.coreApplications;
+    }
+    if (args.auxApplications !== undefined) {
+      this.auxApplications = args.auxApplications;
+    }
+  }
+};
+ApplicationSuite.prototype = {};
+ApplicationSuite.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.name = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.STRING) {
+        this.version = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 3:
+      if (ftype == Thrift.Type.LIST) {
+        var _size0 = 0;
+        var _rtmp34;
+        this.coreApplications = [];
+        var _etype3 = 0;
+        _rtmp34 = input.readListBegin();
+        _etype3 = _rtmp34.etype;
+        _size0 = _rtmp34.size;
+        for (var _i5 = 0; _i5 < _size0; ++_i5)
+        {
+          var elem6 = null;
+          elem6 = new ApplicationInfo();
+          elem6.read(input);
+          this.coreApplications.push(elem6);
+        }
+        input.readListEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 4:
+      if (ftype == Thrift.Type.LIST) {
+        var _size7 = 0;
+        var _rtmp311;
+        this.auxApplications = [];
+        var _etype10 = 0;
+        _rtmp311 = input.readListBegin();
+        _etype10 = _rtmp311.etype;
+        _size7 = _rtmp311.size;
+        for (var _i12 = 0; _i12 < _size7; ++_i12)
+        {
+          var elem13 = null;
+          elem13 = new ApplicationInfo();
+          elem13.read(input);
+          this.auxApplications.push(elem13);
+        }
+        input.readListEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+ApplicationSuite.prototype.write = function(output) {
+  output.writeStructBegin('ApplicationSuite');
+  if (this.name !== null && this.name !== undefined) {
+    output.writeFieldBegin('name', Thrift.Type.STRING, 1);
+    output.writeString(this.name);
+    output.writeFieldEnd();
+  }
+  if (this.version !== null && this.version !== undefined) {
+    output.writeFieldBegin('version', Thrift.Type.STRING, 2);
+    output.writeString(this.version);
+    output.writeFieldEnd();
+  }
+  if (this.coreApplications !== null && this.coreApplications !== undefined) {
+    output.writeFieldBegin('coreApplications', Thrift.Type.LIST, 3);
+    output.writeListBegin(Thrift.Type.STRUCT, this.coreApplications.length);
+    for (var iter14 in this.coreApplications)
+    {
+      if (this.coreApplications.hasOwnProperty(iter14))
+      {
+        iter14 = this.coreApplications[iter14];
+        iter14.write(output);
+      }
+    }
+    output.writeListEnd();
+    output.writeFieldEnd();
+  }
+  if (this.auxApplications !== null && this.auxApplications !== undefined) {
+    output.writeFieldBegin('auxApplications', Thrift.Type.LIST, 4);
+    output.writeListBegin(Thrift.Type.STRUCT, this.auxApplications.length);
+    for (var iter15 in this.auxApplications)
+    {
+      if (this.auxApplications.hasOwnProperty(iter15))
+      {
+        iter15 = this.auxApplications[iter15];
+        iter15.write(output);
+      }
+    }
+    output.writeListEnd();
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+SSHPublicKey = function(args) {
+  this.title = null;
+  this.content = null;
+  this.figureprint = null;
+  this.addTime = null;
+  if (args) {
+    if (args.title !== undefined) {
+      this.title = args.title;
+    }
+    if (args.content !== undefined) {
+      this.content = args.content;
+    }
+    if (args.figureprint !== undefined) {
+      this.figureprint = args.figureprint;
+    }
+    if (args.addTime !== undefined) {
+      this.addTime = args.addTime;
+    }
+  }
+};
+SSHPublicKey.prototype = {};
+SSHPublicKey.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.title = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.STRING) {
+        this.content = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 3:
+      if (ftype == Thrift.Type.STRING) {
+        this.figureprint = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 4:
+      if (ftype == Thrift.Type.I32) {
+        this.addTime = input.readI32().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+SSHPublicKey.prototype.write = function(output) {
+  output.writeStructBegin('SSHPublicKey');
+  if (this.title !== null && this.title !== undefined) {
+    output.writeFieldBegin('title', Thrift.Type.STRING, 1);
+    output.writeString(this.title);
+    output.writeFieldEnd();
+  }
+  if (this.content !== null && this.content !== undefined) {
+    output.writeFieldBegin('content', Thrift.Type.STRING, 2);
+    output.writeString(this.content);
+    output.writeFieldEnd();
+  }
+  if (this.figureprint !== null && this.figureprint !== undefined) {
+    output.writeFieldBegin('figureprint', Thrift.Type.STRING, 3);
+    output.writeString(this.figureprint);
+    output.writeFieldEnd();
+  }
+  if (this.addTime !== null && this.addTime !== undefined) {
+    output.writeFieldBegin('addTime', Thrift.Type.I32, 4);
+    output.writeI32(this.addTime);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
 EMRUser = function(args) {
   this.developerId = null;
   this.clusterIds = null;
@@ -358,18 +666,18 @@ EMRUser.prototype.read = function(input) {
       break;
       case 2:
       if (ftype == Thrift.Type.LIST) {
-        var _size0 = 0;
-        var _rtmp34;
+        var _size16 = 0;
+        var _rtmp320;
         this.clusterIds = [];
-        var _etype3 = 0;
-        _rtmp34 = input.readListBegin();
-        _etype3 = _rtmp34.etype;
-        _size0 = _rtmp34.size;
-        for (var _i5 = 0; _i5 < _size0; ++_i5)
+        var _etype19 = 0;
+        _rtmp320 = input.readListBegin();
+        _etype19 = _rtmp320.etype;
+        _size16 = _rtmp320.size;
+        for (var _i21 = 0; _i21 < _size16; ++_i21)
         {
-          var elem6 = null;
-          elem6 = input.readString().value;
-          this.clusterIds.push(elem6);
+          var elem22 = null;
+          elem22 = input.readString().value;
+          this.clusterIds.push(elem22);
         }
         input.readListEnd();
       } else {
@@ -395,12 +703,12 @@ EMRUser.prototype.write = function(output) {
   if (this.clusterIds !== null && this.clusterIds !== undefined) {
     output.writeFieldBegin('clusterIds', Thrift.Type.LIST, 2);
     output.writeListBegin(Thrift.Type.STRING, this.clusterIds.length);
-    for (var iter7 in this.clusterIds)
+    for (var iter23 in this.clusterIds)
     {
-      if (this.clusterIds.hasOwnProperty(iter7))
+      if (this.clusterIds.hasOwnProperty(iter23))
       {
-        iter7 = this.clusterIds[iter7];
-        output.writeString(iter7);
+        iter23 = this.clusterIds[iter23];
+        output.writeString(iter23);
       }
     }
     output.writeListEnd();
@@ -693,18 +1001,18 @@ SubmitJobRequest.prototype.read = function(input) {
       break;
       case 5:
       if (ftype == Thrift.Type.LIST) {
-        var _size8 = 0;
-        var _rtmp312;
+        var _size24 = 0;
+        var _rtmp328;
         this.jarArgs = [];
-        var _etype11 = 0;
-        _rtmp312 = input.readListBegin();
-        _etype11 = _rtmp312.etype;
-        _size8 = _rtmp312.size;
-        for (var _i13 = 0; _i13 < _size8; ++_i13)
+        var _etype27 = 0;
+        _rtmp328 = input.readListBegin();
+        _etype27 = _rtmp328.etype;
+        _size24 = _rtmp328.size;
+        for (var _i29 = 0; _i29 < _size24; ++_i29)
         {
-          var elem14 = null;
-          elem14 = input.readString().value;
-          this.jarArgs.push(elem14);
+          var elem30 = null;
+          elem30 = input.readString().value;
+          this.jarArgs.push(elem30);
         }
         input.readListEnd();
       } else {
@@ -713,27 +1021,27 @@ SubmitJobRequest.prototype.read = function(input) {
       break;
       case 6:
       if (ftype == Thrift.Type.MAP) {
-        var _size15 = 0;
-        var _rtmp319;
+        var _size31 = 0;
+        var _rtmp335;
         this.jarProperties = {};
-        var _ktype16 = 0;
-        var _vtype17 = 0;
-        _rtmp319 = input.readMapBegin();
-        _ktype16 = _rtmp319.ktype;
-        _vtype17 = _rtmp319.vtype;
-        _size15 = _rtmp319.size;
-        for (var _i20 = 0; _i20 < _size15; ++_i20)
+        var _ktype32 = 0;
+        var _vtype33 = 0;
+        _rtmp335 = input.readMapBegin();
+        _ktype32 = _rtmp335.ktype;
+        _vtype33 = _rtmp335.vtype;
+        _size31 = _rtmp335.size;
+        for (var _i36 = 0; _i36 < _size31; ++_i36)
         {
-          if (_i20 > 0 ) {
+          if (_i36 > 0 ) {
             if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
               input.rstack.pop();
             }
           }
-          var key21 = null;
-          var val22 = null;
-          key21 = input.readString().value;
-          val22 = input.readString().value;
-          this.jarProperties[key21] = val22;
+          var key37 = null;
+          var val38 = null;
+          key37 = input.readString().value;
+          val38 = input.readString().value;
+          this.jarProperties[key37] = val38;
         }
         input.readMapEnd();
       } else {
@@ -781,12 +1089,12 @@ SubmitJobRequest.prototype.write = function(output) {
   if (this.jarArgs !== null && this.jarArgs !== undefined) {
     output.writeFieldBegin('jarArgs', Thrift.Type.LIST, 5);
     output.writeListBegin(Thrift.Type.STRING, this.jarArgs.length);
-    for (var iter23 in this.jarArgs)
+    for (var iter39 in this.jarArgs)
     {
-      if (this.jarArgs.hasOwnProperty(iter23))
+      if (this.jarArgs.hasOwnProperty(iter39))
       {
-        iter23 = this.jarArgs[iter23];
-        output.writeString(iter23);
+        iter39 = this.jarArgs[iter39];
+        output.writeString(iter39);
       }
     }
     output.writeListEnd();
@@ -795,13 +1103,13 @@ SubmitJobRequest.prototype.write = function(output) {
   if (this.jarProperties !== null && this.jarProperties !== undefined) {
     output.writeFieldBegin('jarProperties', Thrift.Type.MAP, 6);
     output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRING, Thrift.objectLength(this.jarProperties));
-    for (var kiter24 in this.jarProperties)
+    for (var kiter40 in this.jarProperties)
     {
-      if (this.jarProperties.hasOwnProperty(kiter24))
+      if (this.jarProperties.hasOwnProperty(kiter40))
       {
-        var viter25 = this.jarProperties[kiter24];
-        output.writeString(kiter24);
-        output.writeString(viter25);
+        var viter41 = this.jarProperties[kiter40];
+        output.writeString(kiter40);
+        output.writeString(viter41);
       }
     }
     output.writeMapEnd();
@@ -1001,19 +1309,19 @@ CreateClusterRequest.prototype.read = function(input) {
       break;
       case 7:
       if (ftype == Thrift.Type.LIST) {
-        var _size26 = 0;
-        var _rtmp330;
+        var _size42 = 0;
+        var _rtmp346;
         this.addInstanceGroupRequests = [];
-        var _etype29 = 0;
-        _rtmp330 = input.readListBegin();
-        _etype29 = _rtmp330.etype;
-        _size26 = _rtmp330.size;
-        for (var _i31 = 0; _i31 < _size26; ++_i31)
+        var _etype45 = 0;
+        _rtmp346 = input.readListBegin();
+        _etype45 = _rtmp346.etype;
+        _size42 = _rtmp346.size;
+        for (var _i47 = 0; _i47 < _size42; ++_i47)
         {
-          var elem32 = null;
-          elem32 = new AddInstanceGroupRequest();
-          elem32.read(input);
-          this.addInstanceGroupRequests.push(elem32);
+          var elem48 = null;
+          elem48 = new AddInstanceGroupRequest();
+          elem48.read(input);
+          this.addInstanceGroupRequests.push(elem48);
         }
         input.readListEnd();
       } else {
@@ -1022,19 +1330,19 @@ CreateClusterRequest.prototype.read = function(input) {
       break;
       case 8:
       if (ftype == Thrift.Type.LIST) {
-        var _size33 = 0;
-        var _rtmp337;
+        var _size49 = 0;
+        var _rtmp353;
         this.submitJobRequests = [];
-        var _etype36 = 0;
-        _rtmp337 = input.readListBegin();
-        _etype36 = _rtmp337.etype;
-        _size33 = _rtmp337.size;
-        for (var _i38 = 0; _i38 < _size33; ++_i38)
+        var _etype52 = 0;
+        _rtmp353 = input.readListBegin();
+        _etype52 = _rtmp353.etype;
+        _size49 = _rtmp353.size;
+        for (var _i54 = 0; _i54 < _size49; ++_i54)
         {
-          var elem39 = null;
-          elem39 = new SubmitJobRequest();
-          elem39.read(input);
-          this.submitJobRequests.push(elem39);
+          var elem55 = null;
+          elem55 = new SubmitJobRequest();
+          elem55.read(input);
+          this.submitJobRequests.push(elem55);
         }
         input.readListEnd();
       } else {
@@ -1085,12 +1393,12 @@ CreateClusterRequest.prototype.write = function(output) {
   if (this.addInstanceGroupRequests !== null && this.addInstanceGroupRequests !== undefined) {
     output.writeFieldBegin('addInstanceGroupRequests', Thrift.Type.LIST, 7);
     output.writeListBegin(Thrift.Type.STRUCT, this.addInstanceGroupRequests.length);
-    for (var iter40 in this.addInstanceGroupRequests)
+    for (var iter56 in this.addInstanceGroupRequests)
     {
-      if (this.addInstanceGroupRequests.hasOwnProperty(iter40))
+      if (this.addInstanceGroupRequests.hasOwnProperty(iter56))
       {
-        iter40 = this.addInstanceGroupRequests[iter40];
-        iter40.write(output);
+        iter56 = this.addInstanceGroupRequests[iter56];
+        iter56.write(output);
       }
     }
     output.writeListEnd();
@@ -1099,12 +1407,12 @@ CreateClusterRequest.prototype.write = function(output) {
   if (this.submitJobRequests !== null && this.submitJobRequests !== undefined) {
     output.writeFieldBegin('submitJobRequests', Thrift.Type.LIST, 8);
     output.writeListBegin(Thrift.Type.STRUCT, this.submitJobRequests.length);
-    for (var iter41 in this.submitJobRequests)
+    for (var iter57 in this.submitJobRequests)
     {
-      if (this.submitJobRequests.hasOwnProperty(iter41))
+      if (this.submitJobRequests.hasOwnProperty(iter57))
       {
-        iter41 = this.submitJobRequests[iter41];
-        iter41.write(output);
+        iter57 = this.submitJobRequests[iter57];
+        iter57.write(output);
       }
     }
     output.writeListEnd();
@@ -1169,19 +1477,19 @@ CreateClusterResponse.prototype.read = function(input) {
       break;
       case 3:
       if (ftype == Thrift.Type.LIST) {
-        var _size42 = 0;
-        var _rtmp346;
+        var _size58 = 0;
+        var _rtmp362;
         this.addInstanceGroupResponses = [];
-        var _etype45 = 0;
-        _rtmp346 = input.readListBegin();
-        _etype45 = _rtmp346.etype;
-        _size42 = _rtmp346.size;
-        for (var _i47 = 0; _i47 < _size42; ++_i47)
+        var _etype61 = 0;
+        _rtmp362 = input.readListBegin();
+        _etype61 = _rtmp362.etype;
+        _size58 = _rtmp362.size;
+        for (var _i63 = 0; _i63 < _size58; ++_i63)
         {
-          var elem48 = null;
-          elem48 = new AddInstanceGroupResponse();
-          elem48.read(input);
-          this.addInstanceGroupResponses.push(elem48);
+          var elem64 = null;
+          elem64 = new AddInstanceGroupResponse();
+          elem64.read(input);
+          this.addInstanceGroupResponses.push(elem64);
         }
         input.readListEnd();
       } else {
@@ -1190,19 +1498,19 @@ CreateClusterResponse.prototype.read = function(input) {
       break;
       case 4:
       if (ftype == Thrift.Type.LIST) {
-        var _size49 = 0;
-        var _rtmp353;
+        var _size65 = 0;
+        var _rtmp369;
         this.submitJobResponses = [];
-        var _etype52 = 0;
-        _rtmp353 = input.readListBegin();
-        _etype52 = _rtmp353.etype;
-        _size49 = _rtmp353.size;
-        for (var _i54 = 0; _i54 < _size49; ++_i54)
+        var _etype68 = 0;
+        _rtmp369 = input.readListBegin();
+        _etype68 = _rtmp369.etype;
+        _size65 = _rtmp369.size;
+        for (var _i70 = 0; _i70 < _size65; ++_i70)
         {
-          var elem55 = null;
-          elem55 = new SubmitJobResponse();
-          elem55.read(input);
-          this.submitJobResponses.push(elem55);
+          var elem71 = null;
+          elem71 = new SubmitJobResponse();
+          elem71.read(input);
+          this.submitJobResponses.push(elem71);
         }
         input.readListEnd();
       } else {
@@ -1233,12 +1541,12 @@ CreateClusterResponse.prototype.write = function(output) {
   if (this.addInstanceGroupResponses !== null && this.addInstanceGroupResponses !== undefined) {
     output.writeFieldBegin('addInstanceGroupResponses', Thrift.Type.LIST, 3);
     output.writeListBegin(Thrift.Type.STRUCT, this.addInstanceGroupResponses.length);
-    for (var iter56 in this.addInstanceGroupResponses)
+    for (var iter72 in this.addInstanceGroupResponses)
     {
-      if (this.addInstanceGroupResponses.hasOwnProperty(iter56))
+      if (this.addInstanceGroupResponses.hasOwnProperty(iter72))
       {
-        iter56 = this.addInstanceGroupResponses[iter56];
-        iter56.write(output);
+        iter72 = this.addInstanceGroupResponses[iter72];
+        iter72.write(output);
       }
     }
     output.writeListEnd();
@@ -1247,12 +1555,12 @@ CreateClusterResponse.prototype.write = function(output) {
   if (this.submitJobResponses !== null && this.submitJobResponses !== undefined) {
     output.writeFieldBegin('submitJobResponses', Thrift.Type.LIST, 4);
     output.writeListBegin(Thrift.Type.STRUCT, this.submitJobResponses.length);
-    for (var iter57 in this.submitJobResponses)
+    for (var iter73 in this.submitJobResponses)
     {
-      if (this.submitJobResponses.hasOwnProperty(iter57))
+      if (this.submitJobResponses.hasOwnProperty(iter73))
       {
-        iter57 = this.submitJobResponses[iter57];
-        iter57.write(output);
+        iter73 = this.submitJobResponses[iter73];
+        iter73.write(output);
       }
     }
     output.writeListEnd();
@@ -1890,27 +2198,27 @@ ListPermissionResponse.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.MAP) {
-        var _size58 = 0;
-        var _rtmp362;
+        var _size74 = 0;
+        var _rtmp378;
         this.permissions = {};
-        var _ktype59 = 0;
-        var _vtype60 = 0;
-        _rtmp362 = input.readMapBegin();
-        _ktype59 = _rtmp362.ktype;
-        _vtype60 = _rtmp362.vtype;
-        _size58 = _rtmp362.size;
-        for (var _i63 = 0; _i63 < _size58; ++_i63)
+        var _ktype75 = 0;
+        var _vtype76 = 0;
+        _rtmp378 = input.readMapBegin();
+        _ktype75 = _rtmp378.ktype;
+        _vtype76 = _rtmp378.vtype;
+        _size74 = _rtmp378.size;
+        for (var _i79 = 0; _i79 < _size74; ++_i79)
         {
-          if (_i63 > 0 ) {
+          if (_i79 > 0 ) {
             if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
               input.rstack.pop();
             }
           }
-          var key64 = null;
-          var val65 = null;
-          key64 = input.readString().value;
-          val65 = input.readI32().value;
-          this.permissions[key64] = val65;
+          var key80 = null;
+          var val81 = null;
+          key80 = input.readString().value;
+          val81 = input.readI32().value;
+          this.permissions[key80] = val81;
         }
         input.readMapEnd();
       } else {
@@ -1934,16 +2242,884 @@ ListPermissionResponse.prototype.write = function(output) {
   if (this.permissions !== null && this.permissions !== undefined) {
     output.writeFieldBegin('permissions', Thrift.Type.MAP, 1);
     output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.I32, Thrift.objectLength(this.permissions));
-    for (var kiter66 in this.permissions)
+    for (var kiter82 in this.permissions)
     {
-      if (this.permissions.hasOwnProperty(kiter66))
+      if (this.permissions.hasOwnProperty(kiter82))
       {
-        var viter67 = this.permissions[kiter66];
-        output.writeString(kiter66);
-        output.writeI32(viter67);
+        var viter83 = this.permissions[kiter82];
+        output.writeString(kiter82);
+        output.writeI32(viter83);
       }
     }
     output.writeMapEnd();
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+GetSSHPublicKeysRequest = function(args) {
+  this.clusterId = null;
+  if (args) {
+    if (args.clusterId !== undefined) {
+      this.clusterId = args.clusterId;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field clusterId is unset!');
+    }
+  }
+};
+GetSSHPublicKeysRequest.prototype = {};
+GetSSHPublicKeysRequest.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.clusterId = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+GetSSHPublicKeysRequest.prototype.write = function(output) {
+  output.writeStructBegin('GetSSHPublicKeysRequest');
+  if (this.clusterId !== null && this.clusterId !== undefined) {
+    output.writeFieldBegin('clusterId', Thrift.Type.STRING, 1);
+    output.writeString(this.clusterId);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+GetSSHPublicKeysResponse = function(args) {
+  this.clusterId = null;
+  this.publicKeys = null;
+  if (args) {
+    if (args.clusterId !== undefined) {
+      this.clusterId = args.clusterId;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field clusterId is unset!');
+    }
+    if (args.publicKeys !== undefined) {
+      this.publicKeys = args.publicKeys;
+    }
+  }
+};
+GetSSHPublicKeysResponse.prototype = {};
+GetSSHPublicKeysResponse.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.clusterId = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.LIST) {
+        var _size84 = 0;
+        var _rtmp388;
+        this.publicKeys = [];
+        var _etype87 = 0;
+        _rtmp388 = input.readListBegin();
+        _etype87 = _rtmp388.etype;
+        _size84 = _rtmp388.size;
+        for (var _i89 = 0; _i89 < _size84; ++_i89)
+        {
+          var elem90 = null;
+          elem90 = new SSHPublicKey();
+          elem90.read(input);
+          this.publicKeys.push(elem90);
+        }
+        input.readListEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+GetSSHPublicKeysResponse.prototype.write = function(output) {
+  output.writeStructBegin('GetSSHPublicKeysResponse');
+  if (this.clusterId !== null && this.clusterId !== undefined) {
+    output.writeFieldBegin('clusterId', Thrift.Type.STRING, 1);
+    output.writeString(this.clusterId);
+    output.writeFieldEnd();
+  }
+  if (this.publicKeys !== null && this.publicKeys !== undefined) {
+    output.writeFieldBegin('publicKeys', Thrift.Type.LIST, 2);
+    output.writeListBegin(Thrift.Type.STRUCT, this.publicKeys.length);
+    for (var iter91 in this.publicKeys)
+    {
+      if (this.publicKeys.hasOwnProperty(iter91))
+      {
+        iter91 = this.publicKeys[iter91];
+        iter91.write(output);
+      }
+    }
+    output.writeListEnd();
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+AddSSHPublicKeysRequest = function(args) {
+  this.clusterId = null;
+  this.publicKeys = null;
+  if (args) {
+    if (args.clusterId !== undefined) {
+      this.clusterId = args.clusterId;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field clusterId is unset!');
+    }
+    if (args.publicKeys !== undefined) {
+      this.publicKeys = args.publicKeys;
+    }
+  }
+};
+AddSSHPublicKeysRequest.prototype = {};
+AddSSHPublicKeysRequest.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.clusterId = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.LIST) {
+        var _size92 = 0;
+        var _rtmp396;
+        this.publicKeys = [];
+        var _etype95 = 0;
+        _rtmp396 = input.readListBegin();
+        _etype95 = _rtmp396.etype;
+        _size92 = _rtmp396.size;
+        for (var _i97 = 0; _i97 < _size92; ++_i97)
+        {
+          var elem98 = null;
+          elem98 = new SSHPublicKey();
+          elem98.read(input);
+          this.publicKeys.push(elem98);
+        }
+        input.readListEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+AddSSHPublicKeysRequest.prototype.write = function(output) {
+  output.writeStructBegin('AddSSHPublicKeysRequest');
+  if (this.clusterId !== null && this.clusterId !== undefined) {
+    output.writeFieldBegin('clusterId', Thrift.Type.STRING, 1);
+    output.writeString(this.clusterId);
+    output.writeFieldEnd();
+  }
+  if (this.publicKeys !== null && this.publicKeys !== undefined) {
+    output.writeFieldBegin('publicKeys', Thrift.Type.LIST, 2);
+    output.writeListBegin(Thrift.Type.STRUCT, this.publicKeys.length);
+    for (var iter99 in this.publicKeys)
+    {
+      if (this.publicKeys.hasOwnProperty(iter99))
+      {
+        iter99 = this.publicKeys[iter99];
+        iter99.write(output);
+      }
+    }
+    output.writeListEnd();
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+DeleteSSHPublicKeysRequest = function(args) {
+  this.clusterId = null;
+  this.publicKeys = null;
+  if (args) {
+    if (args.clusterId !== undefined) {
+      this.clusterId = args.clusterId;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field clusterId is unset!');
+    }
+    if (args.publicKeys !== undefined) {
+      this.publicKeys = args.publicKeys;
+    }
+  }
+};
+DeleteSSHPublicKeysRequest.prototype = {};
+DeleteSSHPublicKeysRequest.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.clusterId = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.LIST) {
+        var _size100 = 0;
+        var _rtmp3104;
+        this.publicKeys = [];
+        var _etype103 = 0;
+        _rtmp3104 = input.readListBegin();
+        _etype103 = _rtmp3104.etype;
+        _size100 = _rtmp3104.size;
+        for (var _i105 = 0; _i105 < _size100; ++_i105)
+        {
+          var elem106 = null;
+          elem106 = new SSHPublicKey();
+          elem106.read(input);
+          this.publicKeys.push(elem106);
+        }
+        input.readListEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+DeleteSSHPublicKeysRequest.prototype.write = function(output) {
+  output.writeStructBegin('DeleteSSHPublicKeysRequest');
+  if (this.clusterId !== null && this.clusterId !== undefined) {
+    output.writeFieldBegin('clusterId', Thrift.Type.STRING, 1);
+    output.writeString(this.clusterId);
+    output.writeFieldEnd();
+  }
+  if (this.publicKeys !== null && this.publicKeys !== undefined) {
+    output.writeFieldBegin('publicKeys', Thrift.Type.LIST, 2);
+    output.writeListBegin(Thrift.Type.STRUCT, this.publicKeys.length);
+    for (var iter107 in this.publicKeys)
+    {
+      if (this.publicKeys.hasOwnProperty(iter107))
+      {
+        iter107 = this.publicKeys[iter107];
+        iter107.write(output);
+      }
+    }
+    output.writeListEnd();
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+GetQuotaRequest = function(args) {
+  this.developerId = null;
+  if (args) {
+    if (args.developerId !== undefined) {
+      this.developerId = args.developerId;
+    }
+  }
+};
+GetQuotaRequest.prototype = {};
+GetQuotaRequest.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.developerId = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+GetQuotaRequest.prototype.write = function(output) {
+  output.writeStructBegin('GetQuotaRequest');
+  if (this.developerId !== null && this.developerId !== undefined) {
+    output.writeFieldBegin('developerId', Thrift.Type.STRING, 1);
+    output.writeString(this.developerId);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+GetQuotaResponse = function(args) {
+  this.clusterLimit = null;
+  this.clusterUsed = null;
+  this.instanceLimit = null;
+  this.instanceUsed = null;
+  if (args) {
+    if (args.clusterLimit !== undefined) {
+      this.clusterLimit = args.clusterLimit;
+    }
+    if (args.clusterUsed !== undefined) {
+      this.clusterUsed = args.clusterUsed;
+    }
+    if (args.instanceLimit !== undefined) {
+      this.instanceLimit = args.instanceLimit;
+    }
+    if (args.instanceUsed !== undefined) {
+      this.instanceUsed = args.instanceUsed;
+    }
+  }
+};
+GetQuotaResponse.prototype = {};
+GetQuotaResponse.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.I32) {
+        this.clusterLimit = input.readI32().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.I32) {
+        this.clusterUsed = input.readI32().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 3:
+      if (ftype == Thrift.Type.I32) {
+        this.instanceLimit = input.readI32().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 4:
+      if (ftype == Thrift.Type.I32) {
+        this.instanceUsed = input.readI32().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+GetQuotaResponse.prototype.write = function(output) {
+  output.writeStructBegin('GetQuotaResponse');
+  if (this.clusterLimit !== null && this.clusterLimit !== undefined) {
+    output.writeFieldBegin('clusterLimit', Thrift.Type.I32, 1);
+    output.writeI32(this.clusterLimit);
+    output.writeFieldEnd();
+  }
+  if (this.clusterUsed !== null && this.clusterUsed !== undefined) {
+    output.writeFieldBegin('clusterUsed', Thrift.Type.I32, 2);
+    output.writeI32(this.clusterUsed);
+    output.writeFieldEnd();
+  }
+  if (this.instanceLimit !== null && this.instanceLimit !== undefined) {
+    output.writeFieldBegin('instanceLimit', Thrift.Type.I32, 3);
+    output.writeI32(this.instanceLimit);
+    output.writeFieldEnd();
+  }
+  if (this.instanceUsed !== null && this.instanceUsed !== undefined) {
+    output.writeFieldBegin('instanceUsed', Thrift.Type.I32, 4);
+    output.writeI32(this.instanceUsed);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+GetEMRBasicConfigResponse = function(args) {
+  this.hardware = null;
+  this.software = null;
+  if (args) {
+    if (args.hardware !== undefined) {
+      this.hardware = args.hardware;
+    }
+    if (args.software !== undefined) {
+      this.software = args.software;
+    }
+  }
+};
+GetEMRBasicConfigResponse.prototype = {};
+GetEMRBasicConfigResponse.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.LIST) {
+        var _size108 = 0;
+        var _rtmp3112;
+        this.hardware = [];
+        var _etype111 = 0;
+        _rtmp3112 = input.readListBegin();
+        _etype111 = _rtmp3112.etype;
+        _size108 = _rtmp3112.size;
+        for (var _i113 = 0; _i113 < _size108; ++_i113)
+        {
+          var elem114 = null;
+          elem114 = new InstanceTypeInfo();
+          elem114.read(input);
+          this.hardware.push(elem114);
+        }
+        input.readListEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.LIST) {
+        var _size115 = 0;
+        var _rtmp3119;
+        this.software = [];
+        var _etype118 = 0;
+        _rtmp3119 = input.readListBegin();
+        _etype118 = _rtmp3119.etype;
+        _size115 = _rtmp3119.size;
+        for (var _i120 = 0; _i120 < _size115; ++_i120)
+        {
+          var elem121 = null;
+          elem121 = new ApplicationSuite();
+          elem121.read(input);
+          this.software.push(elem121);
+        }
+        input.readListEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+GetEMRBasicConfigResponse.prototype.write = function(output) {
+  output.writeStructBegin('GetEMRBasicConfigResponse');
+  if (this.hardware !== null && this.hardware !== undefined) {
+    output.writeFieldBegin('hardware', Thrift.Type.LIST, 1);
+    output.writeListBegin(Thrift.Type.STRUCT, this.hardware.length);
+    for (var iter122 in this.hardware)
+    {
+      if (this.hardware.hasOwnProperty(iter122))
+      {
+        iter122 = this.hardware[iter122];
+        iter122.write(output);
+      }
+    }
+    output.writeListEnd();
+    output.writeFieldEnd();
+  }
+  if (this.software !== null && this.software !== undefined) {
+    output.writeFieldBegin('software', Thrift.Type.LIST, 2);
+    output.writeListBegin(Thrift.Type.STRUCT, this.software.length);
+    for (var iter123 in this.software)
+    {
+      if (this.software.hasOwnProperty(iter123))
+      {
+        iter123 = this.software[iter123];
+        iter123.write(output);
+      }
+    }
+    output.writeListEnd();
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+GetSoftwareConfigResponse = function(args) {
+  this.software = null;
+  if (args) {
+    if (args.software !== undefined) {
+      this.software = args.software;
+    }
+  }
+};
+GetSoftwareConfigResponse.prototype = {};
+GetSoftwareConfigResponse.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.LIST) {
+        var _size124 = 0;
+        var _rtmp3128;
+        this.software = [];
+        var _etype127 = 0;
+        _rtmp3128 = input.readListBegin();
+        _etype127 = _rtmp3128.etype;
+        _size124 = _rtmp3128.size;
+        for (var _i129 = 0; _i129 < _size124; ++_i129)
+        {
+          var elem130 = null;
+          elem130 = new ApplicationSuite();
+          elem130.read(input);
+          this.software.push(elem130);
+        }
+        input.readListEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+GetSoftwareConfigResponse.prototype.write = function(output) {
+  output.writeStructBegin('GetSoftwareConfigResponse');
+  if (this.software !== null && this.software !== undefined) {
+    output.writeFieldBegin('software', Thrift.Type.LIST, 1);
+    output.writeListBegin(Thrift.Type.STRUCT, this.software.length);
+    for (var iter131 in this.software)
+    {
+      if (this.software.hasOwnProperty(iter131))
+      {
+        iter131 = this.software[iter131];
+        iter131.write(output);
+      }
+    }
+    output.writeListEnd();
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+GetHardwareConfigResponse = function(args) {
+  this.hardware = null;
+  if (args) {
+    if (args.hardware !== undefined) {
+      this.hardware = args.hardware;
+    }
+  }
+};
+GetHardwareConfigResponse.prototype = {};
+GetHardwareConfigResponse.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.LIST) {
+        var _size132 = 0;
+        var _rtmp3136;
+        this.hardware = [];
+        var _etype135 = 0;
+        _rtmp3136 = input.readListBegin();
+        _etype135 = _rtmp3136.etype;
+        _size132 = _rtmp3136.size;
+        for (var _i137 = 0; _i137 < _size132; ++_i137)
+        {
+          var elem138 = null;
+          elem138 = new InstanceTypeInfo();
+          elem138.read(input);
+          this.hardware.push(elem138);
+        }
+        input.readListEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+GetHardwareConfigResponse.prototype.write = function(output) {
+  output.writeStructBegin('GetHardwareConfigResponse');
+  if (this.hardware !== null && this.hardware !== undefined) {
+    output.writeFieldBegin('hardware', Thrift.Type.LIST, 1);
+    output.writeListBegin(Thrift.Type.STRUCT, this.hardware.length);
+    for (var iter139 in this.hardware)
+    {
+      if (this.hardware.hasOwnProperty(iter139))
+      {
+        iter139 = this.hardware[iter139];
+        iter139.write(output);
+      }
+    }
+    output.writeListEnd();
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+DeleteClusterRequest = function(args) {
+  this.clusterId = null;
+  if (args) {
+    if (args.clusterId !== undefined) {
+      this.clusterId = args.clusterId;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field clusterId is unset!');
+    }
+  }
+};
+DeleteClusterRequest.prototype = {};
+DeleteClusterRequest.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.clusterId = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+DeleteClusterRequest.prototype.write = function(output) {
+  output.writeStructBegin('DeleteClusterRequest');
+  if (this.clusterId !== null && this.clusterId !== undefined) {
+    output.writeFieldBegin('clusterId', Thrift.Type.STRING, 1);
+    output.writeString(this.clusterId);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+DeleteClusterResponse = function(args) {
+  this.clusterId = null;
+  this.succeed = null;
+  if (args) {
+    if (args.clusterId !== undefined) {
+      this.clusterId = args.clusterId;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field clusterId is unset!');
+    }
+    if (args.succeed !== undefined) {
+      this.succeed = args.succeed;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field succeed is unset!');
+    }
+  }
+};
+DeleteClusterResponse.prototype = {};
+DeleteClusterResponse.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.clusterId = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.BOOL) {
+        this.succeed = input.readBool().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+DeleteClusterResponse.prototype.write = function(output) {
+  output.writeStructBegin('DeleteClusterResponse');
+  if (this.clusterId !== null && this.clusterId !== undefined) {
+    output.writeFieldBegin('clusterId', Thrift.Type.STRING, 1);
+    output.writeString(this.clusterId);
+    output.writeFieldEnd();
+  }
+  if (this.succeed !== null && this.succeed !== undefined) {
+    output.writeFieldBegin('succeed', Thrift.Type.BOOL, 2);
+    output.writeBool(this.succeed);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -2212,18 +3388,18 @@ JobDetail.prototype.read = function(input) {
       break;
       case 5:
       if (ftype == Thrift.Type.LIST) {
-        var _size68 = 0;
-        var _rtmp372;
+        var _size140 = 0;
+        var _rtmp3144;
         this.jarArgs = [];
-        var _etype71 = 0;
-        _rtmp372 = input.readListBegin();
-        _etype71 = _rtmp372.etype;
-        _size68 = _rtmp372.size;
-        for (var _i73 = 0; _i73 < _size68; ++_i73)
+        var _etype143 = 0;
+        _rtmp3144 = input.readListBegin();
+        _etype143 = _rtmp3144.etype;
+        _size140 = _rtmp3144.size;
+        for (var _i145 = 0; _i145 < _size140; ++_i145)
         {
-          var elem74 = null;
-          elem74 = input.readString().value;
-          this.jarArgs.push(elem74);
+          var elem146 = null;
+          elem146 = input.readString().value;
+          this.jarArgs.push(elem146);
         }
         input.readListEnd();
       } else {
@@ -2232,27 +3408,27 @@ JobDetail.prototype.read = function(input) {
       break;
       case 6:
       if (ftype == Thrift.Type.MAP) {
-        var _size75 = 0;
-        var _rtmp379;
+        var _size147 = 0;
+        var _rtmp3151;
         this.jarProperties = {};
-        var _ktype76 = 0;
-        var _vtype77 = 0;
-        _rtmp379 = input.readMapBegin();
-        _ktype76 = _rtmp379.ktype;
-        _vtype77 = _rtmp379.vtype;
-        _size75 = _rtmp379.size;
-        for (var _i80 = 0; _i80 < _size75; ++_i80)
+        var _ktype148 = 0;
+        var _vtype149 = 0;
+        _rtmp3151 = input.readMapBegin();
+        _ktype148 = _rtmp3151.ktype;
+        _vtype149 = _rtmp3151.vtype;
+        _size147 = _rtmp3151.size;
+        for (var _i152 = 0; _i152 < _size147; ++_i152)
         {
-          if (_i80 > 0 ) {
+          if (_i152 > 0 ) {
             if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
               input.rstack.pop();
             }
           }
-          var key81 = null;
-          var val82 = null;
-          key81 = input.readString().value;
-          val82 = input.readString().value;
-          this.jarProperties[key81] = val82;
+          var key153 = null;
+          var val154 = null;
+          key153 = input.readString().value;
+          val154 = input.readString().value;
+          this.jarProperties[key153] = val154;
         }
         input.readMapEnd();
       } else {
@@ -2301,12 +3477,12 @@ JobDetail.prototype.write = function(output) {
   if (this.jarArgs !== null && this.jarArgs !== undefined) {
     output.writeFieldBegin('jarArgs', Thrift.Type.LIST, 5);
     output.writeListBegin(Thrift.Type.STRING, this.jarArgs.length);
-    for (var iter83 in this.jarArgs)
+    for (var iter155 in this.jarArgs)
     {
-      if (this.jarArgs.hasOwnProperty(iter83))
+      if (this.jarArgs.hasOwnProperty(iter155))
       {
-        iter83 = this.jarArgs[iter83];
-        output.writeString(iter83);
+        iter155 = this.jarArgs[iter155];
+        output.writeString(iter155);
       }
     }
     output.writeListEnd();
@@ -2315,13 +3491,13 @@ JobDetail.prototype.write = function(output) {
   if (this.jarProperties !== null && this.jarProperties !== undefined) {
     output.writeFieldBegin('jarProperties', Thrift.Type.MAP, 6);
     output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRING, Thrift.objectLength(this.jarProperties));
-    for (var kiter84 in this.jarProperties)
+    for (var kiter156 in this.jarProperties)
     {
-      if (this.jarProperties.hasOwnProperty(kiter84))
+      if (this.jarProperties.hasOwnProperty(kiter156))
       {
-        var viter85 = this.jarProperties[kiter84];
-        output.writeString(kiter84);
-        output.writeString(viter85);
+        var viter157 = this.jarProperties[kiter156];
+        output.writeString(kiter156);
+        output.writeString(viter157);
       }
     }
     output.writeMapEnd();
@@ -2597,19 +3773,19 @@ ClusterDetail.prototype.read = function(input) {
       break;
       case 8:
       if (ftype == Thrift.Type.LIST) {
-        var _size86 = 0;
-        var _rtmp390;
+        var _size158 = 0;
+        var _rtmp3162;
         this.instanceGroups = [];
-        var _etype89 = 0;
-        _rtmp390 = input.readListBegin();
-        _etype89 = _rtmp390.etype;
-        _size86 = _rtmp390.size;
-        for (var _i91 = 0; _i91 < _size86; ++_i91)
+        var _etype161 = 0;
+        _rtmp3162 = input.readListBegin();
+        _etype161 = _rtmp3162.etype;
+        _size158 = _rtmp3162.size;
+        for (var _i163 = 0; _i163 < _size158; ++_i163)
         {
-          var elem92 = null;
-          elem92 = new InstanceGroupDetail();
-          elem92.read(input);
-          this.instanceGroups.push(elem92);
+          var elem164 = null;
+          elem164 = new InstanceGroupDetail();
+          elem164.read(input);
+          this.instanceGroups.push(elem164);
         }
         input.readListEnd();
       } else {
@@ -2680,12 +3856,12 @@ ClusterDetail.prototype.write = function(output) {
   if (this.instanceGroups !== null && this.instanceGroups !== undefined) {
     output.writeFieldBegin('instanceGroups', Thrift.Type.LIST, 8);
     output.writeListBegin(Thrift.Type.STRUCT, this.instanceGroups.length);
-    for (var iter93 in this.instanceGroups)
+    for (var iter165 in this.instanceGroups)
     {
-      if (this.instanceGroups.hasOwnProperty(iter93))
+      if (this.instanceGroups.hasOwnProperty(iter165))
       {
-        iter93 = this.instanceGroups[iter93];
-        iter93.write(output);
+        iter165 = this.instanceGroups[iter165];
+        iter165.write(output);
       }
     }
     output.writeListEnd();
@@ -2860,18 +4036,18 @@ StartServiceRequest.prototype.read = function(input) {
       break;
       case 2:
       if (ftype == Thrift.Type.LIST) {
-        var _size94 = 0;
-        var _rtmp398;
+        var _size166 = 0;
+        var _rtmp3170;
         this.services = [];
-        var _etype97 = 0;
-        _rtmp398 = input.readListBegin();
-        _etype97 = _rtmp398.etype;
-        _size94 = _rtmp398.size;
-        for (var _i99 = 0; _i99 < _size94; ++_i99)
+        var _etype169 = 0;
+        _rtmp3170 = input.readListBegin();
+        _etype169 = _rtmp3170.etype;
+        _size166 = _rtmp3170.size;
+        for (var _i171 = 0; _i171 < _size166; ++_i171)
         {
-          var elem100 = null;
-          elem100 = input.readString().value;
-          this.services.push(elem100);
+          var elem172 = null;
+          elem172 = input.readString().value;
+          this.services.push(elem172);
         }
         input.readListEnd();
       } else {
@@ -2897,12 +4073,12 @@ StartServiceRequest.prototype.write = function(output) {
   if (this.services !== null && this.services !== undefined) {
     output.writeFieldBegin('services', Thrift.Type.LIST, 2);
     output.writeListBegin(Thrift.Type.STRING, this.services.length);
-    for (var iter101 in this.services)
+    for (var iter173 in this.services)
     {
-      if (this.services.hasOwnProperty(iter101))
+      if (this.services.hasOwnProperty(iter173))
       {
-        iter101 = this.services[iter101];
-        output.writeString(iter101);
+        iter173 = this.services[iter173];
+        output.writeString(iter173);
       }
     }
     output.writeListEnd();
@@ -3001,18 +4177,18 @@ StopServiceRequest.prototype.read = function(input) {
       break;
       case 2:
       if (ftype == Thrift.Type.LIST) {
-        var _size102 = 0;
-        var _rtmp3106;
+        var _size174 = 0;
+        var _rtmp3178;
         this.services = [];
-        var _etype105 = 0;
-        _rtmp3106 = input.readListBegin();
-        _etype105 = _rtmp3106.etype;
-        _size102 = _rtmp3106.size;
-        for (var _i107 = 0; _i107 < _size102; ++_i107)
+        var _etype177 = 0;
+        _rtmp3178 = input.readListBegin();
+        _etype177 = _rtmp3178.etype;
+        _size174 = _rtmp3178.size;
+        for (var _i179 = 0; _i179 < _size174; ++_i179)
         {
-          var elem108 = null;
-          elem108 = input.readString().value;
-          this.services.push(elem108);
+          var elem180 = null;
+          elem180 = input.readString().value;
+          this.services.push(elem180);
         }
         input.readListEnd();
       } else {
@@ -3038,12 +4214,12 @@ StopServiceRequest.prototype.write = function(output) {
   if (this.services !== null && this.services !== undefined) {
     output.writeFieldBegin('services', Thrift.Type.LIST, 2);
     output.writeListBegin(Thrift.Type.STRING, this.services.length);
-    for (var iter109 in this.services)
+    for (var iter181 in this.services)
     {
-      if (this.services.hasOwnProperty(iter109))
+      if (this.services.hasOwnProperty(iter181))
       {
-        iter109 = this.services[iter109];
-        output.writeString(iter109);
+        iter181 = this.services[iter181];
+        output.writeString(iter181);
       }
     }
     output.writeListEnd();

@@ -283,19 +283,19 @@ EMRSchedulerService_addInstanceGroups_args.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.LIST) {
-        var _size110 = 0;
-        var _rtmp3114;
+        var _size182 = 0;
+        var _rtmp3186;
         this.instanceGroups = [];
-        var _etype113 = 0;
-        _rtmp3114 = input.readListBegin();
-        _etype113 = _rtmp3114.etype;
-        _size110 = _rtmp3114.size;
-        for (var _i115 = 0; _i115 < _size110; ++_i115)
+        var _etype185 = 0;
+        _rtmp3186 = input.readListBegin();
+        _etype185 = _rtmp3186.etype;
+        _size182 = _rtmp3186.size;
+        for (var _i187 = 0; _i187 < _size182; ++_i187)
         {
-          var elem116 = null;
-          elem116 = new AddInstanceGroupRequest();
-          elem116.read(input);
-          this.instanceGroups.push(elem116);
+          var elem188 = null;
+          elem188 = new AddInstanceGroupRequest();
+          elem188.read(input);
+          this.instanceGroups.push(elem188);
         }
         input.readListEnd();
       } else {
@@ -319,12 +319,12 @@ EMRSchedulerService_addInstanceGroups_args.prototype.write = function(output) {
   if (this.instanceGroups !== null && this.instanceGroups !== undefined) {
     output.writeFieldBegin('instanceGroups', Thrift.Type.LIST, 1);
     output.writeListBegin(Thrift.Type.STRUCT, this.instanceGroups.length);
-    for (var iter117 in this.instanceGroups)
+    for (var iter189 in this.instanceGroups)
     {
-      if (this.instanceGroups.hasOwnProperty(iter117))
+      if (this.instanceGroups.hasOwnProperty(iter189))
       {
-        iter117 = this.instanceGroups[iter117];
-        iter117.write(output);
+        iter189 = this.instanceGroups[iter189];
+        iter189.write(output);
       }
     }
     output.writeListEnd();
@@ -367,19 +367,19 @@ EMRSchedulerService_addInstanceGroups_result.prototype.read = function(input) {
     {
       case 0:
       if (ftype == Thrift.Type.LIST) {
-        var _size118 = 0;
-        var _rtmp3122;
+        var _size190 = 0;
+        var _rtmp3194;
         this.success = [];
-        var _etype121 = 0;
-        _rtmp3122 = input.readListBegin();
-        _etype121 = _rtmp3122.etype;
-        _size118 = _rtmp3122.size;
-        for (var _i123 = 0; _i123 < _size118; ++_i123)
+        var _etype193 = 0;
+        _rtmp3194 = input.readListBegin();
+        _etype193 = _rtmp3194.etype;
+        _size190 = _rtmp3194.size;
+        for (var _i195 = 0; _i195 < _size190; ++_i195)
         {
-          var elem124 = null;
-          elem124 = new AddInstanceGroupResponse();
-          elem124.read(input);
-          this.success.push(elem124);
+          var elem196 = null;
+          elem196 = new AddInstanceGroupResponse();
+          elem196.read(input);
+          this.success.push(elem196);
         }
         input.readListEnd();
       } else {
@@ -408,12 +408,12 @@ EMRSchedulerService_addInstanceGroups_result.prototype.write = function(output) 
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
     output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
-    for (var iter125 in this.success)
+    for (var iter197 in this.success)
     {
-      if (this.success.hasOwnProperty(iter125))
+      if (this.success.hasOwnProperty(iter197))
       {
-        iter125 = this.success[iter125];
-        iter125.write(output);
+        iter197 = this.success[iter197];
+        iter197.write(output);
       }
     }
     output.writeListEnd();
@@ -579,19 +579,19 @@ EMRSchedulerService_submitJobs_args.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.LIST) {
-        var _size126 = 0;
-        var _rtmp3130;
+        var _size198 = 0;
+        var _rtmp3202;
         this.jobs = [];
-        var _etype129 = 0;
-        _rtmp3130 = input.readListBegin();
-        _etype129 = _rtmp3130.etype;
-        _size126 = _rtmp3130.size;
-        for (var _i131 = 0; _i131 < _size126; ++_i131)
+        var _etype201 = 0;
+        _rtmp3202 = input.readListBegin();
+        _etype201 = _rtmp3202.etype;
+        _size198 = _rtmp3202.size;
+        for (var _i203 = 0; _i203 < _size198; ++_i203)
         {
-          var elem132 = null;
-          elem132 = new SubmitJobRequest();
-          elem132.read(input);
-          this.jobs.push(elem132);
+          var elem204 = null;
+          elem204 = new SubmitJobRequest();
+          elem204.read(input);
+          this.jobs.push(elem204);
         }
         input.readListEnd();
       } else {
@@ -615,12 +615,12 @@ EMRSchedulerService_submitJobs_args.prototype.write = function(output) {
   if (this.jobs !== null && this.jobs !== undefined) {
     output.writeFieldBegin('jobs', Thrift.Type.LIST, 1);
     output.writeListBegin(Thrift.Type.STRUCT, this.jobs.length);
-    for (var iter133 in this.jobs)
+    for (var iter205 in this.jobs)
     {
-      if (this.jobs.hasOwnProperty(iter133))
+      if (this.jobs.hasOwnProperty(iter205))
       {
-        iter133 = this.jobs[iter133];
-        iter133.write(output);
+        iter205 = this.jobs[iter205];
+        iter205.write(output);
       }
     }
     output.writeListEnd();
@@ -663,19 +663,19 @@ EMRSchedulerService_submitJobs_result.prototype.read = function(input) {
     {
       case 0:
       if (ftype == Thrift.Type.LIST) {
-        var _size134 = 0;
-        var _rtmp3138;
+        var _size206 = 0;
+        var _rtmp3210;
         this.success = [];
-        var _etype137 = 0;
-        _rtmp3138 = input.readListBegin();
-        _etype137 = _rtmp3138.etype;
-        _size134 = _rtmp3138.size;
-        for (var _i139 = 0; _i139 < _size134; ++_i139)
+        var _etype209 = 0;
+        _rtmp3210 = input.readListBegin();
+        _etype209 = _rtmp3210.etype;
+        _size206 = _rtmp3210.size;
+        for (var _i211 = 0; _i211 < _size206; ++_i211)
         {
-          var elem140 = null;
-          elem140 = new SubmitJobResponse();
-          elem140.read(input);
-          this.success.push(elem140);
+          var elem212 = null;
+          elem212 = new SubmitJobResponse();
+          elem212.read(input);
+          this.success.push(elem212);
         }
         input.readListEnd();
       } else {
@@ -704,12 +704,12 @@ EMRSchedulerService_submitJobs_result.prototype.write = function(output) {
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
     output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
-    for (var iter141 in this.success)
+    for (var iter213 in this.success)
     {
-      if (this.success.hasOwnProperty(iter141))
+      if (this.success.hasOwnProperty(iter213))
       {
-        iter141 = this.success[iter141];
-        iter141.write(output);
+        iter213 = this.success[iter213];
+        iter213.write(output);
       }
     }
     output.writeListEnd();
@@ -1600,19 +1600,19 @@ EMRSchedulerService_listClusters_result.prototype.read = function(input) {
     {
       case 0:
       if (ftype == Thrift.Type.LIST) {
-        var _size142 = 0;
-        var _rtmp3146;
+        var _size214 = 0;
+        var _rtmp3218;
         this.success = [];
-        var _etype145 = 0;
-        _rtmp3146 = input.readListBegin();
-        _etype145 = _rtmp3146.etype;
-        _size142 = _rtmp3146.size;
-        for (var _i147 = 0; _i147 < _size142; ++_i147)
+        var _etype217 = 0;
+        _rtmp3218 = input.readListBegin();
+        _etype217 = _rtmp3218.etype;
+        _size214 = _rtmp3218.size;
+        for (var _i219 = 0; _i219 < _size214; ++_i219)
         {
-          var elem148 = null;
-          elem148 = new ClusterDetail();
-          elem148.read(input);
-          this.success.push(elem148);
+          var elem220 = null;
+          elem220 = new ClusterDetail();
+          elem220.read(input);
+          this.success.push(elem220);
         }
         input.readListEnd();
       } else {
@@ -1641,12 +1641,159 @@ EMRSchedulerService_listClusters_result.prototype.write = function(output) {
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
     output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
-    for (var iter149 in this.success)
+    for (var iter221 in this.success)
     {
-      if (this.success.hasOwnProperty(iter149))
+      if (this.success.hasOwnProperty(iter221))
       {
-        iter149 = this.success[iter149];
-        iter149.write(output);
+        iter221 = this.success[iter221];
+        iter221.write(output);
+      }
+    }
+    output.writeListEnd();
+    output.writeFieldEnd();
+  }
+  if (this.se !== null && this.se !== undefined) {
+    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
+    this.se.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+EMRSchedulerService_listClustersWithPrefix_args = function(args) {
+  this.prefix = null;
+  if (args) {
+    if (args.prefix !== undefined) {
+      this.prefix = args.prefix;
+    }
+  }
+};
+EMRSchedulerService_listClustersWithPrefix_args.prototype = {};
+EMRSchedulerService_listClustersWithPrefix_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.prefix = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+EMRSchedulerService_listClustersWithPrefix_args.prototype.write = function(output) {
+  output.writeStructBegin('EMRSchedulerService_listClustersWithPrefix_args');
+  if (this.prefix !== null && this.prefix !== undefined) {
+    output.writeFieldBegin('prefix', Thrift.Type.STRING, 1);
+    output.writeString(this.prefix);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+EMRSchedulerService_listClustersWithPrefix_result = function(args) {
+  this.success = null;
+  this.se = null;
+  if (args instanceof ServiceException) {
+    this.se = args;
+    return;
+  }
+  if (args) {
+    if (args.success !== undefined) {
+      this.success = args.success;
+    }
+    if (args.se !== undefined) {
+      this.se = args.se;
+    }
+  }
+};
+EMRSchedulerService_listClustersWithPrefix_result.prototype = {};
+EMRSchedulerService_listClustersWithPrefix_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+      if (ftype == Thrift.Type.LIST) {
+        var _size222 = 0;
+        var _rtmp3226;
+        this.success = [];
+        var _etype225 = 0;
+        _rtmp3226 = input.readListBegin();
+        _etype225 = _rtmp3226.etype;
+        _size222 = _rtmp3226.size;
+        for (var _i227 = 0; _i227 < _size222; ++_i227)
+        {
+          var elem228 = null;
+          elem228 = new ClusterDetail();
+          elem228.read(input);
+          this.success.push(elem228);
+        }
+        input.readListEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.se = new ServiceException();
+        this.se.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+EMRSchedulerService_listClustersWithPrefix_result.prototype.write = function(output) {
+  output.writeStructBegin('EMRSchedulerService_listClustersWithPrefix_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.LIST, 0);
+    output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
+    for (var iter229 in this.success)
+    {
+      if (this.success.hasOwnProperty(iter229))
+      {
+        iter229 = this.success[iter229];
+        iter229.write(output);
       }
     }
     output.writeListEnd();
@@ -1747,19 +1894,19 @@ EMRSchedulerService_listInstanceGroups_result.prototype.read = function(input) {
     {
       case 0:
       if (ftype == Thrift.Type.LIST) {
-        var _size150 = 0;
-        var _rtmp3154;
+        var _size230 = 0;
+        var _rtmp3234;
         this.success = [];
-        var _etype153 = 0;
-        _rtmp3154 = input.readListBegin();
-        _etype153 = _rtmp3154.etype;
-        _size150 = _rtmp3154.size;
-        for (var _i155 = 0; _i155 < _size150; ++_i155)
+        var _etype233 = 0;
+        _rtmp3234 = input.readListBegin();
+        _etype233 = _rtmp3234.etype;
+        _size230 = _rtmp3234.size;
+        for (var _i235 = 0; _i235 < _size230; ++_i235)
         {
-          var elem156 = null;
-          elem156 = new InstanceGroupDetail();
-          elem156.read(input);
-          this.success.push(elem156);
+          var elem236 = null;
+          elem236 = new InstanceGroupDetail();
+          elem236.read(input);
+          this.success.push(elem236);
         }
         input.readListEnd();
       } else {
@@ -1788,12 +1935,12 @@ EMRSchedulerService_listInstanceGroups_result.prototype.write = function(output)
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
     output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
-    for (var iter157 in this.success)
+    for (var iter237 in this.success)
     {
-      if (this.success.hasOwnProperty(iter157))
+      if (this.success.hasOwnProperty(iter237))
       {
-        iter157 = this.success[iter157];
-        iter157.write(output);
+        iter237 = this.success[iter237];
+        iter237.write(output);
       }
     }
     output.writeListEnd();
@@ -1894,19 +2041,19 @@ EMRSchedulerService_listInstancesInCluster_result.prototype.read = function(inpu
     {
       case 0:
       if (ftype == Thrift.Type.LIST) {
-        var _size158 = 0;
-        var _rtmp3162;
+        var _size238 = 0;
+        var _rtmp3242;
         this.success = [];
-        var _etype161 = 0;
-        _rtmp3162 = input.readListBegin();
-        _etype161 = _rtmp3162.etype;
-        _size158 = _rtmp3162.size;
-        for (var _i163 = 0; _i163 < _size158; ++_i163)
+        var _etype241 = 0;
+        _rtmp3242 = input.readListBegin();
+        _etype241 = _rtmp3242.etype;
+        _size238 = _rtmp3242.size;
+        for (var _i243 = 0; _i243 < _size238; ++_i243)
         {
-          var elem164 = null;
-          elem164 = new InstanceDetail();
-          elem164.read(input);
-          this.success.push(elem164);
+          var elem244 = null;
+          elem244 = new InstanceDetail();
+          elem244.read(input);
+          this.success.push(elem244);
         }
         input.readListEnd();
       } else {
@@ -1935,12 +2082,12 @@ EMRSchedulerService_listInstancesInCluster_result.prototype.write = function(out
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
     output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
-    for (var iter165 in this.success)
+    for (var iter245 in this.success)
     {
-      if (this.success.hasOwnProperty(iter165))
+      if (this.success.hasOwnProperty(iter245))
       {
-        iter165 = this.success[iter165];
-        iter165.write(output);
+        iter245 = this.success[iter245];
+        iter245.write(output);
       }
     }
     output.writeListEnd();
@@ -2070,19 +2217,19 @@ EMRSchedulerService_listInstancesInGroup_result.prototype.read = function(input)
     {
       case 0:
       if (ftype == Thrift.Type.LIST) {
-        var _size166 = 0;
-        var _rtmp3170;
+        var _size246 = 0;
+        var _rtmp3250;
         this.success = [];
-        var _etype169 = 0;
-        _rtmp3170 = input.readListBegin();
-        _etype169 = _rtmp3170.etype;
-        _size166 = _rtmp3170.size;
-        for (var _i171 = 0; _i171 < _size166; ++_i171)
+        var _etype249 = 0;
+        _rtmp3250 = input.readListBegin();
+        _etype249 = _rtmp3250.etype;
+        _size246 = _rtmp3250.size;
+        for (var _i251 = 0; _i251 < _size246; ++_i251)
         {
-          var elem172 = null;
-          elem172 = new InstanceDetail();
-          elem172.read(input);
-          this.success.push(elem172);
+          var elem252 = null;
+          elem252 = new InstanceDetail();
+          elem252.read(input);
+          this.success.push(elem252);
         }
         input.readListEnd();
       } else {
@@ -2111,12 +2258,12 @@ EMRSchedulerService_listInstancesInGroup_result.prototype.write = function(outpu
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
     output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
-    for (var iter173 in this.success)
+    for (var iter253 in this.success)
     {
-      if (this.success.hasOwnProperty(iter173))
+      if (this.success.hasOwnProperty(iter253))
       {
-        iter173 = this.success[iter173];
-        iter173.write(output);
+        iter253 = this.success[iter253];
+        iter253.write(output);
       }
     }
     output.writeListEnd();
@@ -2217,19 +2364,19 @@ EMRSchedulerService_listJobs_result.prototype.read = function(input) {
     {
       case 0:
       if (ftype == Thrift.Type.LIST) {
-        var _size174 = 0;
-        var _rtmp3178;
+        var _size254 = 0;
+        var _rtmp3258;
         this.success = [];
-        var _etype177 = 0;
-        _rtmp3178 = input.readListBegin();
-        _etype177 = _rtmp3178.etype;
-        _size174 = _rtmp3178.size;
-        for (var _i179 = 0; _i179 < _size174; ++_i179)
+        var _etype257 = 0;
+        _rtmp3258 = input.readListBegin();
+        _etype257 = _rtmp3258.etype;
+        _size254 = _rtmp3258.size;
+        for (var _i259 = 0; _i259 < _size254; ++_i259)
         {
-          var elem180 = null;
-          elem180 = new JobDetail();
-          elem180.read(input);
-          this.success.push(elem180);
+          var elem260 = null;
+          elem260 = new JobDetail();
+          elem260.read(input);
+          this.success.push(elem260);
         }
         input.readListEnd();
       } else {
@@ -2258,12 +2405,12 @@ EMRSchedulerService_listJobs_result.prototype.write = function(output) {
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
     output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
-    for (var iter181 in this.success)
+    for (var iter261 in this.success)
     {
-      if (this.success.hasOwnProperty(iter181))
+      if (this.success.hasOwnProperty(iter261))
       {
-        iter181 = this.success[iter181];
-        iter181.write(output);
+        iter261 = this.success[iter261];
+        iter261.write(output);
       }
     }
     output.writeListEnd();
@@ -2740,6 +2887,908 @@ EMRSchedulerService_listPermissions_result.prototype.read = function(input) {
 
 EMRSchedulerService_listPermissions_result.prototype.write = function(output) {
   output.writeStructBegin('EMRSchedulerService_listPermissions_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+    this.success.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.se !== null && this.se !== undefined) {
+    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
+    this.se.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+EMRSchedulerService_getSSHPublicKeys_args = function(args) {
+  this.request = null;
+  if (args) {
+    if (args.request !== undefined) {
+      this.request = args.request;
+    }
+  }
+};
+EMRSchedulerService_getSSHPublicKeys_args.prototype = {};
+EMRSchedulerService_getSSHPublicKeys_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.request = new GetSSHPublicKeysRequest();
+        this.request.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+EMRSchedulerService_getSSHPublicKeys_args.prototype.write = function(output) {
+  output.writeStructBegin('EMRSchedulerService_getSSHPublicKeys_args');
+  if (this.request !== null && this.request !== undefined) {
+    output.writeFieldBegin('request', Thrift.Type.STRUCT, 1);
+    this.request.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+EMRSchedulerService_getSSHPublicKeys_result = function(args) {
+  this.success = null;
+  this.se = null;
+  if (args instanceof ServiceException) {
+    this.se = args;
+    return;
+  }
+  if (args) {
+    if (args.success !== undefined) {
+      this.success = args.success;
+    }
+    if (args.se !== undefined) {
+      this.se = args.se;
+    }
+  }
+};
+EMRSchedulerService_getSSHPublicKeys_result.prototype = {};
+EMRSchedulerService_getSSHPublicKeys_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.success = new GetSSHPublicKeysResponse();
+        this.success.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.se = new ServiceException();
+        this.se.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+EMRSchedulerService_getSSHPublicKeys_result.prototype.write = function(output) {
+  output.writeStructBegin('EMRSchedulerService_getSSHPublicKeys_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+    this.success.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.se !== null && this.se !== undefined) {
+    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
+    this.se.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+EMRSchedulerService_addSSHPublicKeys_args = function(args) {
+  this.request = null;
+  if (args) {
+    if (args.request !== undefined) {
+      this.request = args.request;
+    }
+  }
+};
+EMRSchedulerService_addSSHPublicKeys_args.prototype = {};
+EMRSchedulerService_addSSHPublicKeys_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.request = new AddSSHPublicKeysRequest();
+        this.request.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+EMRSchedulerService_addSSHPublicKeys_args.prototype.write = function(output) {
+  output.writeStructBegin('EMRSchedulerService_addSSHPublicKeys_args');
+  if (this.request !== null && this.request !== undefined) {
+    output.writeFieldBegin('request', Thrift.Type.STRUCT, 1);
+    this.request.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+EMRSchedulerService_addSSHPublicKeys_result = function(args) {
+  this.se = null;
+  if (args instanceof ServiceException) {
+    this.se = args;
+    return;
+  }
+  if (args) {
+    if (args.se !== undefined) {
+      this.se = args.se;
+    }
+  }
+};
+EMRSchedulerService_addSSHPublicKeys_result.prototype = {};
+EMRSchedulerService_addSSHPublicKeys_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.se = new ServiceException();
+        this.se.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+EMRSchedulerService_addSSHPublicKeys_result.prototype.write = function(output) {
+  output.writeStructBegin('EMRSchedulerService_addSSHPublicKeys_result');
+  if (this.se !== null && this.se !== undefined) {
+    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
+    this.se.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+EMRSchedulerService_deleteSSHPublicKeys_args = function(args) {
+  this.request = null;
+  if (args) {
+    if (args.request !== undefined) {
+      this.request = args.request;
+    }
+  }
+};
+EMRSchedulerService_deleteSSHPublicKeys_args.prototype = {};
+EMRSchedulerService_deleteSSHPublicKeys_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.request = new DeleteSSHPublicKeysRequest();
+        this.request.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+EMRSchedulerService_deleteSSHPublicKeys_args.prototype.write = function(output) {
+  output.writeStructBegin('EMRSchedulerService_deleteSSHPublicKeys_args');
+  if (this.request !== null && this.request !== undefined) {
+    output.writeFieldBegin('request', Thrift.Type.STRUCT, 1);
+    this.request.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+EMRSchedulerService_deleteSSHPublicKeys_result = function(args) {
+  this.se = null;
+  if (args instanceof ServiceException) {
+    this.se = args;
+    return;
+  }
+  if (args) {
+    if (args.se !== undefined) {
+      this.se = args.se;
+    }
+  }
+};
+EMRSchedulerService_deleteSSHPublicKeys_result.prototype = {};
+EMRSchedulerService_deleteSSHPublicKeys_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.se = new ServiceException();
+        this.se.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+EMRSchedulerService_deleteSSHPublicKeys_result.prototype.write = function(output) {
+  output.writeStructBegin('EMRSchedulerService_deleteSSHPublicKeys_result');
+  if (this.se !== null && this.se !== undefined) {
+    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
+    this.se.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+EMRSchedulerService_getQuota_args = function(args) {
+  this.request = null;
+  if (args) {
+    if (args.request !== undefined) {
+      this.request = args.request;
+    }
+  }
+};
+EMRSchedulerService_getQuota_args.prototype = {};
+EMRSchedulerService_getQuota_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.request = new GetQuotaRequest();
+        this.request.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+EMRSchedulerService_getQuota_args.prototype.write = function(output) {
+  output.writeStructBegin('EMRSchedulerService_getQuota_args');
+  if (this.request !== null && this.request !== undefined) {
+    output.writeFieldBegin('request', Thrift.Type.STRUCT, 1);
+    this.request.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+EMRSchedulerService_getQuota_result = function(args) {
+  this.success = null;
+  this.se = null;
+  if (args instanceof ServiceException) {
+    this.se = args;
+    return;
+  }
+  if (args) {
+    if (args.success !== undefined) {
+      this.success = args.success;
+    }
+    if (args.se !== undefined) {
+      this.se = args.se;
+    }
+  }
+};
+EMRSchedulerService_getQuota_result.prototype = {};
+EMRSchedulerService_getQuota_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.success = new GetQuotaResponse();
+        this.success.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.se = new ServiceException();
+        this.se.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+EMRSchedulerService_getQuota_result.prototype.write = function(output) {
+  output.writeStructBegin('EMRSchedulerService_getQuota_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+    this.success.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.se !== null && this.se !== undefined) {
+    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
+    this.se.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+EMRSchedulerService_deleteCluster_args = function(args) {
+  this.request = null;
+  if (args) {
+    if (args.request !== undefined) {
+      this.request = args.request;
+    }
+  }
+};
+EMRSchedulerService_deleteCluster_args.prototype = {};
+EMRSchedulerService_deleteCluster_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.request = new DeleteClusterRequest();
+        this.request.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+EMRSchedulerService_deleteCluster_args.prototype.write = function(output) {
+  output.writeStructBegin('EMRSchedulerService_deleteCluster_args');
+  if (this.request !== null && this.request !== undefined) {
+    output.writeFieldBegin('request', Thrift.Type.STRUCT, 1);
+    this.request.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+EMRSchedulerService_deleteCluster_result = function(args) {
+  this.success = null;
+  this.se = null;
+  if (args instanceof ServiceException) {
+    this.se = args;
+    return;
+  }
+  if (args) {
+    if (args.success !== undefined) {
+      this.success = args.success;
+    }
+    if (args.se !== undefined) {
+      this.se = args.se;
+    }
+  }
+};
+EMRSchedulerService_deleteCluster_result.prototype = {};
+EMRSchedulerService_deleteCluster_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.success = new DeleteClusterResponse();
+        this.success.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.se = new ServiceException();
+        this.se.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+EMRSchedulerService_deleteCluster_result.prototype.write = function(output) {
+  output.writeStructBegin('EMRSchedulerService_deleteCluster_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+    this.success.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.se !== null && this.se !== undefined) {
+    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
+    this.se.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+EMRSchedulerService_getEMRBasicConfig_args = function(args) {
+};
+EMRSchedulerService_getEMRBasicConfig_args.prototype = {};
+EMRSchedulerService_getEMRBasicConfig_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    input.skip(ftype);
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+EMRSchedulerService_getEMRBasicConfig_args.prototype.write = function(output) {
+  output.writeStructBegin('EMRSchedulerService_getEMRBasicConfig_args');
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+EMRSchedulerService_getEMRBasicConfig_result = function(args) {
+  this.success = null;
+  this.se = null;
+  if (args instanceof ServiceException) {
+    this.se = args;
+    return;
+  }
+  if (args) {
+    if (args.success !== undefined) {
+      this.success = args.success;
+    }
+    if (args.se !== undefined) {
+      this.se = args.se;
+    }
+  }
+};
+EMRSchedulerService_getEMRBasicConfig_result.prototype = {};
+EMRSchedulerService_getEMRBasicConfig_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.success = new GetEMRBasicConfigResponse();
+        this.success.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.se = new ServiceException();
+        this.se.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+EMRSchedulerService_getEMRBasicConfig_result.prototype.write = function(output) {
+  output.writeStructBegin('EMRSchedulerService_getEMRBasicConfig_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+    this.success.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.se !== null && this.se !== undefined) {
+    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
+    this.se.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+EMRSchedulerService_getSoftwareConfig_args = function(args) {
+};
+EMRSchedulerService_getSoftwareConfig_args.prototype = {};
+EMRSchedulerService_getSoftwareConfig_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    input.skip(ftype);
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+EMRSchedulerService_getSoftwareConfig_args.prototype.write = function(output) {
+  output.writeStructBegin('EMRSchedulerService_getSoftwareConfig_args');
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+EMRSchedulerService_getSoftwareConfig_result = function(args) {
+  this.success = null;
+  this.se = null;
+  if (args instanceof ServiceException) {
+    this.se = args;
+    return;
+  }
+  if (args) {
+    if (args.success !== undefined) {
+      this.success = args.success;
+    }
+    if (args.se !== undefined) {
+      this.se = args.se;
+    }
+  }
+};
+EMRSchedulerService_getSoftwareConfig_result.prototype = {};
+EMRSchedulerService_getSoftwareConfig_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.success = new GetSoftwareConfigResponse();
+        this.success.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.se = new ServiceException();
+        this.se.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+EMRSchedulerService_getSoftwareConfig_result.prototype.write = function(output) {
+  output.writeStructBegin('EMRSchedulerService_getSoftwareConfig_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+    this.success.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.se !== null && this.se !== undefined) {
+    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
+    this.se.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+EMRSchedulerService_getHardwareConfig_args = function(args) {
+};
+EMRSchedulerService_getHardwareConfig_args.prototype = {};
+EMRSchedulerService_getHardwareConfig_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    input.skip(ftype);
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+EMRSchedulerService_getHardwareConfig_args.prototype.write = function(output) {
+  output.writeStructBegin('EMRSchedulerService_getHardwareConfig_args');
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+EMRSchedulerService_getHardwareConfig_result = function(args) {
+  this.success = null;
+  this.se = null;
+  if (args instanceof ServiceException) {
+    this.se = args;
+    return;
+  }
+  if (args) {
+    if (args.success !== undefined) {
+      this.success = args.success;
+    }
+    if (args.se !== undefined) {
+      this.se = args.se;
+    }
+  }
+};
+EMRSchedulerService_getHardwareConfig_result.prototype = {};
+EMRSchedulerService_getHardwareConfig_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.success = new GetHardwareConfigResponse();
+        this.success.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.se = new ServiceException();
+        this.se.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+EMRSchedulerService_getHardwareConfig_result.prototype.write = function(output) {
+  output.writeStructBegin('EMRSchedulerService_getHardwareConfig_result');
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
     this.success.write(output);
@@ -3280,6 +4329,49 @@ EMRSchedulerServiceClient.prototype.recv_listClusters = function() {
   }
   throw 'listClusters failed: unknown result';
 };
+EMRSchedulerServiceClient.prototype.listClustersWithPrefix = function(prefix, callback) {
+  if (callback === undefined) {
+    this.send_listClustersWithPrefix(prefix);
+    return this.recv_listClustersWithPrefix();
+  } else {
+    var postData = this.send_listClustersWithPrefix(prefix, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_listClustersWithPrefix);
+  }
+};
+
+EMRSchedulerServiceClient.prototype.send_listClustersWithPrefix = function(prefix, callback) {
+  this.output.writeMessageBegin('listClustersWithPrefix', Thrift.MessageType.CALL, this.seqid);
+  var args = new EMRSchedulerService_listClustersWithPrefix_args();
+  args.prefix = prefix;
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+EMRSchedulerServiceClient.prototype.recv_listClustersWithPrefix = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new EMRSchedulerService_listClustersWithPrefix_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.se) {
+    throw result.se;
+  }
+  if (null !== result.success) {
+    return result.success;
+  }
+  throw 'listClustersWithPrefix failed: unknown result';
+};
 EMRSchedulerServiceClient.prototype.listInstanceGroups = function(clusterId, callback) {
   if (callback === undefined) {
     this.send_listInstanceGroups(clusterId);
@@ -3619,4 +4711,339 @@ EMRSchedulerServiceClient.prototype.recv_listPermissions = function() {
     return result.success;
   }
   throw 'listPermissions failed: unknown result';
+};
+EMRSchedulerServiceClient.prototype.getSSHPublicKeys = function(request, callback) {
+  if (callback === undefined) {
+    this.send_getSSHPublicKeys(request);
+    return this.recv_getSSHPublicKeys();
+  } else {
+    var postData = this.send_getSSHPublicKeys(request, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_getSSHPublicKeys);
+  }
+};
+
+EMRSchedulerServiceClient.prototype.send_getSSHPublicKeys = function(request, callback) {
+  this.output.writeMessageBegin('getSSHPublicKeys', Thrift.MessageType.CALL, this.seqid);
+  var args = new EMRSchedulerService_getSSHPublicKeys_args();
+  args.request = request;
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+EMRSchedulerServiceClient.prototype.recv_getSSHPublicKeys = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new EMRSchedulerService_getSSHPublicKeys_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.se) {
+    throw result.se;
+  }
+  if (null !== result.success) {
+    return result.success;
+  }
+  throw 'getSSHPublicKeys failed: unknown result';
+};
+EMRSchedulerServiceClient.prototype.addSSHPublicKeys = function(request, callback) {
+  if (callback === undefined) {
+    this.send_addSSHPublicKeys(request);
+    this.recv_addSSHPublicKeys();
+  } else {
+    var postData = this.send_addSSHPublicKeys(request, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_addSSHPublicKeys);
+  }
+};
+
+EMRSchedulerServiceClient.prototype.send_addSSHPublicKeys = function(request, callback) {
+  this.output.writeMessageBegin('addSSHPublicKeys', Thrift.MessageType.CALL, this.seqid);
+  var args = new EMRSchedulerService_addSSHPublicKeys_args();
+  args.request = request;
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+EMRSchedulerServiceClient.prototype.recv_addSSHPublicKeys = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new EMRSchedulerService_addSSHPublicKeys_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.se) {
+    throw result.se;
+  }
+  return;
+};
+EMRSchedulerServiceClient.prototype.deleteSSHPublicKeys = function(request, callback) {
+  if (callback === undefined) {
+    this.send_deleteSSHPublicKeys(request);
+    this.recv_deleteSSHPublicKeys();
+  } else {
+    var postData = this.send_deleteSSHPublicKeys(request, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_deleteSSHPublicKeys);
+  }
+};
+
+EMRSchedulerServiceClient.prototype.send_deleteSSHPublicKeys = function(request, callback) {
+  this.output.writeMessageBegin('deleteSSHPublicKeys', Thrift.MessageType.CALL, this.seqid);
+  var args = new EMRSchedulerService_deleteSSHPublicKeys_args();
+  args.request = request;
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+EMRSchedulerServiceClient.prototype.recv_deleteSSHPublicKeys = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new EMRSchedulerService_deleteSSHPublicKeys_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.se) {
+    throw result.se;
+  }
+  return;
+};
+EMRSchedulerServiceClient.prototype.getQuota = function(request, callback) {
+  if (callback === undefined) {
+    this.send_getQuota(request);
+    return this.recv_getQuota();
+  } else {
+    var postData = this.send_getQuota(request, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_getQuota);
+  }
+};
+
+EMRSchedulerServiceClient.prototype.send_getQuota = function(request, callback) {
+  this.output.writeMessageBegin('getQuota', Thrift.MessageType.CALL, this.seqid);
+  var args = new EMRSchedulerService_getQuota_args();
+  args.request = request;
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+EMRSchedulerServiceClient.prototype.recv_getQuota = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new EMRSchedulerService_getQuota_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.se) {
+    throw result.se;
+  }
+  if (null !== result.success) {
+    return result.success;
+  }
+  throw 'getQuota failed: unknown result';
+};
+EMRSchedulerServiceClient.prototype.deleteCluster = function(request, callback) {
+  if (callback === undefined) {
+    this.send_deleteCluster(request);
+    return this.recv_deleteCluster();
+  } else {
+    var postData = this.send_deleteCluster(request, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_deleteCluster);
+  }
+};
+
+EMRSchedulerServiceClient.prototype.send_deleteCluster = function(request, callback) {
+  this.output.writeMessageBegin('deleteCluster', Thrift.MessageType.CALL, this.seqid);
+  var args = new EMRSchedulerService_deleteCluster_args();
+  args.request = request;
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+EMRSchedulerServiceClient.prototype.recv_deleteCluster = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new EMRSchedulerService_deleteCluster_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.se) {
+    throw result.se;
+  }
+  if (null !== result.success) {
+    return result.success;
+  }
+  throw 'deleteCluster failed: unknown result';
+};
+EMRSchedulerServiceClient.prototype.getEMRBasicConfig = function(callback) {
+  if (callback === undefined) {
+    this.send_getEMRBasicConfig();
+    return this.recv_getEMRBasicConfig();
+  } else {
+    var postData = this.send_getEMRBasicConfig(true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_getEMRBasicConfig);
+  }
+};
+
+EMRSchedulerServiceClient.prototype.send_getEMRBasicConfig = function(callback) {
+  this.output.writeMessageBegin('getEMRBasicConfig', Thrift.MessageType.CALL, this.seqid);
+  var args = new EMRSchedulerService_getEMRBasicConfig_args();
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+EMRSchedulerServiceClient.prototype.recv_getEMRBasicConfig = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new EMRSchedulerService_getEMRBasicConfig_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.se) {
+    throw result.se;
+  }
+  if (null !== result.success) {
+    return result.success;
+  }
+  throw 'getEMRBasicConfig failed: unknown result';
+};
+EMRSchedulerServiceClient.prototype.getSoftwareConfig = function(callback) {
+  if (callback === undefined) {
+    this.send_getSoftwareConfig();
+    return this.recv_getSoftwareConfig();
+  } else {
+    var postData = this.send_getSoftwareConfig(true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_getSoftwareConfig);
+  }
+};
+
+EMRSchedulerServiceClient.prototype.send_getSoftwareConfig = function(callback) {
+  this.output.writeMessageBegin('getSoftwareConfig', Thrift.MessageType.CALL, this.seqid);
+  var args = new EMRSchedulerService_getSoftwareConfig_args();
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+EMRSchedulerServiceClient.prototype.recv_getSoftwareConfig = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new EMRSchedulerService_getSoftwareConfig_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.se) {
+    throw result.se;
+  }
+  if (null !== result.success) {
+    return result.success;
+  }
+  throw 'getSoftwareConfig failed: unknown result';
+};
+EMRSchedulerServiceClient.prototype.getHardwareConfig = function(callback) {
+  if (callback === undefined) {
+    this.send_getHardwareConfig();
+    return this.recv_getHardwareConfig();
+  } else {
+    var postData = this.send_getHardwareConfig(true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_getHardwareConfig);
+  }
+};
+
+EMRSchedulerServiceClient.prototype.send_getHardwareConfig = function(callback) {
+  this.output.writeMessageBegin('getHardwareConfig', Thrift.MessageType.CALL, this.seqid);
+  var args = new EMRSchedulerService_getHardwareConfig_args();
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+EMRSchedulerServiceClient.prototype.recv_getHardwareConfig = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new EMRSchedulerService_getHardwareConfig_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.se) {
+    throw result.se;
+  }
+  if (null !== result.success) {
+    return result.success;
+  }
+  throw 'getHardwareConfig failed: unknown result';
 };
