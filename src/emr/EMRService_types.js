@@ -534,7 +534,7 @@ ApplicationSuite.prototype.write = function(output) {
 SSHPublicKey = function(args) {
   this.title = null;
   this.content = null;
-  this.figureprint = null;
+  this.fingerprint = null;
   this.addTime = null;
   if (args) {
     if (args.title !== undefined) {
@@ -543,8 +543,8 @@ SSHPublicKey = function(args) {
     if (args.content !== undefined) {
       this.content = args.content;
     }
-    if (args.figureprint !== undefined) {
-      this.figureprint = args.figureprint;
+    if (args.fingerprint !== undefined) {
+      this.fingerprint = args.fingerprint;
     }
     if (args.addTime !== undefined) {
       this.addTime = args.addTime;
@@ -581,7 +581,7 @@ SSHPublicKey.prototype.read = function(input) {
       break;
       case 3:
       if (ftype == Thrift.Type.STRING) {
-        this.figureprint = input.readString().value;
+        this.fingerprint = input.readString().value;
       } else {
         input.skip(ftype);
       }
@@ -614,9 +614,9 @@ SSHPublicKey.prototype.write = function(output) {
     output.writeString(this.content);
     output.writeFieldEnd();
   }
-  if (this.figureprint !== null && this.figureprint !== undefined) {
-    output.writeFieldBegin('figureprint', Thrift.Type.STRING, 3);
-    output.writeString(this.figureprint);
+  if (this.fingerprint !== null && this.fingerprint !== undefined) {
+    output.writeFieldBegin('fingerprint', Thrift.Type.STRING, 3);
+    output.writeString(this.fingerprint);
     output.writeFieldEnd();
   }
   if (this.addTime !== null && this.addTime !== undefined) {
