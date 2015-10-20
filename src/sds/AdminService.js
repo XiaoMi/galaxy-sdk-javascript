@@ -738,117 +738,6 @@ AdminService_dropTable_result.prototype.write = function(output) {
   return;
 };
 
-AdminService_lazyDropTable_args = function(args) {
-  this.tableName = null;
-  if (args) {
-    if (args.tableName !== undefined) {
-      this.tableName = args.tableName;
-    }
-  }
-};
-AdminService_lazyDropTable_args.prototype = {};
-AdminService_lazyDropTable_args.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true)
-  {
-    var ret = input.readFieldBegin();
-    var fname = ret.fname;
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 1:
-      if (ftype == Thrift.Type.STRING) {
-        this.tableName = input.readString().value;
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 0:
-        input.skip(ftype);
-        break;
-      default:
-        input.skip(ftype);
-    }
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
-};
-
-AdminService_lazyDropTable_args.prototype.write = function(output) {
-  output.writeStructBegin('AdminService_lazyDropTable_args');
-  if (this.tableName !== null && this.tableName !== undefined) {
-    output.writeFieldBegin('tableName', Thrift.Type.STRING, 1);
-    output.writeString(this.tableName);
-    output.writeFieldEnd();
-  }
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
-};
-
-AdminService_lazyDropTable_result = function(args) {
-  this.se = null;
-  if (args instanceof ServiceException) {
-    this.se = args;
-    return;
-  }
-  if (args) {
-    if (args.se !== undefined) {
-      this.se = args.se;
-    }
-  }
-};
-AdminService_lazyDropTable_result.prototype = {};
-AdminService_lazyDropTable_result.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true)
-  {
-    var ret = input.readFieldBegin();
-    var fname = ret.fname;
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 1:
-      if (ftype == Thrift.Type.STRUCT) {
-        this.se = new ServiceException();
-        this.se.read(input);
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 0:
-        input.skip(ftype);
-        break;
-      default:
-        input.skip(ftype);
-    }
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
-};
-
-AdminService_lazyDropTable_result.prototype.write = function(output) {
-  output.writeStructBegin('AdminService_lazyDropTable_result');
-  if (this.se !== null && this.se !== undefined) {
-    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
-    this.se.write(output);
-    output.writeFieldEnd();
-  }
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
-};
-
 AdminService_alterTable_args = function(args) {
   this.tableName = null;
   this.tableSpec = null;
@@ -3478,17 +3367,9 @@ AdminService_getTableHistorySize_args.prototype.write = function(output) {
 
 AdminService_getTableHistorySize_result = function(args) {
   this.success = null;
-  this.se = null;
-  if (args instanceof ServiceException) {
-    this.se = args;
-    return;
-  }
   if (args) {
     if (args.success !== undefined) {
       this.success = args.success;
-    }
-    if (args.se !== undefined) {
-      this.se = args.se;
     }
   }
 };
@@ -3535,14 +3416,9 @@ AdminService_getTableHistorySize_result.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
-      case 1:
-      if (ftype == Thrift.Type.STRUCT) {
-        this.se = new ServiceException();
-        this.se.read(input);
-      } else {
+      case 0:
         input.skip(ftype);
-      }
-      break;
+        break;
       default:
         input.skip(ftype);
     }
@@ -3567,11 +3443,6 @@ AdminService_getTableHistorySize_result.prototype.write = function(output) {
       }
     }
     output.writeMapEnd();
-    output.writeFieldEnd();
-  }
-  if (this.se !== null && this.se !== undefined) {
-    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
-    this.se.write(output);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -3828,46 +3699,6 @@ AdminServiceClient.prototype.recv_dropTable = function() {
     throw x;
   }
   var result = new AdminService_dropTable_result();
-  result.read(this.input);
-  this.input.readMessageEnd();
-
-  if (null !== result.se) {
-    throw result.se;
-  }
-  return;
-};
-AdminServiceClient.prototype.lazyDropTable = function(tableName, callback) {
-  if (callback === undefined) {
-    this.send_lazyDropTable(tableName);
-    this.recv_lazyDropTable();
-  } else {
-    var postData = this.send_lazyDropTable(tableName, true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_lazyDropTable);
-  }
-};
-
-AdminServiceClient.prototype.send_lazyDropTable = function(tableName, callback) {
-  this.output.writeMessageBegin('lazyDropTable', Thrift.MessageType.CALL, this.seqid);
-  var args = new AdminService_lazyDropTable_args();
-  args.tableName = tableName;
-  args.write(this.output);
-  this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
-};
-
-AdminServiceClient.prototype.recv_lazyDropTable = function() {
-  var ret = this.input.readMessageBegin();
-  var fname = ret.fname;
-  var mtype = ret.mtype;
-  var rseqid = ret.rseqid;
-  if (mtype == Thrift.MessageType.EXCEPTION) {
-    var x = new Thrift.TApplicationException();
-    x.read(this.input);
-    this.input.readMessageEnd();
-    throw x;
-  }
-  var result = new AdminService_lazyDropTable_result();
   result.read(this.input);
   this.input.readMessageEnd();
 
@@ -4711,9 +4542,6 @@ AdminServiceClient.prototype.recv_getTableHistorySize = function() {
   result.read(this.input);
   this.input.readMessageEnd();
 
-  if (null !== result.se) {
-    throw result.se;
-  }
   if (null !== result.success) {
     return result.success;
   }
