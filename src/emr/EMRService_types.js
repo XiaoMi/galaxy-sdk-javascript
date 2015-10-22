@@ -1222,6 +1222,7 @@ CreateClusterRequest = function(args) {
   this.keyPair = null;
   this.addInstanceGroupRequests = null;
   this.submitJobRequests = null;
+  this.softConfig = null;
   if (args) {
     if (args.name !== undefined) {
       this.name = args.name;
@@ -1248,6 +1249,9 @@ CreateClusterRequest = function(args) {
     }
     if (args.submitJobRequests !== undefined) {
       this.submitJobRequests = args.submitJobRequests;
+    }
+    if (args.softConfig !== undefined) {
+      this.softConfig = args.softConfig;
     }
   }
 };
@@ -1349,6 +1353,14 @@ CreateClusterRequest.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 9:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.softConfig = new ApplicationSuite();
+        this.softConfig.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -1416,6 +1428,11 @@ CreateClusterRequest.prototype.write = function(output) {
       }
     }
     output.writeListEnd();
+    output.writeFieldEnd();
+  }
+  if (this.softConfig !== null && this.softConfig !== undefined) {
+    output.writeFieldBegin('softConfig', Thrift.Type.STRUCT, 9);
+    this.softConfig.write(output);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -3673,6 +3690,7 @@ ClusterDetail = function(args) {
   this.instanceGroups = null;
   this.masterPublicDnsName = null;
   this.clusterStatus = null;
+  this.softConfig = null;
   if (args) {
     if (args.clusterId !== undefined) {
       this.clusterId = args.clusterId;
@@ -3705,6 +3723,9 @@ ClusterDetail = function(args) {
     }
     if (args.clusterStatus !== undefined) {
       this.clusterStatus = args.clusterStatus;
+    }
+    if (args.softConfig !== undefined) {
+      this.softConfig = args.softConfig;
     }
   }
 };
@@ -3807,6 +3828,14 @@ ClusterDetail.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 11:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.softConfig = new ApplicationSuite();
+        this.softConfig.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -3875,6 +3904,11 @@ ClusterDetail.prototype.write = function(output) {
   if (this.clusterStatus !== null && this.clusterStatus !== undefined) {
     output.writeFieldBegin('clusterStatus', Thrift.Type.STRUCT, 10);
     this.clusterStatus.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.softConfig !== null && this.softConfig !== undefined) {
+    output.writeFieldBegin('softConfig', Thrift.Type.STRUCT, 11);
+    this.softConfig.write(output);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
