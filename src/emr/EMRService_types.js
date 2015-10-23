@@ -3681,6 +3681,7 @@ InstanceGroupDetail.prototype.write = function(output) {
 
 ClusterDetail = function(args) {
   this.clusterId = null;
+  this.ownerId = null;
   this.name = null;
   this.region = null;
   this.purpose = null;
@@ -3689,6 +3690,7 @@ ClusterDetail = function(args) {
   this.terminationProtected = null;
   this.instanceGroups = null;
   this.masterPublicDnsName = null;
+  this.masterPublicIpAddress = null;
   this.clusterStatus = null;
   this.softConfig = null;
   if (args) {
@@ -3696,6 +3698,11 @@ ClusterDetail = function(args) {
       this.clusterId = args.clusterId;
     } else {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field clusterId is unset!');
+    }
+    if (args.ownerId !== undefined) {
+      this.ownerId = args.ownerId;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field ownerId is unset!');
     }
     if (args.name !== undefined) {
       this.name = args.name;
@@ -3720,6 +3727,9 @@ ClusterDetail = function(args) {
     }
     if (args.masterPublicDnsName !== undefined) {
       this.masterPublicDnsName = args.masterPublicDnsName;
+    }
+    if (args.masterPublicIpAddress !== undefined) {
+      this.masterPublicIpAddress = args.masterPublicIpAddress;
     }
     if (args.clusterStatus !== undefined) {
       this.clusterStatus = args.clusterStatus;
@@ -3752,47 +3762,54 @@ ClusterDetail.prototype.read = function(input) {
       break;
       case 2:
       if (ftype == Thrift.Type.STRING) {
-        this.name = input.readString().value;
+        this.ownerId = input.readString().value;
       } else {
         input.skip(ftype);
       }
       break;
       case 3:
       if (ftype == Thrift.Type.STRING) {
-        this.region = input.readString().value;
+        this.name = input.readString().value;
       } else {
         input.skip(ftype);
       }
       break;
       case 4:
       if (ftype == Thrift.Type.STRING) {
-        this.purpose = input.readString().value;
+        this.region = input.readString().value;
       } else {
         input.skip(ftype);
       }
       break;
       case 5:
       if (ftype == Thrift.Type.STRING) {
-        this.keyPair = input.readString().value;
+        this.purpose = input.readString().value;
       } else {
         input.skip(ftype);
       }
       break;
       case 6:
-      if (ftype == Thrift.Type.BOOL) {
-        this.autoTerminate = input.readBool().value;
+      if (ftype == Thrift.Type.STRING) {
+        this.keyPair = input.readString().value;
       } else {
         input.skip(ftype);
       }
       break;
       case 7:
       if (ftype == Thrift.Type.BOOL) {
-        this.terminationProtected = input.readBool().value;
+        this.autoTerminate = input.readBool().value;
       } else {
         input.skip(ftype);
       }
       break;
       case 8:
+      if (ftype == Thrift.Type.BOOL) {
+        this.terminationProtected = input.readBool().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 9:
       if (ftype == Thrift.Type.LIST) {
         var _size158 = 0;
         var _rtmp3162;
@@ -3813,14 +3830,21 @@ ClusterDetail.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
-      case 9:
+      case 10:
       if (ftype == Thrift.Type.STRING) {
         this.masterPublicDnsName = input.readString().value;
       } else {
         input.skip(ftype);
       }
       break;
-      case 10:
+      case 11:
+      if (ftype == Thrift.Type.STRING) {
+        this.masterPublicIpAddress = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 12:
       if (ftype == Thrift.Type.STRUCT) {
         this.clusterStatus = new Status();
         this.clusterStatus.read(input);
@@ -3828,7 +3852,7 @@ ClusterDetail.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
-      case 11:
+      case 13:
       if (ftype == Thrift.Type.STRUCT) {
         this.softConfig = new ApplicationSuite();
         this.softConfig.read(input);
@@ -3852,38 +3876,43 @@ ClusterDetail.prototype.write = function(output) {
     output.writeString(this.clusterId);
     output.writeFieldEnd();
   }
+  if (this.ownerId !== null && this.ownerId !== undefined) {
+    output.writeFieldBegin('ownerId', Thrift.Type.STRING, 2);
+    output.writeString(this.ownerId);
+    output.writeFieldEnd();
+  }
   if (this.name !== null && this.name !== undefined) {
-    output.writeFieldBegin('name', Thrift.Type.STRING, 2);
+    output.writeFieldBegin('name', Thrift.Type.STRING, 3);
     output.writeString(this.name);
     output.writeFieldEnd();
   }
   if (this.region !== null && this.region !== undefined) {
-    output.writeFieldBegin('region', Thrift.Type.STRING, 3);
+    output.writeFieldBegin('region', Thrift.Type.STRING, 4);
     output.writeString(this.region);
     output.writeFieldEnd();
   }
   if (this.purpose !== null && this.purpose !== undefined) {
-    output.writeFieldBegin('purpose', Thrift.Type.STRING, 4);
+    output.writeFieldBegin('purpose', Thrift.Type.STRING, 5);
     output.writeString(this.purpose);
     output.writeFieldEnd();
   }
   if (this.keyPair !== null && this.keyPair !== undefined) {
-    output.writeFieldBegin('keyPair', Thrift.Type.STRING, 5);
+    output.writeFieldBegin('keyPair', Thrift.Type.STRING, 6);
     output.writeString(this.keyPair);
     output.writeFieldEnd();
   }
   if (this.autoTerminate !== null && this.autoTerminate !== undefined) {
-    output.writeFieldBegin('autoTerminate', Thrift.Type.BOOL, 6);
+    output.writeFieldBegin('autoTerminate', Thrift.Type.BOOL, 7);
     output.writeBool(this.autoTerminate);
     output.writeFieldEnd();
   }
   if (this.terminationProtected !== null && this.terminationProtected !== undefined) {
-    output.writeFieldBegin('terminationProtected', Thrift.Type.BOOL, 7);
+    output.writeFieldBegin('terminationProtected', Thrift.Type.BOOL, 8);
     output.writeBool(this.terminationProtected);
     output.writeFieldEnd();
   }
   if (this.instanceGroups !== null && this.instanceGroups !== undefined) {
-    output.writeFieldBegin('instanceGroups', Thrift.Type.LIST, 8);
+    output.writeFieldBegin('instanceGroups', Thrift.Type.LIST, 9);
     output.writeListBegin(Thrift.Type.STRUCT, this.instanceGroups.length);
     for (var iter165 in this.instanceGroups)
     {
@@ -3897,17 +3926,22 @@ ClusterDetail.prototype.write = function(output) {
     output.writeFieldEnd();
   }
   if (this.masterPublicDnsName !== null && this.masterPublicDnsName !== undefined) {
-    output.writeFieldBegin('masterPublicDnsName', Thrift.Type.STRING, 9);
+    output.writeFieldBegin('masterPublicDnsName', Thrift.Type.STRING, 10);
     output.writeString(this.masterPublicDnsName);
     output.writeFieldEnd();
   }
+  if (this.masterPublicIpAddress !== null && this.masterPublicIpAddress !== undefined) {
+    output.writeFieldBegin('masterPublicIpAddress', Thrift.Type.STRING, 11);
+    output.writeString(this.masterPublicIpAddress);
+    output.writeFieldEnd();
+  }
   if (this.clusterStatus !== null && this.clusterStatus !== undefined) {
-    output.writeFieldBegin('clusterStatus', Thrift.Type.STRUCT, 10);
+    output.writeFieldBegin('clusterStatus', Thrift.Type.STRUCT, 12);
     this.clusterStatus.write(output);
     output.writeFieldEnd();
   }
   if (this.softConfig !== null && this.softConfig !== undefined) {
-    output.writeFieldBegin('softConfig', Thrift.Type.STRUCT, 11);
+    output.writeFieldBegin('softConfig', Thrift.Type.STRUCT, 13);
     this.softConfig.write(output);
     output.writeFieldEnd();
   }

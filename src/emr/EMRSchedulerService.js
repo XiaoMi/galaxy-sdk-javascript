@@ -3811,13 +3811,9 @@ EMRSchedulerServiceClient = function(input, output) {
 };
 Thrift.inherits(EMRSchedulerServiceClient, BaseServiceClient);
 EMRSchedulerServiceClient.prototype.createCluster = function(cluster, callback) {
-  if (callback === undefined) {
-    this.send_createCluster(cluster);
+  this.send_createCluster(cluster, callback); 
+  if (!callback) {
     return this.recv_createCluster();
-  } else {
-    var postData = this.send_createCluster(cluster, true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_createCluster);
   }
 };
 
@@ -3827,7 +3823,20 @@ EMRSchedulerServiceClient.prototype.send_createCluster = function(cluster, callb
   args.cluster = cluster;
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_createCluster();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_createCluster = function() {
@@ -3854,13 +3863,9 @@ EMRSchedulerServiceClient.prototype.recv_createCluster = function() {
   throw 'createCluster failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.addInstanceGroup = function(instanceGroup, callback) {
-  if (callback === undefined) {
-    this.send_addInstanceGroup(instanceGroup);
+  this.send_addInstanceGroup(instanceGroup, callback); 
+  if (!callback) {
     return this.recv_addInstanceGroup();
-  } else {
-    var postData = this.send_addInstanceGroup(instanceGroup, true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_addInstanceGroup);
   }
 };
 
@@ -3870,7 +3875,20 @@ EMRSchedulerServiceClient.prototype.send_addInstanceGroup = function(instanceGro
   args.instanceGroup = instanceGroup;
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_addInstanceGroup();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_addInstanceGroup = function() {
@@ -3897,13 +3915,9 @@ EMRSchedulerServiceClient.prototype.recv_addInstanceGroup = function() {
   throw 'addInstanceGroup failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.addInstanceGroups = function(instanceGroups, callback) {
-  if (callback === undefined) {
-    this.send_addInstanceGroups(instanceGroups);
+  this.send_addInstanceGroups(instanceGroups, callback); 
+  if (!callback) {
     return this.recv_addInstanceGroups();
-  } else {
-    var postData = this.send_addInstanceGroups(instanceGroups, true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_addInstanceGroups);
   }
 };
 
@@ -3913,7 +3927,20 @@ EMRSchedulerServiceClient.prototype.send_addInstanceGroups = function(instanceGr
   args.instanceGroups = instanceGroups;
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_addInstanceGroups();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_addInstanceGroups = function() {
@@ -3940,13 +3967,9 @@ EMRSchedulerServiceClient.prototype.recv_addInstanceGroups = function() {
   throw 'addInstanceGroups failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.submitJob = function(job, callback) {
-  if (callback === undefined) {
-    this.send_submitJob(job);
+  this.send_submitJob(job, callback); 
+  if (!callback) {
     return this.recv_submitJob();
-  } else {
-    var postData = this.send_submitJob(job, true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_submitJob);
   }
 };
 
@@ -3956,7 +3979,20 @@ EMRSchedulerServiceClient.prototype.send_submitJob = function(job, callback) {
   args.job = job;
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_submitJob();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_submitJob = function() {
@@ -3983,13 +4019,9 @@ EMRSchedulerServiceClient.prototype.recv_submitJob = function() {
   throw 'submitJob failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.submitJobs = function(jobs, callback) {
-  if (callback === undefined) {
-    this.send_submitJobs(jobs);
+  this.send_submitJobs(jobs, callback); 
+  if (!callback) {
     return this.recv_submitJobs();
-  } else {
-    var postData = this.send_submitJobs(jobs, true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_submitJobs);
   }
 };
 
@@ -3999,7 +4031,20 @@ EMRSchedulerServiceClient.prototype.send_submitJobs = function(jobs, callback) {
   args.jobs = jobs;
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_submitJobs();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_submitJobs = function() {
@@ -4026,13 +4071,9 @@ EMRSchedulerServiceClient.prototype.recv_submitJobs = function() {
   throw 'submitJobs failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.terminateCluster = function(terminateCluster, callback) {
-  if (callback === undefined) {
-    this.send_terminateCluster(terminateCluster);
+  this.send_terminateCluster(terminateCluster, callback); 
+  if (!callback) {
     return this.recv_terminateCluster();
-  } else {
-    var postData = this.send_terminateCluster(terminateCluster, true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_terminateCluster);
   }
 };
 
@@ -4042,7 +4083,20 @@ EMRSchedulerServiceClient.prototype.send_terminateCluster = function(terminateCl
   args.terminateCluster = terminateCluster;
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_terminateCluster();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_terminateCluster = function() {
@@ -4069,13 +4123,9 @@ EMRSchedulerServiceClient.prototype.recv_terminateCluster = function() {
   throw 'terminateCluster failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.modifyInstanceGroup = function(instanceGroup, callback) {
-  if (callback === undefined) {
-    this.send_modifyInstanceGroup(instanceGroup);
+  this.send_modifyInstanceGroup(instanceGroup, callback); 
+  if (!callback) {
     return this.recv_modifyInstanceGroup();
-  } else {
-    var postData = this.send_modifyInstanceGroup(instanceGroup, true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_modifyInstanceGroup);
   }
 };
 
@@ -4085,7 +4135,20 @@ EMRSchedulerServiceClient.prototype.send_modifyInstanceGroup = function(instance
   args.instanceGroup = instanceGroup;
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_modifyInstanceGroup();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_modifyInstanceGroup = function() {
@@ -4112,13 +4175,9 @@ EMRSchedulerServiceClient.prototype.recv_modifyInstanceGroup = function() {
   throw 'modifyInstanceGroup failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.describeCluster = function(clusterId, callback) {
-  if (callback === undefined) {
-    this.send_describeCluster(clusterId);
+  this.send_describeCluster(clusterId, callback); 
+  if (!callback) {
     return this.recv_describeCluster();
-  } else {
-    var postData = this.send_describeCluster(clusterId, true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_describeCluster);
   }
 };
 
@@ -4128,7 +4187,20 @@ EMRSchedulerServiceClient.prototype.send_describeCluster = function(clusterId, c
   args.clusterId = clusterId;
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_describeCluster();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_describeCluster = function() {
@@ -4155,13 +4227,9 @@ EMRSchedulerServiceClient.prototype.recv_describeCluster = function() {
   throw 'describeCluster failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.describeInstanceGroup = function(instanceGroupId, callback) {
-  if (callback === undefined) {
-    this.send_describeInstanceGroup(instanceGroupId);
+  this.send_describeInstanceGroup(instanceGroupId, callback); 
+  if (!callback) {
     return this.recv_describeInstanceGroup();
-  } else {
-    var postData = this.send_describeInstanceGroup(instanceGroupId, true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_describeInstanceGroup);
   }
 };
 
@@ -4171,7 +4239,20 @@ EMRSchedulerServiceClient.prototype.send_describeInstanceGroup = function(instan
   args.instanceGroupId = instanceGroupId;
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_describeInstanceGroup();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_describeInstanceGroup = function() {
@@ -4198,13 +4279,9 @@ EMRSchedulerServiceClient.prototype.recv_describeInstanceGroup = function() {
   throw 'describeInstanceGroup failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.describeInstance = function(clusterId, instanceId, callback) {
-  if (callback === undefined) {
-    this.send_describeInstance(clusterId, instanceId);
+  this.send_describeInstance(clusterId, instanceId, callback); 
+  if (!callback) {
     return this.recv_describeInstance();
-  } else {
-    var postData = this.send_describeInstance(clusterId, instanceId, true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_describeInstance);
   }
 };
 
@@ -4215,7 +4292,20 @@ EMRSchedulerServiceClient.prototype.send_describeInstance = function(clusterId, 
   args.instanceId = instanceId;
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_describeInstance();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_describeInstance = function() {
@@ -4242,13 +4332,9 @@ EMRSchedulerServiceClient.prototype.recv_describeInstance = function() {
   throw 'describeInstance failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.describeJob = function(clusterId, jobId, callback) {
-  if (callback === undefined) {
-    this.send_describeJob(clusterId, jobId);
+  this.send_describeJob(clusterId, jobId, callback); 
+  if (!callback) {
     return this.recv_describeJob();
-  } else {
-    var postData = this.send_describeJob(clusterId, jobId, true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_describeJob);
   }
 };
 
@@ -4259,7 +4345,20 @@ EMRSchedulerServiceClient.prototype.send_describeJob = function(clusterId, jobId
   args.jobId = jobId;
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_describeJob();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_describeJob = function() {
@@ -4286,13 +4385,9 @@ EMRSchedulerServiceClient.prototype.recv_describeJob = function() {
   throw 'describeJob failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.listClusters = function(createdAfter, createdBefore, callback) {
-  if (callback === undefined) {
-    this.send_listClusters(createdAfter, createdBefore);
+  this.send_listClusters(createdAfter, createdBefore, callback); 
+  if (!callback) {
     return this.recv_listClusters();
-  } else {
-    var postData = this.send_listClusters(createdAfter, createdBefore, true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_listClusters);
   }
 };
 
@@ -4303,7 +4398,20 @@ EMRSchedulerServiceClient.prototype.send_listClusters = function(createdAfter, c
   args.createdBefore = createdBefore;
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_listClusters();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_listClusters = function() {
@@ -4330,13 +4438,9 @@ EMRSchedulerServiceClient.prototype.recv_listClusters = function() {
   throw 'listClusters failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.listClustersWithPrefix = function(prefix, callback) {
-  if (callback === undefined) {
-    this.send_listClustersWithPrefix(prefix);
+  this.send_listClustersWithPrefix(prefix, callback); 
+  if (!callback) {
     return this.recv_listClustersWithPrefix();
-  } else {
-    var postData = this.send_listClustersWithPrefix(prefix, true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_listClustersWithPrefix);
   }
 };
 
@@ -4346,7 +4450,20 @@ EMRSchedulerServiceClient.prototype.send_listClustersWithPrefix = function(prefi
   args.prefix = prefix;
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_listClustersWithPrefix();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_listClustersWithPrefix = function() {
@@ -4373,13 +4490,9 @@ EMRSchedulerServiceClient.prototype.recv_listClustersWithPrefix = function() {
   throw 'listClustersWithPrefix failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.listInstanceGroups = function(clusterId, callback) {
-  if (callback === undefined) {
-    this.send_listInstanceGroups(clusterId);
+  this.send_listInstanceGroups(clusterId, callback); 
+  if (!callback) {
     return this.recv_listInstanceGroups();
-  } else {
-    var postData = this.send_listInstanceGroups(clusterId, true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_listInstanceGroups);
   }
 };
 
@@ -4389,7 +4502,20 @@ EMRSchedulerServiceClient.prototype.send_listInstanceGroups = function(clusterId
   args.clusterId = clusterId;
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_listInstanceGroups();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_listInstanceGroups = function() {
@@ -4416,13 +4542,9 @@ EMRSchedulerServiceClient.prototype.recv_listInstanceGroups = function() {
   throw 'listInstanceGroups failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.listInstancesInCluster = function(clusterId, callback) {
-  if (callback === undefined) {
-    this.send_listInstancesInCluster(clusterId);
+  this.send_listInstancesInCluster(clusterId, callback); 
+  if (!callback) {
     return this.recv_listInstancesInCluster();
-  } else {
-    var postData = this.send_listInstancesInCluster(clusterId, true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_listInstancesInCluster);
   }
 };
 
@@ -4432,7 +4554,20 @@ EMRSchedulerServiceClient.prototype.send_listInstancesInCluster = function(clust
   args.clusterId = clusterId;
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_listInstancesInCluster();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_listInstancesInCluster = function() {
@@ -4459,13 +4594,9 @@ EMRSchedulerServiceClient.prototype.recv_listInstancesInCluster = function() {
   throw 'listInstancesInCluster failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.listInstancesInGroup = function(clusterId, groupId, groupRole, callback) {
-  if (callback === undefined) {
-    this.send_listInstancesInGroup(clusterId, groupId, groupRole);
+  this.send_listInstancesInGroup(clusterId, groupId, groupRole, callback); 
+  if (!callback) {
     return this.recv_listInstancesInGroup();
-  } else {
-    var postData = this.send_listInstancesInGroup(clusterId, groupId, groupRole, true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_listInstancesInGroup);
   }
 };
 
@@ -4477,7 +4608,20 @@ EMRSchedulerServiceClient.prototype.send_listInstancesInGroup = function(cluster
   args.groupRole = groupRole;
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_listInstancesInGroup();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_listInstancesInGroup = function() {
@@ -4504,13 +4648,9 @@ EMRSchedulerServiceClient.prototype.recv_listInstancesInGroup = function() {
   throw 'listInstancesInGroup failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.listJobs = function(clusterId, callback) {
-  if (callback === undefined) {
-    this.send_listJobs(clusterId);
+  this.send_listJobs(clusterId, callback); 
+  if (!callback) {
     return this.recv_listJobs();
-  } else {
-    var postData = this.send_listJobs(clusterId, true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_listJobs);
   }
 };
 
@@ -4520,7 +4660,20 @@ EMRSchedulerServiceClient.prototype.send_listJobs = function(clusterId, callback
   args.clusterId = clusterId;
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_listJobs();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_listJobs = function() {
@@ -4547,13 +4700,9 @@ EMRSchedulerServiceClient.prototype.recv_listJobs = function() {
   throw 'listJobs failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.setPermission = function(request, callback) {
-  if (callback === undefined) {
-    this.send_setPermission(request);
-    this.recv_setPermission();
-  } else {
-    var postData = this.send_setPermission(request, true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_setPermission);
+  this.send_setPermission(request, callback); 
+  if (!callback) {
+  this.recv_setPermission();
   }
 };
 
@@ -4563,7 +4712,20 @@ EMRSchedulerServiceClient.prototype.send_setPermission = function(request, callb
   args.request = request;
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_setPermission();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_setPermission = function() {
@@ -4587,13 +4749,9 @@ EMRSchedulerServiceClient.prototype.recv_setPermission = function() {
   return;
 };
 EMRSchedulerServiceClient.prototype.revokePermission = function(request, callback) {
-  if (callback === undefined) {
-    this.send_revokePermission(request);
-    this.recv_revokePermission();
-  } else {
-    var postData = this.send_revokePermission(request, true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_revokePermission);
+  this.send_revokePermission(request, callback); 
+  if (!callback) {
+  this.recv_revokePermission();
   }
 };
 
@@ -4603,7 +4761,20 @@ EMRSchedulerServiceClient.prototype.send_revokePermission = function(request, ca
   args.request = request;
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_revokePermission();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_revokePermission = function() {
@@ -4627,13 +4798,9 @@ EMRSchedulerServiceClient.prototype.recv_revokePermission = function() {
   return;
 };
 EMRSchedulerServiceClient.prototype.queryPermission = function(request, callback) {
-  if (callback === undefined) {
-    this.send_queryPermission(request);
+  this.send_queryPermission(request, callback); 
+  if (!callback) {
     return this.recv_queryPermission();
-  } else {
-    var postData = this.send_queryPermission(request, true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_queryPermission);
   }
 };
 
@@ -4643,7 +4810,20 @@ EMRSchedulerServiceClient.prototype.send_queryPermission = function(request, cal
   args.request = request;
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_queryPermission();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_queryPermission = function() {
@@ -4670,13 +4850,9 @@ EMRSchedulerServiceClient.prototype.recv_queryPermission = function() {
   throw 'queryPermission failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.listPermissions = function(request, callback) {
-  if (callback === undefined) {
-    this.send_listPermissions(request);
+  this.send_listPermissions(request, callback); 
+  if (!callback) {
     return this.recv_listPermissions();
-  } else {
-    var postData = this.send_listPermissions(request, true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_listPermissions);
   }
 };
 
@@ -4686,7 +4862,20 @@ EMRSchedulerServiceClient.prototype.send_listPermissions = function(request, cal
   args.request = request;
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_listPermissions();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_listPermissions = function() {
@@ -4713,13 +4902,9 @@ EMRSchedulerServiceClient.prototype.recv_listPermissions = function() {
   throw 'listPermissions failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.getSSHPublicKeys = function(request, callback) {
-  if (callback === undefined) {
-    this.send_getSSHPublicKeys(request);
+  this.send_getSSHPublicKeys(request, callback); 
+  if (!callback) {
     return this.recv_getSSHPublicKeys();
-  } else {
-    var postData = this.send_getSSHPublicKeys(request, true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_getSSHPublicKeys);
   }
 };
 
@@ -4729,7 +4914,20 @@ EMRSchedulerServiceClient.prototype.send_getSSHPublicKeys = function(request, ca
   args.request = request;
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_getSSHPublicKeys();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_getSSHPublicKeys = function() {
@@ -4756,13 +4954,9 @@ EMRSchedulerServiceClient.prototype.recv_getSSHPublicKeys = function() {
   throw 'getSSHPublicKeys failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.addSSHPublicKeys = function(request, callback) {
-  if (callback === undefined) {
-    this.send_addSSHPublicKeys(request);
-    this.recv_addSSHPublicKeys();
-  } else {
-    var postData = this.send_addSSHPublicKeys(request, true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_addSSHPublicKeys);
+  this.send_addSSHPublicKeys(request, callback); 
+  if (!callback) {
+  this.recv_addSSHPublicKeys();
   }
 };
 
@@ -4772,7 +4966,20 @@ EMRSchedulerServiceClient.prototype.send_addSSHPublicKeys = function(request, ca
   args.request = request;
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_addSSHPublicKeys();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_addSSHPublicKeys = function() {
@@ -4796,13 +5003,9 @@ EMRSchedulerServiceClient.prototype.recv_addSSHPublicKeys = function() {
   return;
 };
 EMRSchedulerServiceClient.prototype.deleteSSHPublicKeys = function(request, callback) {
-  if (callback === undefined) {
-    this.send_deleteSSHPublicKeys(request);
-    this.recv_deleteSSHPublicKeys();
-  } else {
-    var postData = this.send_deleteSSHPublicKeys(request, true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_deleteSSHPublicKeys);
+  this.send_deleteSSHPublicKeys(request, callback); 
+  if (!callback) {
+  this.recv_deleteSSHPublicKeys();
   }
 };
 
@@ -4812,7 +5015,20 @@ EMRSchedulerServiceClient.prototype.send_deleteSSHPublicKeys = function(request,
   args.request = request;
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_deleteSSHPublicKeys();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_deleteSSHPublicKeys = function() {
@@ -4836,13 +5052,9 @@ EMRSchedulerServiceClient.prototype.recv_deleteSSHPublicKeys = function() {
   return;
 };
 EMRSchedulerServiceClient.prototype.getQuota = function(request, callback) {
-  if (callback === undefined) {
-    this.send_getQuota(request);
+  this.send_getQuota(request, callback); 
+  if (!callback) {
     return this.recv_getQuota();
-  } else {
-    var postData = this.send_getQuota(request, true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_getQuota);
   }
 };
 
@@ -4852,7 +5064,20 @@ EMRSchedulerServiceClient.prototype.send_getQuota = function(request, callback) 
   args.request = request;
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_getQuota();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_getQuota = function() {
@@ -4879,13 +5104,9 @@ EMRSchedulerServiceClient.prototype.recv_getQuota = function() {
   throw 'getQuota failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.deleteCluster = function(request, callback) {
-  if (callback === undefined) {
-    this.send_deleteCluster(request);
+  this.send_deleteCluster(request, callback); 
+  if (!callback) {
     return this.recv_deleteCluster();
-  } else {
-    var postData = this.send_deleteCluster(request, true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_deleteCluster);
   }
 };
 
@@ -4895,7 +5116,20 @@ EMRSchedulerServiceClient.prototype.send_deleteCluster = function(request, callb
   args.request = request;
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_deleteCluster();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_deleteCluster = function() {
@@ -4922,13 +5156,9 @@ EMRSchedulerServiceClient.prototype.recv_deleteCluster = function() {
   throw 'deleteCluster failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.getEMRBasicConfig = function(callback) {
-  if (callback === undefined) {
-    this.send_getEMRBasicConfig();
+  this.send_getEMRBasicConfig(callback); 
+  if (!callback) {
     return this.recv_getEMRBasicConfig();
-  } else {
-    var postData = this.send_getEMRBasicConfig(true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_getEMRBasicConfig);
   }
 };
 
@@ -4937,7 +5167,20 @@ EMRSchedulerServiceClient.prototype.send_getEMRBasicConfig = function(callback) 
   var args = new EMRSchedulerService_getEMRBasicConfig_args();
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_getEMRBasicConfig();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_getEMRBasicConfig = function() {
@@ -4964,13 +5207,9 @@ EMRSchedulerServiceClient.prototype.recv_getEMRBasicConfig = function() {
   throw 'getEMRBasicConfig failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.getSoftwareConfig = function(callback) {
-  if (callback === undefined) {
-    this.send_getSoftwareConfig();
+  this.send_getSoftwareConfig(callback); 
+  if (!callback) {
     return this.recv_getSoftwareConfig();
-  } else {
-    var postData = this.send_getSoftwareConfig(true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_getSoftwareConfig);
   }
 };
 
@@ -4979,7 +5218,20 @@ EMRSchedulerServiceClient.prototype.send_getSoftwareConfig = function(callback) 
   var args = new EMRSchedulerService_getSoftwareConfig_args();
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_getSoftwareConfig();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_getSoftwareConfig = function() {
@@ -5006,13 +5258,9 @@ EMRSchedulerServiceClient.prototype.recv_getSoftwareConfig = function() {
   throw 'getSoftwareConfig failed: unknown result';
 };
 EMRSchedulerServiceClient.prototype.getHardwareConfig = function(callback) {
-  if (callback === undefined) {
-    this.send_getHardwareConfig();
+  this.send_getHardwareConfig(callback); 
+  if (!callback) {
     return this.recv_getHardwareConfig();
-  } else {
-    var postData = this.send_getHardwareConfig(true);
-    return this.output.getTransport()
-      .jqRequest(this, postData, arguments, this.recv_getHardwareConfig);
   }
 };
 
@@ -5021,7 +5269,20 @@ EMRSchedulerServiceClient.prototype.send_getHardwareConfig = function(callback) 
   var args = new EMRSchedulerService_getHardwareConfig_args();
   args.write(this.output);
   this.output.writeMessageEnd();
-  return this.output.getTransport().flush(callback);
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_getHardwareConfig();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
 };
 
 EMRSchedulerServiceClient.prototype.recv_getHardwareConfig = function() {
