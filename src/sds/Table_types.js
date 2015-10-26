@@ -1282,8 +1282,8 @@ TableMetadata = function(args) {
   this.quota = null;
   this.throughput = null;
   this.description = null;
-  this.enableReplication = false;
-  this.enableScanInGlobalOrder = false;
+  this.enableReplication = null;
+  this.enableScanInGlobalOrder = null;
   if (args) {
     if (args.tableId !== undefined) {
       this.tableId = args.tableId;
