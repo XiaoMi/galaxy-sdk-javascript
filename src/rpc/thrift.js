@@ -400,13 +400,16 @@ Thrift.TXHRTransport.prototype = {
 
         var thriftTransport = this;
 
-        var sid = '';
-        var hostname = location.hostname;
-        if (hostname.indexOf('dev.xiaomi.com') >= 0) {
-            sid = 'developer';
-        }
-        else if (hostname.indexOf('dev.mi.com') >= 0) {
-            sid = 'mideveloper';
+        var sid = this.__getCookie('sid');
+        if (sid == '' || sid == undefined) {
+            var hostname = location.hostname;
+            if (hostname.indexOf('dev.xiaomi.com') >= 0)
+                sid = 'developer';
+            else if (hostname.indexOf('dev.mi.com') >= 0)
+                sid = 'mideveloper';
+            else
+                sid = '';
+
         }
 
         var jqXHR = jQuery.ajax({
