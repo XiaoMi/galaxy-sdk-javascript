@@ -1909,3 +1909,375 @@ ListPermissionsResponse.prototype.write = function(output) {
   return;
 };
 
+QueryMetricRequest = function(args) {
+  this.queueName = null;
+  this.startTime = null;
+  this.endTime = null;
+  this.metrics = null;
+  this.tags = null;
+  this.aggregator = null;
+  this.downsampleAggregator = null;
+  this.downsampleInterval = null;
+  this.downsampleTimeUnit = null;
+  this.calRate = null;
+  if (args) {
+    if (args.queueName !== undefined) {
+      this.queueName = args.queueName;
+    }
+    if (args.startTime !== undefined) {
+      this.startTime = args.startTime;
+    }
+    if (args.endTime !== undefined) {
+      this.endTime = args.endTime;
+    }
+    if (args.metrics !== undefined) {
+      this.metrics = args.metrics;
+    }
+    if (args.tags !== undefined) {
+      this.tags = args.tags;
+    }
+    if (args.aggregator !== undefined) {
+      this.aggregator = args.aggregator;
+    }
+    if (args.downsampleAggregator !== undefined) {
+      this.downsampleAggregator = args.downsampleAggregator;
+    }
+    if (args.downsampleInterval !== undefined) {
+      this.downsampleInterval = args.downsampleInterval;
+    }
+    if (args.downsampleTimeUnit !== undefined) {
+      this.downsampleTimeUnit = args.downsampleTimeUnit;
+    }
+    if (args.calRate !== undefined) {
+      this.calRate = args.calRate;
+    }
+  }
+};
+QueryMetricRequest.prototype = {};
+QueryMetricRequest.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.queueName = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.I64) {
+        this.startTime = input.readI64().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 3:
+      if (ftype == Thrift.Type.I64) {
+        this.endTime = input.readI64().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 4:
+      if (ftype == Thrift.Type.STRING) {
+        this.metrics = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 5:
+      if (ftype == Thrift.Type.MAP) {
+        var _size28 = 0;
+        var _rtmp332;
+        this.tags = {};
+        var _ktype29 = 0;
+        var _vtype30 = 0;
+        _rtmp332 = input.readMapBegin();
+        _ktype29 = _rtmp332.ktype;
+        _vtype30 = _rtmp332.vtype;
+        _size28 = _rtmp332.size;
+        for (var _i33 = 0; _i33 < _size28; ++_i33)
+        {
+          if (_i33 > 0 ) {
+            if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
+              input.rstack.pop();
+            }
+          }
+          var key34 = null;
+          var val35 = null;
+          key34 = input.readString().value;
+          val35 = input.readString().value;
+          this.tags[key34] = val35;
+        }
+        input.readMapEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 6:
+      if (ftype == Thrift.Type.STRING) {
+        this.aggregator = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 7:
+      if (ftype == Thrift.Type.STRING) {
+        this.downsampleAggregator = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 8:
+      if (ftype == Thrift.Type.I32) {
+        this.downsampleInterval = input.readI32().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 9:
+      if (ftype == Thrift.Type.STRING) {
+        this.downsampleTimeUnit = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 10:
+      if (ftype == Thrift.Type.BOOL) {
+        this.calRate = input.readBool().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+QueryMetricRequest.prototype.write = function(output) {
+  output.writeStructBegin('QueryMetricRequest');
+  if (this.queueName !== null && this.queueName !== undefined) {
+    output.writeFieldBegin('queueName', Thrift.Type.STRING, 1);
+    output.writeString(this.queueName);
+    output.writeFieldEnd();
+  }
+  if (this.startTime !== null && this.startTime !== undefined) {
+    output.writeFieldBegin('startTime', Thrift.Type.I64, 2);
+    output.writeI64(this.startTime);
+    output.writeFieldEnd();
+  }
+  if (this.endTime !== null && this.endTime !== undefined) {
+    output.writeFieldBegin('endTime', Thrift.Type.I64, 3);
+    output.writeI64(this.endTime);
+    output.writeFieldEnd();
+  }
+  if (this.metrics !== null && this.metrics !== undefined) {
+    output.writeFieldBegin('metrics', Thrift.Type.STRING, 4);
+    output.writeString(this.metrics);
+    output.writeFieldEnd();
+  }
+  if (this.tags !== null && this.tags !== undefined) {
+    output.writeFieldBegin('tags', Thrift.Type.MAP, 5);
+    output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRING, Thrift.objectLength(this.tags));
+    for (var kiter36 in this.tags)
+    {
+      if (this.tags.hasOwnProperty(kiter36))
+      {
+        var viter37 = this.tags[kiter36];
+        output.writeString(kiter36);
+        output.writeString(viter37);
+      }
+    }
+    output.writeMapEnd();
+    output.writeFieldEnd();
+  }
+  if (this.aggregator !== null && this.aggregator !== undefined) {
+    output.writeFieldBegin('aggregator', Thrift.Type.STRING, 6);
+    output.writeString(this.aggregator);
+    output.writeFieldEnd();
+  }
+  if (this.downsampleAggregator !== null && this.downsampleAggregator !== undefined) {
+    output.writeFieldBegin('downsampleAggregator', Thrift.Type.STRING, 7);
+    output.writeString(this.downsampleAggregator);
+    output.writeFieldEnd();
+  }
+  if (this.downsampleInterval !== null && this.downsampleInterval !== undefined) {
+    output.writeFieldBegin('downsampleInterval', Thrift.Type.I32, 8);
+    output.writeI32(this.downsampleInterval);
+    output.writeFieldEnd();
+  }
+  if (this.downsampleTimeUnit !== null && this.downsampleTimeUnit !== undefined) {
+    output.writeFieldBegin('downsampleTimeUnit', Thrift.Type.STRING, 9);
+    output.writeString(this.downsampleTimeUnit);
+    output.writeFieldEnd();
+  }
+  if (this.calRate !== null && this.calRate !== undefined) {
+    output.writeFieldBegin('calRate', Thrift.Type.BOOL, 10);
+    output.writeBool(this.calRate);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+TimeSeriesData = function(args) {
+  this.metric = null;
+  this.tags = null;
+  this.data = null;
+  if (args) {
+    if (args.metric !== undefined) {
+      this.metric = args.metric;
+    }
+    if (args.tags !== undefined) {
+      this.tags = args.tags;
+    }
+    if (args.data !== undefined) {
+      this.data = args.data;
+    }
+  }
+};
+TimeSeriesData.prototype = {};
+TimeSeriesData.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.metric = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.MAP) {
+        var _size38 = 0;
+        var _rtmp342;
+        this.tags = {};
+        var _ktype39 = 0;
+        var _vtype40 = 0;
+        _rtmp342 = input.readMapBegin();
+        _ktype39 = _rtmp342.ktype;
+        _vtype40 = _rtmp342.vtype;
+        _size38 = _rtmp342.size;
+        for (var _i43 = 0; _i43 < _size38; ++_i43)
+        {
+          if (_i43 > 0 ) {
+            if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
+              input.rstack.pop();
+            }
+          }
+          var key44 = null;
+          var val45 = null;
+          key44 = input.readString().value;
+          val45 = input.readString().value;
+          this.tags[key44] = val45;
+        }
+        input.readMapEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 3:
+      if (ftype == Thrift.Type.MAP) {
+        var _size46 = 0;
+        var _rtmp350;
+        this.data = {};
+        var _ktype47 = 0;
+        var _vtype48 = 0;
+        _rtmp350 = input.readMapBegin();
+        _ktype47 = _rtmp350.ktype;
+        _vtype48 = _rtmp350.vtype;
+        _size46 = _rtmp350.size;
+        for (var _i51 = 0; _i51 < _size46; ++_i51)
+        {
+          if (_i51 > 0 ) {
+            if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
+              input.rstack.pop();
+            }
+          }
+          var key52 = null;
+          var val53 = null;
+          key52 = input.readI64().value;
+          val53 = input.readDouble().value;
+          this.data[key52] = val53;
+        }
+        input.readMapEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+TimeSeriesData.prototype.write = function(output) {
+  output.writeStructBegin('TimeSeriesData');
+  if (this.metric !== null && this.metric !== undefined) {
+    output.writeFieldBegin('metric', Thrift.Type.STRING, 1);
+    output.writeString(this.metric);
+    output.writeFieldEnd();
+  }
+  if (this.tags !== null && this.tags !== undefined) {
+    output.writeFieldBegin('tags', Thrift.Type.MAP, 2);
+    output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRING, Thrift.objectLength(this.tags));
+    for (var kiter54 in this.tags)
+    {
+      if (this.tags.hasOwnProperty(kiter54))
+      {
+        var viter55 = this.tags[kiter54];
+        output.writeString(kiter54);
+        output.writeString(viter55);
+      }
+    }
+    output.writeMapEnd();
+    output.writeFieldEnd();
+  }
+  if (this.data !== null && this.data !== undefined) {
+    output.writeFieldBegin('data', Thrift.Type.MAP, 3);
+    output.writeMapBegin(Thrift.Type.I64, Thrift.Type.DOUBLE, Thrift.objectLength(this.data));
+    for (var kiter56 in this.data)
+    {
+      if (this.data.hasOwnProperty(kiter56))
+      {
+        var viter57 = this.data[kiter56];
+        output.writeI64(kiter56);
+        output.writeDouble(viter57);
+      }
+    }
+    output.writeMapEnd();
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
