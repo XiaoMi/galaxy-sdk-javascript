@@ -381,26 +381,17 @@ Thrift.TXHRTransport.prototype = {
         }
 
         var thriftTransport = this;
-        var authorization = {
-            "1": {
-                "str": "SDS-V1"
-            },
-            "2": {
-                "i32": UserType.DEV_XIAOMI_SSO
-            },
-            "3": {
-                "str": ''
-            },
-            "4": {
-                "str": this.__getCookie('serviceToken')
-            }
-        };
-        var hostname = location.hostname;
-        if (hostname.indexOf('dev.xiaomi.com') >= 0) {
-            authorization['3'].str = 'developer';
-        }
-        else if (hostname.indexOf('dev.mi.com') >= 0) {
-            authorization['3'].str = 'mideveloper';
+
+        var sid = this.__getCookie('sid');
+        if (sid == '' || sid == undefined) {
+            var hostname = location.hostname;
+            if (hostname.indexOf('dev.xiaomi.com') >= 0)
+                sid = 'developer';
+            else if (hostname.indexOf('dev.mi.com') >= 0)
+                sid = 'mideveloper';
+            else
+                sid = '';
+
         }
 
         var jqXHR = jQuery.ajax({
@@ -411,7 +402,7 @@ Thrift.TXHRTransport.prototype = {
             contentType: 'application/json',
             dataType: 'text thrift',
             headers: {
-                Authorization: JSON.stringify(authorization)
+                Authorization: 'SSO ' + sid + ':' + this.__getCookie('serviceToken')
             },
             converters: {
                 'text thrift' : function(responseData) {
