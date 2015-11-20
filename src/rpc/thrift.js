@@ -358,6 +358,11 @@ Thrift.TXHRTransport.prototype = {
                   if (this.readyState == 4 && this.status == 200) {
                     self.setRecvBuffer(this.responseText);
                     clientCallback();
+                  } else if (this.readyState == 4 && this.status == 401) {
+                      var se = new ServiceException();
+                      se.errorCode = this.status;
+                      se.errorMessage = this.responseText;
+                      throw se;
                   }
                 };
               }());
@@ -373,7 +378,9 @@ Thrift.TXHRTransport.prototype = {
             throw 'encountered an unknown ajax ready state: ' + xreq.readyState;
         }
 
-        if (xreq.status != 200) {
+        if (xreq.status == 401) {
+            throw 'authentication failed: ' + xreq.responseText;
+        } else if (xreq.status != 200) {
             throw 'encountered a unknown request status: ' + xreq.status;
         }
 
