@@ -358,10 +358,11 @@ Thrift.TXHRTransport.prototype = {
                   if (this.readyState == 4 && this.status == 200) {
                     self.setRecvBuffer(this.responseText);
                     clientCallback();
-                  } else if (this.readyState == 4 && this.status == 401) {
+                  } else if (this.readyState == 4 && this.status != 200) {
                       var se = new ServiceException();
                       se.errorCode = this.status;
-                      se.errorMessage = this.responseText;
+                      se.errorMessage =
+                          this.responseText !== '' ? this.responseText : this.statusText;
                       throw se;
                   }
                 };
@@ -378,10 +379,9 @@ Thrift.TXHRTransport.prototype = {
             throw 'encountered an unknown ajax ready state: ' + xreq.readyState;
         }
 
-        if (xreq.status == 401) {
-            throw 'authentication failed: ' + xreq.responseText;
-        } else if (xreq.status != 200) {
-            throw 'encountered a unknown request status: ' + xreq.status;
+        if (xreq.status != 200) {
+            throw 'encountered a unknown request status: ' + xreq.status
+            + ' ' + xreq.statusText + ' ' + xreq.responseText;
         }
 
         this.recv_buf = xreq.responseText;
@@ -454,7 +454,10 @@ Thrift.TXHRTransport.prototype = {
                         }
                     }
                 }
-                error(jqXHR, textStatus, errorThrown);
+                if (jqXHR.responseText != null && jqXHR.responseText !== '')
+                    error(jqXHR, textStatus, jqXHR.responseText);
+                else
+                    error(jqXHR, textStatus, errorThrown)
             })
         };
         return jqXHR;
