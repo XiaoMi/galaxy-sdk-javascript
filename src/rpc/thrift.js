@@ -427,7 +427,8 @@ Thrift.TXHRTransport.prototype = {
             contentType: 'application/json',
             dataType: 'text thrift',
             headers: {
-                Authorization: 'SSO ' + sid + ':' + this.__getCookie('serviceToken')
+                Authorization: 'SSO ' + sid + ':' + this.__getCookie('serviceToken'),
+                emqAp: this.__getCookie('emqAp')
             },
             converters: {
                 'text thrift' : function(responseData) {
