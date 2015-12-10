@@ -895,6 +895,7 @@ ReceiveMessageRequest = function(args) {
   this.maxReceiveMessageWaitSeconds = 0;
   this.attributeName = null;
   this.attributeValue = null;
+  this.tagName = null;
   if (args) {
     if (args.queueName !== undefined) {
       this.queueName = args.queueName;
@@ -912,6 +913,9 @@ ReceiveMessageRequest = function(args) {
     }
     if (args.attributeValue !== undefined) {
       this.attributeValue = args.attributeValue;
+    }
+    if (args.tagName !== undefined) {
+      this.tagName = args.tagName;
     }
   }
 };
@@ -965,6 +969,13 @@ ReceiveMessageRequest.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 6:
+      if (ftype == Thrift.Type.STRING) {
+        this.tagName = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -999,6 +1010,11 @@ ReceiveMessageRequest.prototype.write = function(output) {
   if (this.attributeValue !== null && this.attributeValue !== undefined) {
     output.writeFieldBegin('attributeValue', Thrift.Type.STRUCT, 5);
     this.attributeValue.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.tagName !== null && this.tagName !== undefined) {
+    output.writeFieldBegin('tagName', Thrift.Type.STRING, 6);
+    output.writeString(this.tagName);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
