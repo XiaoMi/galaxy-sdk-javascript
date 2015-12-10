@@ -4071,7 +4071,7 @@ ScanResult = function(args) {
   this.nextStartKey = null;
   this.records = null;
   this.throttled = null;
-  this.nextSplitIndex = null;
+  this.nextSplitIndex = -1;
   if (args) {
     if (args.nextStartKey !== undefined) {
       this.nextStartKey = args.nextStartKey;
