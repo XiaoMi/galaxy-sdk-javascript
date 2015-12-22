@@ -401,66 +401,9 @@ Throughput.prototype.write = function(output) {
   return;
 };
 
-SpaceQuota = function(args) {
-  this.size = null;
-  if (args) {
-    if (args.size !== undefined) {
-      this.size = args.size;
-    }
-  }
-};
-SpaceQuota.prototype = {};
-SpaceQuota.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true)
-  {
-    var ret = input.readFieldBegin();
-    var fname = ret.fname;
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 1:
-      if (ftype == Thrift.Type.I64) {
-        this.size = input.readI64().value;
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 0:
-        input.skip(ftype);
-        break;
-      default:
-        input.skip(ftype);
-    }
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
-};
-
-SpaceQuota.prototype.write = function(output) {
-  output.writeStructBegin('SpaceQuota');
-  if (this.size !== null && this.size !== undefined) {
-    output.writeFieldBegin('size', Thrift.Type.I64, 1);
-    output.writeI64(this.size);
-    output.writeFieldEnd();
-  }
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
-};
-
 QueueQuota = function(args) {
-  this.spaceQuota = null;
   this.throughput = null;
   if (args) {
-    if (args.spaceQuota !== undefined) {
-      this.spaceQuota = args.spaceQuota;
-    }
     if (args.throughput !== undefined) {
       this.throughput = args.throughput;
     }
@@ -480,14 +423,6 @@ QueueQuota.prototype.read = function(input) {
     }
     switch (fid)
     {
-      case 1:
-      if (ftype == Thrift.Type.STRUCT) {
-        this.spaceQuota = new SpaceQuota();
-        this.spaceQuota.read(input);
-      } else {
-        input.skip(ftype);
-      }
-      break;
       case 2:
       if (ftype == Thrift.Type.STRUCT) {
         this.throughput = new Throughput();
@@ -496,6 +431,9 @@ QueueQuota.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 0:
+        input.skip(ftype);
+        break;
       default:
         input.skip(ftype);
     }
@@ -507,11 +445,6 @@ QueueQuota.prototype.read = function(input) {
 
 QueueQuota.prototype.write = function(output) {
   output.writeStructBegin('QueueQuota');
-  if (this.spaceQuota !== null && this.spaceQuota !== undefined) {
-    output.writeFieldBegin('spaceQuota', Thrift.Type.STRUCT, 1);
-    this.spaceQuota.write(output);
-    output.writeFieldEnd();
-  }
   if (this.throughput !== null && this.throughput !== undefined) {
     output.writeFieldBegin('throughput', Thrift.Type.STRUCT, 2);
     this.throughput.write(output);
