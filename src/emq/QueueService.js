@@ -861,6 +861,370 @@ QueueService_listQueue_result.prototype.write = function(output) {
   return;
 };
 
+QueueService_setQueueRedrivePolicy_args = function(args) {
+  this.request = null;
+  if (args) {
+    if (args.request !== undefined) {
+      this.request = args.request;
+    }
+  }
+};
+QueueService_setQueueRedrivePolicy_args.prototype = {};
+QueueService_setQueueRedrivePolicy_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.request = new SetQueueRedrivePolicyRequest();
+        this.request.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+QueueService_setQueueRedrivePolicy_args.prototype.write = function(output) {
+  output.writeStructBegin('QueueService_setQueueRedrivePolicy_args');
+  if (this.request !== null && this.request !== undefined) {
+    output.writeFieldBegin('request', Thrift.Type.STRUCT, 1);
+    this.request.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+QueueService_setQueueRedrivePolicy_result = function(args) {
+  this.success = null;
+  this.e = null;
+  if (args instanceof GalaxyEmqServiceException) {
+    this.e = args;
+    return;
+  }
+  if (args) {
+    if (args.success !== undefined) {
+      this.success = args.success;
+    }
+    if (args.e !== undefined) {
+      this.e = args.e;
+    }
+  }
+};
+QueueService_setQueueRedrivePolicy_result.prototype = {};
+QueueService_setQueueRedrivePolicy_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.success = new SetQueueRedrivePolicyResponse();
+        this.success.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.e = new GalaxyEmqServiceException();
+        this.e.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+QueueService_setQueueRedrivePolicy_result.prototype.write = function(output) {
+  output.writeStructBegin('QueueService_setQueueRedrivePolicy_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+    this.success.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.e !== null && this.e !== undefined) {
+    output.writeFieldBegin('e', Thrift.Type.STRUCT, 1);
+    this.e.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+QueueService_removeQueueRedrivePolicy_args = function(args) {
+  this.request = null;
+  if (args) {
+    if (args.request !== undefined) {
+      this.request = args.request;
+    }
+  }
+};
+QueueService_removeQueueRedrivePolicy_args.prototype = {};
+QueueService_removeQueueRedrivePolicy_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.request = new RemoveQueueRedrivePolicyRequest();
+        this.request.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+QueueService_removeQueueRedrivePolicy_args.prototype.write = function(output) {
+  output.writeStructBegin('QueueService_removeQueueRedrivePolicy_args');
+  if (this.request !== null && this.request !== undefined) {
+    output.writeFieldBegin('request', Thrift.Type.STRUCT, 1);
+    this.request.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+QueueService_removeQueueRedrivePolicy_result = function(args) {
+  this.e = null;
+  if (args instanceof GalaxyEmqServiceException) {
+    this.e = args;
+    return;
+  }
+  if (args) {
+    if (args.e !== undefined) {
+      this.e = args.e;
+    }
+  }
+};
+QueueService_removeQueueRedrivePolicy_result.prototype = {};
+QueueService_removeQueueRedrivePolicy_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.e = new GalaxyEmqServiceException();
+        this.e.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+QueueService_removeQueueRedrivePolicy_result.prototype.write = function(output) {
+  output.writeStructBegin('QueueService_removeQueueRedrivePolicy_result');
+  if (this.e !== null && this.e !== undefined) {
+    output.writeFieldBegin('e', Thrift.Type.STRUCT, 1);
+    this.e.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+QueueService_listDeadLetterSourceQueues_args = function(args) {
+  this.request = null;
+  if (args) {
+    if (args.request !== undefined) {
+      this.request = args.request;
+    }
+  }
+};
+QueueService_listDeadLetterSourceQueues_args.prototype = {};
+QueueService_listDeadLetterSourceQueues_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.request = new ListDeadLetterSourceQueuesRequest();
+        this.request.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+QueueService_listDeadLetterSourceQueues_args.prototype.write = function(output) {
+  output.writeStructBegin('QueueService_listDeadLetterSourceQueues_args');
+  if (this.request !== null && this.request !== undefined) {
+    output.writeFieldBegin('request', Thrift.Type.STRUCT, 1);
+    this.request.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+QueueService_listDeadLetterSourceQueues_result = function(args) {
+  this.success = null;
+  this.e = null;
+  if (args instanceof GalaxyEmqServiceException) {
+    this.e = args;
+    return;
+  }
+  if (args) {
+    if (args.success !== undefined) {
+      this.success = args.success;
+    }
+    if (args.e !== undefined) {
+      this.e = args.e;
+    }
+  }
+};
+QueueService_listDeadLetterSourceQueues_result.prototype = {};
+QueueService_listDeadLetterSourceQueues_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.success = new ListDeadLetterSourceQueuesResponse();
+        this.success.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.e = new GalaxyEmqServiceException();
+        this.e.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+QueueService_listDeadLetterSourceQueues_result.prototype.write = function(output) {
+  output.writeStructBegin('QueueService_listDeadLetterSourceQueues_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+    this.success.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.e !== null && this.e !== undefined) {
+    output.writeFieldBegin('e', Thrift.Type.STRUCT, 1);
+    this.e.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
 QueueService_setPermission_args = function(args) {
   this.request = null;
   if (args) {
@@ -2379,6 +2743,132 @@ QueueServiceClient.prototype.recv_listQueue = function() {
     return result.success;
   }
   throw 'listQueue failed: unknown result';
+};
+QueueServiceClient.prototype.setQueueRedrivePolicy = function(request, callback) {
+  if (callback === undefined) {
+    this.send_setQueueRedrivePolicy(request);
+    return this.recv_setQueueRedrivePolicy();
+  } else {
+    var postData = this.send_setQueueRedrivePolicy(request, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_setQueueRedrivePolicy);
+  }
+};
+
+QueueServiceClient.prototype.send_setQueueRedrivePolicy = function(request, callback) {
+  this.output.writeMessageBegin('setQueueRedrivePolicy', Thrift.MessageType.CALL, this.seqid);
+  var args = new QueueService_setQueueRedrivePolicy_args();
+  args.request = request;
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+QueueServiceClient.prototype.recv_setQueueRedrivePolicy = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new QueueService_setQueueRedrivePolicy_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.e) {
+    throw result.e;
+  }
+  if (null !== result.success) {
+    return result.success;
+  }
+  throw 'setQueueRedrivePolicy failed: unknown result';
+};
+QueueServiceClient.prototype.removeQueueRedrivePolicy = function(request, callback) {
+  if (callback === undefined) {
+    this.send_removeQueueRedrivePolicy(request);
+    this.recv_removeQueueRedrivePolicy();
+  } else {
+    var postData = this.send_removeQueueRedrivePolicy(request, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_removeQueueRedrivePolicy);
+  }
+};
+
+QueueServiceClient.prototype.send_removeQueueRedrivePolicy = function(request, callback) {
+  this.output.writeMessageBegin('removeQueueRedrivePolicy', Thrift.MessageType.CALL, this.seqid);
+  var args = new QueueService_removeQueueRedrivePolicy_args();
+  args.request = request;
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+QueueServiceClient.prototype.recv_removeQueueRedrivePolicy = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new QueueService_removeQueueRedrivePolicy_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.e) {
+    throw result.e;
+  }
+  return;
+};
+QueueServiceClient.prototype.listDeadLetterSourceQueues = function(request, callback) {
+  if (callback === undefined) {
+    this.send_listDeadLetterSourceQueues(request);
+    return this.recv_listDeadLetterSourceQueues();
+  } else {
+    var postData = this.send_listDeadLetterSourceQueues(request, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_listDeadLetterSourceQueues);
+  }
+};
+
+QueueServiceClient.prototype.send_listDeadLetterSourceQueues = function(request, callback) {
+  this.output.writeMessageBegin('listDeadLetterSourceQueues', Thrift.MessageType.CALL, this.seqid);
+  var args = new QueueService_listDeadLetterSourceQueues_args();
+  args.request = request;
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+QueueServiceClient.prototype.recv_listDeadLetterSourceQueues = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new QueueService_listDeadLetterSourceQueues_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.e) {
+    throw result.e;
+  }
+  if (null !== result.success) {
+    return result.success;
+  }
+  throw 'listDeadLetterSourceQueues failed: unknown result';
 };
 QueueServiceClient.prototype.setPermission = function(request, callback) {
   if (callback === undefined) {

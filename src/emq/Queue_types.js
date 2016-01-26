@@ -459,6 +459,7 @@ CreateQueueRequest = function(args) {
   this.queueName = null;
   this.queueAttribute = null;
   this.queueQuota = null;
+  this.deadLetterQueue = null;
   if (args) {
     if (args.queueName !== undefined) {
       this.queueName = args.queueName;
@@ -470,6 +471,9 @@ CreateQueueRequest = function(args) {
     }
     if (args.queueQuota !== undefined) {
       this.queueQuota = args.queueQuota;
+    }
+    if (args.deadLetterQueue !== undefined) {
+      this.deadLetterQueue = args.deadLetterQueue;
     }
   }
 };
@@ -510,6 +514,13 @@ CreateQueueRequest.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 4:
+      if (ftype == Thrift.Type.BOOL) {
+        this.deadLetterQueue = input.readBool().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -536,6 +547,11 @@ CreateQueueRequest.prototype.write = function(output) {
     this.queueQuota.write(output);
     output.writeFieldEnd();
   }
+  if (this.deadLetterQueue !== null && this.deadLetterQueue !== undefined) {
+    output.writeFieldBegin('deadLetterQueue', Thrift.Type.BOOL, 4);
+    output.writeBool(this.deadLetterQueue);
+    output.writeFieldEnd();
+  }
   output.writeFieldStop();
   output.writeStructEnd();
   return;
@@ -545,6 +561,7 @@ CreateQueueResponse = function(args) {
   this.queueName = null;
   this.queueAttribute = null;
   this.queueQuota = null;
+  this.deadLetterQueue = null;
   if (args) {
     if (args.queueName !== undefined) {
       this.queueName = args.queueName;
@@ -558,6 +575,9 @@ CreateQueueResponse = function(args) {
     }
     if (args.queueQuota !== undefined) {
       this.queueQuota = args.queueQuota;
+    }
+    if (args.deadLetterQueue !== undefined) {
+      this.deadLetterQueue = args.deadLetterQueue;
     }
   }
 };
@@ -598,6 +618,13 @@ CreateQueueResponse.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 4:
+      if (ftype == Thrift.Type.BOOL) {
+        this.deadLetterQueue = input.readBool().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -622,6 +649,11 @@ CreateQueueResponse.prototype.write = function(output) {
   if (this.queueQuota !== null && this.queueQuota !== undefined) {
     output.writeFieldBegin('queueQuota', Thrift.Type.STRUCT, 3);
     this.queueQuota.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.deadLetterQueue !== null && this.deadLetterQueue !== undefined) {
+    output.writeFieldBegin('deadLetterQueue', Thrift.Type.BOOL, 4);
+    output.writeBool(this.deadLetterQueue);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -1017,6 +1049,76 @@ SetQueueQuotaResponse.prototype.write = function(output) {
   return;
 };
 
+RedrivePolicy = function(args) {
+  this.dlqName = null;
+  this.maxReceiveTime = null;
+  if (args) {
+    if (args.dlqName !== undefined) {
+      this.dlqName = args.dlqName;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field dlqName is unset!');
+    }
+    if (args.maxReceiveTime !== undefined) {
+      this.maxReceiveTime = args.maxReceiveTime;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field maxReceiveTime is unset!');
+    }
+  }
+};
+RedrivePolicy.prototype = {};
+RedrivePolicy.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.dlqName = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.I32) {
+        this.maxReceiveTime = input.readI32().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+RedrivePolicy.prototype.write = function(output) {
+  output.writeStructBegin('RedrivePolicy');
+  if (this.dlqName !== null && this.dlqName !== undefined) {
+    output.writeFieldBegin('dlqName', Thrift.Type.STRING, 1);
+    output.writeString(this.dlqName);
+    output.writeFieldEnd();
+  }
+  if (this.maxReceiveTime !== null && this.maxReceiveTime !== undefined) {
+    output.writeFieldBegin('maxReceiveTime', Thrift.Type.I32, 2);
+    output.writeI32(this.maxReceiveTime);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
 GetQueueInfoRequest = function(args) {
   this.queueName = null;
   if (args) {
@@ -1077,6 +1179,8 @@ GetQueueInfoResponse = function(args) {
   this.queueAttribute = null;
   this.queueState = null;
   this.queueQuota = null;
+  this.isDeadLetterQueue = null;
+  this.redrivePolicy = null;
   if (args) {
     if (args.queueName !== undefined) {
       this.queueName = args.queueName;
@@ -1095,6 +1199,12 @@ GetQueueInfoResponse = function(args) {
     }
     if (args.queueQuota !== undefined) {
       this.queueQuota = args.queueQuota;
+    }
+    if (args.isDeadLetterQueue !== undefined) {
+      this.isDeadLetterQueue = args.isDeadLetterQueue;
+    }
+    if (args.redrivePolicy !== undefined) {
+      this.redrivePolicy = args.redrivePolicy;
     }
   }
 };
@@ -1143,6 +1253,21 @@ GetQueueInfoResponse.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 5:
+      if (ftype == Thrift.Type.BOOL) {
+        this.isDeadLetterQueue = input.readBool().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 6:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.redrivePolicy = new RedrivePolicy();
+        this.redrivePolicy.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -1172,6 +1297,358 @@ GetQueueInfoResponse.prototype.write = function(output) {
   if (this.queueQuota !== null && this.queueQuota !== undefined) {
     output.writeFieldBegin('queueQuota', Thrift.Type.STRUCT, 4);
     this.queueQuota.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.isDeadLetterQueue !== null && this.isDeadLetterQueue !== undefined) {
+    output.writeFieldBegin('isDeadLetterQueue', Thrift.Type.BOOL, 5);
+    output.writeBool(this.isDeadLetterQueue);
+    output.writeFieldEnd();
+  }
+  if (this.redrivePolicy !== null && this.redrivePolicy !== undefined) {
+    output.writeFieldBegin('redrivePolicy', Thrift.Type.STRUCT, 6);
+    this.redrivePolicy.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+SetQueueRedrivePolicyRequest = function(args) {
+  this.queueName = null;
+  this.redrivePolicy = null;
+  if (args) {
+    if (args.queueName !== undefined) {
+      this.queueName = args.queueName;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field queueName is unset!');
+    }
+    if (args.redrivePolicy !== undefined) {
+      this.redrivePolicy = args.redrivePolicy;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field redrivePolicy is unset!');
+    }
+  }
+};
+SetQueueRedrivePolicyRequest.prototype = {};
+SetQueueRedrivePolicyRequest.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.queueName = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.redrivePolicy = new RedrivePolicy();
+        this.redrivePolicy.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+SetQueueRedrivePolicyRequest.prototype.write = function(output) {
+  output.writeStructBegin('SetQueueRedrivePolicyRequest');
+  if (this.queueName !== null && this.queueName !== undefined) {
+    output.writeFieldBegin('queueName', Thrift.Type.STRING, 1);
+    output.writeString(this.queueName);
+    output.writeFieldEnd();
+  }
+  if (this.redrivePolicy !== null && this.redrivePolicy !== undefined) {
+    output.writeFieldBegin('redrivePolicy', Thrift.Type.STRUCT, 2);
+    this.redrivePolicy.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+SetQueueRedrivePolicyResponse = function(args) {
+  this.queueName = null;
+  this.redrivePolicy = null;
+  if (args) {
+    if (args.queueName !== undefined) {
+      this.queueName = args.queueName;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field queueName is unset!');
+    }
+    if (args.redrivePolicy !== undefined) {
+      this.redrivePolicy = args.redrivePolicy;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field redrivePolicy is unset!');
+    }
+  }
+};
+SetQueueRedrivePolicyResponse.prototype = {};
+SetQueueRedrivePolicyResponse.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.queueName = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.redrivePolicy = new RedrivePolicy();
+        this.redrivePolicy.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+SetQueueRedrivePolicyResponse.prototype.write = function(output) {
+  output.writeStructBegin('SetQueueRedrivePolicyResponse');
+  if (this.queueName !== null && this.queueName !== undefined) {
+    output.writeFieldBegin('queueName', Thrift.Type.STRING, 1);
+    output.writeString(this.queueName);
+    output.writeFieldEnd();
+  }
+  if (this.redrivePolicy !== null && this.redrivePolicy !== undefined) {
+    output.writeFieldBegin('redrivePolicy', Thrift.Type.STRUCT, 2);
+    this.redrivePolicy.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+RemoveQueueRedrivePolicyRequest = function(args) {
+  this.queueName = null;
+  if (args) {
+    if (args.queueName !== undefined) {
+      this.queueName = args.queueName;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field queueName is unset!');
+    }
+  }
+};
+RemoveQueueRedrivePolicyRequest.prototype = {};
+RemoveQueueRedrivePolicyRequest.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.queueName = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+RemoveQueueRedrivePolicyRequest.prototype.write = function(output) {
+  output.writeStructBegin('RemoveQueueRedrivePolicyRequest');
+  if (this.queueName !== null && this.queueName !== undefined) {
+    output.writeFieldBegin('queueName', Thrift.Type.STRING, 1);
+    output.writeString(this.queueName);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+ListDeadLetterSourceQueuesRequest = function(args) {
+  this.dlqName = null;
+  if (args) {
+    if (args.dlqName !== undefined) {
+      this.dlqName = args.dlqName;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field dlqName is unset!');
+    }
+  }
+};
+ListDeadLetterSourceQueuesRequest.prototype = {};
+ListDeadLetterSourceQueuesRequest.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.dlqName = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+ListDeadLetterSourceQueuesRequest.prototype.write = function(output) {
+  output.writeStructBegin('ListDeadLetterSourceQueuesRequest');
+  if (this.dlqName !== null && this.dlqName !== undefined) {
+    output.writeFieldBegin('dlqName', Thrift.Type.STRING, 1);
+    output.writeString(this.dlqName);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+ListDeadLetterSourceQueuesResponse = function(args) {
+  this.dlqName = null;
+  this.sourceQueues = null;
+  if (args) {
+    if (args.dlqName !== undefined) {
+      this.dlqName = args.dlqName;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field dlqName is unset!');
+    }
+    if (args.sourceQueues !== undefined) {
+      this.sourceQueues = args.sourceQueues;
+    }
+  }
+};
+ListDeadLetterSourceQueuesResponse.prototype = {};
+ListDeadLetterSourceQueuesResponse.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.dlqName = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.LIST) {
+        var _size10 = 0;
+        var _rtmp314;
+        this.sourceQueues = [];
+        var _etype13 = 0;
+        _rtmp314 = input.readListBegin();
+        _etype13 = _rtmp314.etype;
+        _size10 = _rtmp314.size;
+        for (var _i15 = 0; _i15 < _size10; ++_i15)
+        {
+          var elem16 = null;
+          elem16 = input.readString().value;
+          this.sourceQueues.push(elem16);
+        }
+        input.readListEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+ListDeadLetterSourceQueuesResponse.prototype.write = function(output) {
+  output.writeStructBegin('ListDeadLetterSourceQueuesResponse');
+  if (this.dlqName !== null && this.dlqName !== undefined) {
+    output.writeFieldBegin('dlqName', Thrift.Type.STRING, 1);
+    output.writeString(this.dlqName);
+    output.writeFieldEnd();
+  }
+  if (this.sourceQueues !== null && this.sourceQueues !== undefined) {
+    output.writeFieldBegin('sourceQueues', Thrift.Type.LIST, 2);
+    output.writeListBegin(Thrift.Type.STRING, this.sourceQueues.length);
+    for (var iter17 in this.sourceQueues)
+    {
+      if (this.sourceQueues.hasOwnProperty(iter17))
+      {
+        iter17 = this.sourceQueues[iter17];
+        output.writeString(iter17);
+      }
+    }
+    output.writeListEnd();
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -1258,18 +1735,18 @@ ListQueueResponse.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.LIST) {
-        var _size10 = 0;
-        var _rtmp314;
+        var _size18 = 0;
+        var _rtmp322;
         this.queueName = [];
-        var _etype13 = 0;
-        _rtmp314 = input.readListBegin();
-        _etype13 = _rtmp314.etype;
-        _size10 = _rtmp314.size;
-        for (var _i15 = 0; _i15 < _size10; ++_i15)
+        var _etype21 = 0;
+        _rtmp322 = input.readListBegin();
+        _etype21 = _rtmp322.etype;
+        _size18 = _rtmp322.size;
+        for (var _i23 = 0; _i23 < _size18; ++_i23)
         {
-          var elem16 = null;
-          elem16 = input.readString().value;
-          this.queueName.push(elem16);
+          var elem24 = null;
+          elem24 = input.readString().value;
+          this.queueName.push(elem24);
         }
         input.readListEnd();
       } else {
@@ -1293,12 +1770,12 @@ ListQueueResponse.prototype.write = function(output) {
   if (this.queueName !== null && this.queueName !== undefined) {
     output.writeFieldBegin('queueName', Thrift.Type.LIST, 1);
     output.writeListBegin(Thrift.Type.STRING, this.queueName.length);
-    for (var iter17 in this.queueName)
+    for (var iter25 in this.queueName)
     {
-      if (this.queueName.hasOwnProperty(iter17))
+      if (this.queueName.hasOwnProperty(iter25))
       {
-        iter17 = this.queueName[iter17];
-        output.writeString(iter17);
+        iter25 = this.queueName[iter25];
+        output.writeString(iter25);
       }
     }
     output.writeListEnd();
@@ -1781,27 +2258,27 @@ ListPermissionsResponse.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.MAP) {
-        var _size18 = 0;
-        var _rtmp322;
+        var _size26 = 0;
+        var _rtmp330;
         this.permissionList = {};
-        var _ktype19 = 0;
-        var _vtype20 = 0;
-        _rtmp322 = input.readMapBegin();
-        _ktype19 = _rtmp322.ktype;
-        _vtype20 = _rtmp322.vtype;
-        _size18 = _rtmp322.size;
-        for (var _i23 = 0; _i23 < _size18; ++_i23)
+        var _ktype27 = 0;
+        var _vtype28 = 0;
+        _rtmp330 = input.readMapBegin();
+        _ktype27 = _rtmp330.ktype;
+        _vtype28 = _rtmp330.vtype;
+        _size26 = _rtmp330.size;
+        for (var _i31 = 0; _i31 < _size26; ++_i31)
         {
-          if (_i23 > 0 ) {
+          if (_i31 > 0 ) {
             if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
               input.rstack.pop();
             }
           }
-          var key24 = null;
-          var val25 = null;
-          key24 = input.readString().value;
-          val25 = input.readI32().value;
-          this.permissionList[key24] = val25;
+          var key32 = null;
+          var val33 = null;
+          key32 = input.readString().value;
+          val33 = input.readI32().value;
+          this.permissionList[key32] = val33;
         }
         input.readMapEnd();
       } else {
@@ -1825,13 +2302,13 @@ ListPermissionsResponse.prototype.write = function(output) {
   if (this.permissionList !== null && this.permissionList !== undefined) {
     output.writeFieldBegin('permissionList', Thrift.Type.MAP, 1);
     output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.I32, Thrift.objectLength(this.permissionList));
-    for (var kiter26 in this.permissionList)
+    for (var kiter34 in this.permissionList)
     {
-      if (this.permissionList.hasOwnProperty(kiter26))
+      if (this.permissionList.hasOwnProperty(kiter34))
       {
-        var viter27 = this.permissionList[kiter26];
-        output.writeString(kiter26);
-        output.writeI32(viter27);
+        var viter35 = this.permissionList[kiter34];
+        output.writeString(kiter34);
+        output.writeI32(viter35);
       }
     }
     output.writeMapEnd();
@@ -1937,27 +2414,27 @@ CreateTagRequest.prototype.read = function(input) {
       break;
       case 7:
       if (ftype == Thrift.Type.MAP) {
-        var _size28 = 0;
-        var _rtmp332;
+        var _size36 = 0;
+        var _rtmp340;
         this.userAttributes = {};
-        var _ktype29 = 0;
-        var _vtype30 = 0;
-        _rtmp332 = input.readMapBegin();
-        _ktype29 = _rtmp332.ktype;
-        _vtype30 = _rtmp332.vtype;
-        _size28 = _rtmp332.size;
-        for (var _i33 = 0; _i33 < _size28; ++_i33)
+        var _ktype37 = 0;
+        var _vtype38 = 0;
+        _rtmp340 = input.readMapBegin();
+        _ktype37 = _rtmp340.ktype;
+        _vtype38 = _rtmp340.vtype;
+        _size36 = _rtmp340.size;
+        for (var _i41 = 0; _i41 < _size36; ++_i41)
         {
-          if (_i33 > 0 ) {
+          if (_i41 > 0 ) {
             if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
               input.rstack.pop();
             }
           }
-          var key34 = null;
-          var val35 = null;
-          key34 = input.readString().value;
-          val35 = input.readString().value;
-          this.userAttributes[key34] = val35;
+          var key42 = null;
+          var val43 = null;
+          key42 = input.readString().value;
+          val43 = input.readString().value;
+          this.userAttributes[key42] = val43;
         }
         input.readMapEnd();
       } else {
@@ -2008,13 +2485,13 @@ CreateTagRequest.prototype.write = function(output) {
   if (this.userAttributes !== null && this.userAttributes !== undefined) {
     output.writeFieldBegin('userAttributes', Thrift.Type.MAP, 7);
     output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRING, Thrift.objectLength(this.userAttributes));
-    for (var kiter36 in this.userAttributes)
+    for (var kiter44 in this.userAttributes)
     {
-      if (this.userAttributes.hasOwnProperty(kiter36))
+      if (this.userAttributes.hasOwnProperty(kiter44))
       {
-        var viter37 = this.userAttributes[kiter36];
-        output.writeString(kiter36);
-        output.writeString(viter37);
+        var viter45 = this.userAttributes[kiter44];
+        output.writeString(kiter44);
+        output.writeString(viter45);
       }
     }
     output.writeMapEnd();
@@ -2376,27 +2853,27 @@ GetTagInfoResponse.prototype.read = function(input) {
       break;
       case 8:
       if (ftype == Thrift.Type.MAP) {
-        var _size38 = 0;
-        var _rtmp342;
+        var _size46 = 0;
+        var _rtmp350;
         this.userAttributes = {};
-        var _ktype39 = 0;
-        var _vtype40 = 0;
-        _rtmp342 = input.readMapBegin();
-        _ktype39 = _rtmp342.ktype;
-        _vtype40 = _rtmp342.vtype;
-        _size38 = _rtmp342.size;
-        for (var _i43 = 0; _i43 < _size38; ++_i43)
+        var _ktype47 = 0;
+        var _vtype48 = 0;
+        _rtmp350 = input.readMapBegin();
+        _ktype47 = _rtmp350.ktype;
+        _vtype48 = _rtmp350.vtype;
+        _size46 = _rtmp350.size;
+        for (var _i51 = 0; _i51 < _size46; ++_i51)
         {
-          if (_i43 > 0 ) {
+          if (_i51 > 0 ) {
             if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
               input.rstack.pop();
             }
           }
-          var key44 = null;
-          var val45 = null;
-          key44 = input.readString().value;
-          val45 = input.readString().value;
-          this.userAttributes[key44] = val45;
+          var key52 = null;
+          var val53 = null;
+          key52 = input.readString().value;
+          val53 = input.readString().value;
+          this.userAttributes[key52] = val53;
         }
         input.readMapEnd();
       } else {
@@ -2452,13 +2929,13 @@ GetTagInfoResponse.prototype.write = function(output) {
   if (this.userAttributes !== null && this.userAttributes !== undefined) {
     output.writeFieldBegin('userAttributes', Thrift.Type.MAP, 8);
     output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRING, Thrift.objectLength(this.userAttributes));
-    for (var kiter46 in this.userAttributes)
+    for (var kiter54 in this.userAttributes)
     {
-      if (this.userAttributes.hasOwnProperty(kiter46))
+      if (this.userAttributes.hasOwnProperty(kiter54))
       {
-        var viter47 = this.userAttributes[kiter46];
-        output.writeString(kiter46);
-        output.writeString(viter47);
+        var viter55 = this.userAttributes[kiter54];
+        output.writeString(kiter54);
+        output.writeString(viter55);
       }
     }
     output.writeMapEnd();
@@ -2563,18 +3040,18 @@ ListTagResponse.prototype.read = function(input) {
       break;
       case 2:
       if (ftype == Thrift.Type.LIST) {
-        var _size48 = 0;
-        var _rtmp352;
+        var _size56 = 0;
+        var _rtmp360;
         this.tagName = [];
-        var _etype51 = 0;
-        _rtmp352 = input.readListBegin();
-        _etype51 = _rtmp352.etype;
-        _size48 = _rtmp352.size;
-        for (var _i53 = 0; _i53 < _size48; ++_i53)
+        var _etype59 = 0;
+        _rtmp360 = input.readListBegin();
+        _etype59 = _rtmp360.etype;
+        _size56 = _rtmp360.size;
+        for (var _i61 = 0; _i61 < _size56; ++_i61)
         {
-          var elem54 = null;
-          elem54 = input.readString().value;
-          this.tagName.push(elem54);
+          var elem62 = null;
+          elem62 = input.readString().value;
+          this.tagName.push(elem62);
         }
         input.readListEnd();
       } else {
@@ -2600,12 +3077,12 @@ ListTagResponse.prototype.write = function(output) {
   if (this.tagName !== null && this.tagName !== undefined) {
     output.writeFieldBegin('tagName', Thrift.Type.LIST, 2);
     output.writeListBegin(Thrift.Type.STRING, this.tagName.length);
-    for (var iter55 in this.tagName)
+    for (var iter63 in this.tagName)
     {
-      if (this.tagName.hasOwnProperty(iter55))
+      if (this.tagName.hasOwnProperty(iter63))
       {
-        iter55 = this.tagName[iter55];
-        output.writeString(iter55);
+        iter63 = this.tagName[iter63];
+        output.writeString(iter63);
       }
     }
     output.writeListEnd();
@@ -2704,27 +3181,27 @@ QueryMetricRequest.prototype.read = function(input) {
       break;
       case 5:
       if (ftype == Thrift.Type.MAP) {
-        var _size56 = 0;
-        var _rtmp360;
+        var _size64 = 0;
+        var _rtmp368;
         this.tags = {};
-        var _ktype57 = 0;
-        var _vtype58 = 0;
-        _rtmp360 = input.readMapBegin();
-        _ktype57 = _rtmp360.ktype;
-        _vtype58 = _rtmp360.vtype;
-        _size56 = _rtmp360.size;
-        for (var _i61 = 0; _i61 < _size56; ++_i61)
+        var _ktype65 = 0;
+        var _vtype66 = 0;
+        _rtmp368 = input.readMapBegin();
+        _ktype65 = _rtmp368.ktype;
+        _vtype66 = _rtmp368.vtype;
+        _size64 = _rtmp368.size;
+        for (var _i69 = 0; _i69 < _size64; ++_i69)
         {
-          if (_i61 > 0 ) {
+          if (_i69 > 0 ) {
             if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
               input.rstack.pop();
             }
           }
-          var key62 = null;
-          var val63 = null;
-          key62 = input.readString().value;
-          val63 = input.readString().value;
-          this.tags[key62] = val63;
+          var key70 = null;
+          var val71 = null;
+          key70 = input.readString().value;
+          val71 = input.readString().value;
+          this.tags[key70] = val71;
         }
         input.readMapEnd();
       } else {
@@ -2800,13 +3277,13 @@ QueryMetricRequest.prototype.write = function(output) {
   if (this.tags !== null && this.tags !== undefined) {
     output.writeFieldBegin('tags', Thrift.Type.MAP, 5);
     output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRING, Thrift.objectLength(this.tags));
-    for (var kiter64 in this.tags)
+    for (var kiter72 in this.tags)
     {
-      if (this.tags.hasOwnProperty(kiter64))
+      if (this.tags.hasOwnProperty(kiter72))
       {
-        var viter65 = this.tags[kiter64];
-        output.writeString(kiter64);
-        output.writeString(viter65);
+        var viter73 = this.tags[kiter72];
+        output.writeString(kiter72);
+        output.writeString(viter73);
       }
     }
     output.writeMapEnd();
@@ -2881,38 +3358,9 @@ TimeSeriesData.prototype.read = function(input) {
       break;
       case 2:
       if (ftype == Thrift.Type.MAP) {
-        var _size66 = 0;
-        var _rtmp370;
-        this.tags = {};
-        var _ktype67 = 0;
-        var _vtype68 = 0;
-        _rtmp370 = input.readMapBegin();
-        _ktype67 = _rtmp370.ktype;
-        _vtype68 = _rtmp370.vtype;
-        _size66 = _rtmp370.size;
-        for (var _i71 = 0; _i71 < _size66; ++_i71)
-        {
-          if (_i71 > 0 ) {
-            if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
-              input.rstack.pop();
-            }
-          }
-          var key72 = null;
-          var val73 = null;
-          key72 = input.readString().value;
-          val73 = input.readString().value;
-          this.tags[key72] = val73;
-        }
-        input.readMapEnd();
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 3:
-      if (ftype == Thrift.Type.MAP) {
         var _size74 = 0;
         var _rtmp378;
-        this.data = {};
+        this.tags = {};
         var _ktype75 = 0;
         var _vtype76 = 0;
         _rtmp378 = input.readMapBegin();
@@ -2928,9 +3376,38 @@ TimeSeriesData.prototype.read = function(input) {
           }
           var key80 = null;
           var val81 = null;
-          key80 = input.readI64().value;
-          val81 = input.readDouble().value;
-          this.data[key80] = val81;
+          key80 = input.readString().value;
+          val81 = input.readString().value;
+          this.tags[key80] = val81;
+        }
+        input.readMapEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 3:
+      if (ftype == Thrift.Type.MAP) {
+        var _size82 = 0;
+        var _rtmp386;
+        this.data = {};
+        var _ktype83 = 0;
+        var _vtype84 = 0;
+        _rtmp386 = input.readMapBegin();
+        _ktype83 = _rtmp386.ktype;
+        _vtype84 = _rtmp386.vtype;
+        _size82 = _rtmp386.size;
+        for (var _i87 = 0; _i87 < _size82; ++_i87)
+        {
+          if (_i87 > 0 ) {
+            if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
+              input.rstack.pop();
+            }
+          }
+          var key88 = null;
+          var val89 = null;
+          key88 = input.readI64().value;
+          val89 = input.readDouble().value;
+          this.data[key88] = val89;
         }
         input.readMapEnd();
       } else {
@@ -2956,13 +3433,13 @@ TimeSeriesData.prototype.write = function(output) {
   if (this.tags !== null && this.tags !== undefined) {
     output.writeFieldBegin('tags', Thrift.Type.MAP, 2);
     output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRING, Thrift.objectLength(this.tags));
-    for (var kiter82 in this.tags)
+    for (var kiter90 in this.tags)
     {
-      if (this.tags.hasOwnProperty(kiter82))
+      if (this.tags.hasOwnProperty(kiter90))
       {
-        var viter83 = this.tags[kiter82];
-        output.writeString(kiter82);
-        output.writeString(viter83);
+        var viter91 = this.tags[kiter90];
+        output.writeString(kiter90);
+        output.writeString(viter91);
       }
     }
     output.writeMapEnd();
@@ -2971,13 +3448,13 @@ TimeSeriesData.prototype.write = function(output) {
   if (this.data !== null && this.data !== undefined) {
     output.writeFieldBegin('data', Thrift.Type.MAP, 3);
     output.writeMapBegin(Thrift.Type.I64, Thrift.Type.DOUBLE, Thrift.objectLength(this.data));
-    for (var kiter84 in this.data)
+    for (var kiter92 in this.data)
     {
-      if (this.data.hasOwnProperty(kiter84))
+      if (this.data.hasOwnProperty(kiter92))
       {
-        var viter85 = this.data[kiter84];
-        output.writeI64(kiter84);
-        output.writeDouble(viter85);
+        var viter93 = this.data[kiter92];
+        output.writeI64(kiter92);
+        output.writeDouble(viter93);
       }
     }
     output.writeMapEnd();
