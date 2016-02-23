@@ -5,19 +5,21 @@
 //
 
 
-OPERATION = {
-  'SEND' : 0,
-  'RECEIVE' : 1,
-  'CHANGE' : 2,
-  'DELETE' : 3,
-  'SINGLE_SEND' : 4,
-  'BATCH_SEND' : 5,
-  'SHORT_RECEIVE' : 6,
-  'LONG_RECEIVE' : 7
+ALERT_TYPE = {
+  'SEND_REQUEST' : 0,
+  'RECEIVE_REQUEST' : 1,
+  'CHANGE_REQUEST' : 2,
+  'DELETE_REQUEST' : 3,
+  'SINGLE_SEND_REQUEST' : 4,
+  'BATCH_SEND_REQUEST' : 5,
+  'SHORT_RECEIVE_REQUEST' : 6,
+  'LONG_RECEIVE_REQUEST' : 7,
+  'QUEUE_MESSAGE_NUMBER' : 8
 };
 MEASUREMENT = {
   'LATENCY' : 0,
-  'LATENCY_P999' : 1
+  'LATENCY_P999' : 1,
+  'COUNT' : 2
 };
 UserQuota = function(args) {
   this.throughput = null;
@@ -586,14 +588,14 @@ GetUserInfoResponse.prototype.write = function(output) {
 };
 
 AlertPolicy = function(args) {
-  this.operation = null;
+  this.type = null;
   this.measurement = null;
   this.threshold = null;
   if (args) {
-    if (args.operation !== undefined) {
-      this.operation = args.operation;
+    if (args.type !== undefined) {
+      this.type = args.type;
     } else {
-      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field operation is unset!');
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field type is unset!');
     }
     if (args.measurement !== undefined) {
       this.measurement = args.measurement;
@@ -621,7 +623,7 @@ AlertPolicy.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.I32) {
-        this.operation = input.readI32().value;
+        this.type = input.readI32().value;
       } else {
         input.skip(ftype);
       }
@@ -651,9 +653,9 @@ AlertPolicy.prototype.read = function(input) {
 
 AlertPolicy.prototype.write = function(output) {
   output.writeStructBegin('AlertPolicy');
-  if (this.operation !== null && this.operation !== undefined) {
-    output.writeFieldBegin('operation', Thrift.Type.I32, 1);
-    output.writeI32(this.operation);
+  if (this.type !== null && this.type !== undefined) {
+    output.writeFieldBegin('type', Thrift.Type.I32, 1);
+    output.writeI32(this.type);
     output.writeFieldEnd();
   }
   if (this.measurement !== null && this.measurement !== undefined) {
