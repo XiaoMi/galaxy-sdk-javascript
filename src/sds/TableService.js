@@ -1267,6 +1267,132 @@ TableService_commitConsumedPartitionEdit_result.prototype.write = function(outpu
   return;
 };
 
+TableService_putToRebuildIndex_args = function(args) {
+  this.request = null;
+  if (args) {
+    if (args.request !== undefined) {
+      this.request = args.request;
+    }
+  }
+};
+TableService_putToRebuildIndex_args.prototype = {};
+TableService_putToRebuildIndex_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.request = new PutRequest();
+        this.request.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+TableService_putToRebuildIndex_args.prototype.write = function(output) {
+  output.writeStructBegin('TableService_putToRebuildIndex_args');
+  if (this.request !== null && this.request !== undefined) {
+    output.writeFieldBegin('request', Thrift.Type.STRUCT, 1);
+    this.request.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+TableService_putToRebuildIndex_result = function(args) {
+  this.success = null;
+  this.se = null;
+  if (args instanceof ServiceException) {
+    this.se = args;
+    return;
+  }
+  if (args) {
+    if (args.success !== undefined) {
+      this.success = args.success;
+    }
+    if (args.se !== undefined) {
+      this.se = args.se;
+    }
+  }
+};
+TableService_putToRebuildIndex_result.prototype = {};
+TableService_putToRebuildIndex_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.success = new PutResult();
+        this.success.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.se = new ServiceException();
+        this.se.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+TableService_putToRebuildIndex_result.prototype.write = function(output) {
+  output.writeStructBegin('TableService_putToRebuildIndex_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+    this.success.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.se !== null && this.se !== undefined) {
+    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
+    this.se.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
 TableServiceClient = function(input, output) {
     this.input = input;
     this.output = (!output) ? input : output;
@@ -1702,4 +1828,47 @@ TableServiceClient.prototype.recv_commitConsumedPartitionEdit = function() {
     return result.success;
   }
   throw 'commitConsumedPartitionEdit failed: unknown result';
+};
+TableServiceClient.prototype.putToRebuildIndex = function(request, callback) {
+  if (callback === undefined) {
+    this.send_putToRebuildIndex(request);
+    return this.recv_putToRebuildIndex();
+  } else {
+    var postData = this.send_putToRebuildIndex(request, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_putToRebuildIndex);
+  }
+};
+
+TableServiceClient.prototype.send_putToRebuildIndex = function(request, callback) {
+  this.output.writeMessageBegin('putToRebuildIndex', Thrift.MessageType.CALL, this.seqid);
+  var args = new TableService_putToRebuildIndex_args();
+  args.request = request;
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+TableServiceClient.prototype.recv_putToRebuildIndex = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new TableService_putToRebuildIndex_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.se) {
+    throw result.se;
+  }
+  if (null !== result.success) {
+    return result.success;
+  }
+  throw 'putToRebuildIndex failed: unknown result';
 };

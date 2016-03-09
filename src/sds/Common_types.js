@@ -14,7 +14,7 @@ ThriftProtocol = {
 Version = function(args) {
   this.major = 1;
   this.minor = 0;
-  this.patch = '2252d150';
+  this.patch = '91caa8a2';
   this.comments = '';
   if (args) {
     if (args.major !== undefined) {
