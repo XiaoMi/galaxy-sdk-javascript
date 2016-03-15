@@ -673,7 +673,7 @@ AlertPolicy.prototype.write = function(output) {
   return;
 };
 
-AddAlertPolicyRequest = function(args) {
+AddQueueAlertPolicyRequest = function(args) {
   this.queueName = null;
   this.alertPolicy = null;
   if (args) {
@@ -689,8 +689,8 @@ AddAlertPolicyRequest = function(args) {
     }
   }
 };
-AddAlertPolicyRequest.prototype = {};
-AddAlertPolicyRequest.prototype.read = function(input) {
+AddQueueAlertPolicyRequest.prototype = {};
+AddQueueAlertPolicyRequest.prototype.read = function(input) {
   input.readStructBegin();
   while (true)
   {
@@ -727,8 +727,8 @@ AddAlertPolicyRequest.prototype.read = function(input) {
   return;
 };
 
-AddAlertPolicyRequest.prototype.write = function(output) {
-  output.writeStructBegin('AddAlertPolicyRequest');
+AddQueueAlertPolicyRequest.prototype.write = function(output) {
+  output.writeStructBegin('AddQueueAlertPolicyRequest');
   if (this.queueName !== null && this.queueName !== undefined) {
     output.writeFieldBegin('queueName', Thrift.Type.STRING, 1);
     output.writeString(this.queueName);
@@ -744,7 +744,7 @@ AddAlertPolicyRequest.prototype.write = function(output) {
   return;
 };
 
-DeleteAlertPolicyRequest = function(args) {
+DeleteQueueAlertPolicyRequest = function(args) {
   this.queueName = null;
   this.alertPolicy = null;
   if (args) {
@@ -760,8 +760,8 @@ DeleteAlertPolicyRequest = function(args) {
     }
   }
 };
-DeleteAlertPolicyRequest.prototype = {};
-DeleteAlertPolicyRequest.prototype.read = function(input) {
+DeleteQueueAlertPolicyRequest.prototype = {};
+DeleteQueueAlertPolicyRequest.prototype.read = function(input) {
   input.readStructBegin();
   while (true)
   {
@@ -798,8 +798,8 @@ DeleteAlertPolicyRequest.prototype.read = function(input) {
   return;
 };
 
-DeleteAlertPolicyRequest.prototype.write = function(output) {
-  output.writeStructBegin('DeleteAlertPolicyRequest');
+DeleteQueueAlertPolicyRequest.prototype.write = function(output) {
+  output.writeStructBegin('DeleteQueueAlertPolicyRequest');
   if (this.queueName !== null && this.queueName !== undefined) {
     output.writeFieldBegin('queueName', Thrift.Type.STRING, 1);
     output.writeString(this.queueName);

@@ -633,7 +633,7 @@ StatisticsService_addQueueAlertPolicy_args.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
-        this.request = new AddAlertPolicyRequest();
+        this.request = new AddQueueAlertPolicyRequest();
         this.request.read(input);
       } else {
         input.skip(ftype);
@@ -745,7 +745,7 @@ StatisticsService_deleteQueueAlertPolicy_args.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
-        this.request = new DeleteAlertPolicyRequest();
+        this.request = new DeleteQueueAlertPolicyRequest();
         this.request.read(input);
       } else {
         input.skip(ftype);
