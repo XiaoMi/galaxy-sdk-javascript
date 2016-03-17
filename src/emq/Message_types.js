@@ -1898,3 +1898,332 @@ DeleteMessageBatchResponse.prototype.write = function(output) {
   return;
 };
 
+DeadMessageRequest = function(args) {
+  this.queueName = null;
+  this.receiptHandle = null;
+  if (args) {
+    if (args.queueName !== undefined) {
+      this.queueName = args.queueName;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field queueName is unset!');
+    }
+    if (args.receiptHandle !== undefined) {
+      this.receiptHandle = args.receiptHandle;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field receiptHandle is unset!');
+    }
+  }
+};
+DeadMessageRequest.prototype = {};
+DeadMessageRequest.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.queueName = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.STRING) {
+        this.receiptHandle = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+DeadMessageRequest.prototype.write = function(output) {
+  output.writeStructBegin('DeadMessageRequest');
+  if (this.queueName !== null && this.queueName !== undefined) {
+    output.writeFieldBegin('queueName', Thrift.Type.STRING, 1);
+    output.writeString(this.queueName);
+    output.writeFieldEnd();
+  }
+  if (this.receiptHandle !== null && this.receiptHandle !== undefined) {
+    output.writeFieldBegin('receiptHandle', Thrift.Type.STRING, 2);
+    output.writeString(this.receiptHandle);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+DeadMessageBatchRequestEntry = function(args) {
+  this.receiptHandle = null;
+  if (args) {
+    if (args.receiptHandle !== undefined) {
+      this.receiptHandle = args.receiptHandle;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field receiptHandle is unset!');
+    }
+  }
+};
+DeadMessageBatchRequestEntry.prototype = {};
+DeadMessageBatchRequestEntry.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.receiptHandle = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+DeadMessageBatchRequestEntry.prototype.write = function(output) {
+  output.writeStructBegin('DeadMessageBatchRequestEntry');
+  if (this.receiptHandle !== null && this.receiptHandle !== undefined) {
+    output.writeFieldBegin('receiptHandle', Thrift.Type.STRING, 1);
+    output.writeString(this.receiptHandle);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+DeadMessageBatchRequest = function(args) {
+  this.queueName = null;
+  this.deadMessageBatchRequestEntryList = null;
+  if (args) {
+    if (args.queueName !== undefined) {
+      this.queueName = args.queueName;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field queueName is unset!');
+    }
+    if (args.deadMessageBatchRequestEntryList !== undefined) {
+      this.deadMessageBatchRequestEntryList = args.deadMessageBatchRequestEntryList;
+    } else {
+      throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field deadMessageBatchRequestEntryList is unset!');
+    }
+  }
+};
+DeadMessageBatchRequest.prototype = {};
+DeadMessageBatchRequest.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.queueName = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.LIST) {
+        var _size112 = 0;
+        var _rtmp3116;
+        this.deadMessageBatchRequestEntryList = [];
+        var _etype115 = 0;
+        _rtmp3116 = input.readListBegin();
+        _etype115 = _rtmp3116.etype;
+        _size112 = _rtmp3116.size;
+        for (var _i117 = 0; _i117 < _size112; ++_i117)
+        {
+          var elem118 = null;
+          elem118 = new DeadMessageBatchRequestEntry();
+          elem118.read(input);
+          this.deadMessageBatchRequestEntryList.push(elem118);
+        }
+        input.readListEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+DeadMessageBatchRequest.prototype.write = function(output) {
+  output.writeStructBegin('DeadMessageBatchRequest');
+  if (this.queueName !== null && this.queueName !== undefined) {
+    output.writeFieldBegin('queueName', Thrift.Type.STRING, 1);
+    output.writeString(this.queueName);
+    output.writeFieldEnd();
+  }
+  if (this.deadMessageBatchRequestEntryList !== null && this.deadMessageBatchRequestEntryList !== undefined) {
+    output.writeFieldBegin('deadMessageBatchRequestEntryList', Thrift.Type.LIST, 2);
+    output.writeListBegin(Thrift.Type.STRUCT, this.deadMessageBatchRequestEntryList.length);
+    for (var iter119 in this.deadMessageBatchRequestEntryList)
+    {
+      if (this.deadMessageBatchRequestEntryList.hasOwnProperty(iter119))
+      {
+        iter119 = this.deadMessageBatchRequestEntryList[iter119];
+        iter119.write(output);
+      }
+    }
+    output.writeListEnd();
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+DeadMessageBatchResponse = function(args) {
+  this.successful = null;
+  this.failed = null;
+  if (args) {
+    if (args.successful !== undefined) {
+      this.successful = args.successful;
+    }
+    if (args.failed !== undefined) {
+      this.failed = args.failed;
+    }
+  }
+};
+DeadMessageBatchResponse.prototype = {};
+DeadMessageBatchResponse.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.LIST) {
+        var _size120 = 0;
+        var _rtmp3124;
+        this.successful = [];
+        var _etype123 = 0;
+        _rtmp3124 = input.readListBegin();
+        _etype123 = _rtmp3124.etype;
+        _size120 = _rtmp3124.size;
+        for (var _i125 = 0; _i125 < _size120; ++_i125)
+        {
+          var elem126 = null;
+          elem126 = input.readString().value;
+          this.successful.push(elem126);
+        }
+        input.readListEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.LIST) {
+        var _size127 = 0;
+        var _rtmp3131;
+        this.failed = [];
+        var _etype130 = 0;
+        _rtmp3131 = input.readListBegin();
+        _etype130 = _rtmp3131.etype;
+        _size127 = _rtmp3131.size;
+        for (var _i132 = 0; _i132 < _size127; ++_i132)
+        {
+          var elem133 = null;
+          elem133 = new MessageBatchErrorEntry();
+          elem133.read(input);
+          this.failed.push(elem133);
+        }
+        input.readListEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+DeadMessageBatchResponse.prototype.write = function(output) {
+  output.writeStructBegin('DeadMessageBatchResponse');
+  if (this.successful !== null && this.successful !== undefined) {
+    output.writeFieldBegin('successful', Thrift.Type.LIST, 1);
+    output.writeListBegin(Thrift.Type.STRING, this.successful.length);
+    for (var iter134 in this.successful)
+    {
+      if (this.successful.hasOwnProperty(iter134))
+      {
+        iter134 = this.successful[iter134];
+        output.writeString(iter134);
+      }
+    }
+    output.writeListEnd();
+    output.writeFieldEnd();
+  }
+  if (this.failed !== null && this.failed !== undefined) {
+    output.writeFieldBegin('failed', Thrift.Type.LIST, 2);
+    output.writeListBegin(Thrift.Type.STRUCT, this.failed.length);
+    for (var iter135 in this.failed)
+    {
+      if (this.failed.hasOwnProperty(iter135))
+      {
+        iter135 = this.failed[iter135];
+        iter135.write(output);
+      }
+    }
+    output.writeListEnd();
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+

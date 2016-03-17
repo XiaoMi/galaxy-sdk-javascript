@@ -345,19 +345,19 @@ MessageService_receiveMessage_result.prototype.read = function(input) {
     {
       case 0:
       if (ftype == Thrift.Type.LIST) {
-        var _size112 = 0;
-        var _rtmp3116;
+        var _size136 = 0;
+        var _rtmp3140;
         this.success = [];
-        var _etype115 = 0;
-        _rtmp3116 = input.readListBegin();
-        _etype115 = _rtmp3116.etype;
-        _size112 = _rtmp3116.size;
-        for (var _i117 = 0; _i117 < _size112; ++_i117)
+        var _etype139 = 0;
+        _rtmp3140 = input.readListBegin();
+        _etype139 = _rtmp3140.etype;
+        _size136 = _rtmp3140.size;
+        for (var _i141 = 0; _i141 < _size136; ++_i141)
         {
-          var elem118 = null;
-          elem118 = new ReceiveMessageResponse();
-          elem118.read(input);
-          this.success.push(elem118);
+          var elem142 = null;
+          elem142 = new ReceiveMessageResponse();
+          elem142.read(input);
+          this.success.push(elem142);
         }
         input.readListEnd();
       } else {
@@ -386,12 +386,12 @@ MessageService_receiveMessage_result.prototype.write = function(output) {
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
     output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
-    for (var iter119 in this.success)
+    for (var iter143 in this.success)
     {
-      if (this.success.hasOwnProperty(iter119))
+      if (this.success.hasOwnProperty(iter143))
       {
-        iter119 = this.success[iter119];
-        iter119.write(output);
+        iter143 = this.success[iter143];
+        iter143.write(output);
       }
     }
     output.writeListEnd();
@@ -883,6 +883,244 @@ MessageService_deleteMessageBatch_result.prototype.write = function(output) {
   return;
 };
 
+MessageService_deadMessage_args = function(args) {
+  this.deadMessageRequest = null;
+  if (args) {
+    if (args.deadMessageRequest !== undefined) {
+      this.deadMessageRequest = args.deadMessageRequest;
+    }
+  }
+};
+MessageService_deadMessage_args.prototype = {};
+MessageService_deadMessage_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.deadMessageRequest = new DeadMessageRequest();
+        this.deadMessageRequest.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+MessageService_deadMessage_args.prototype.write = function(output) {
+  output.writeStructBegin('MessageService_deadMessage_args');
+  if (this.deadMessageRequest !== null && this.deadMessageRequest !== undefined) {
+    output.writeFieldBegin('deadMessageRequest', Thrift.Type.STRUCT, 1);
+    this.deadMessageRequest.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+MessageService_deadMessage_result = function(args) {
+  this.e = null;
+  if (args instanceof GalaxyEmqServiceException) {
+    this.e = args;
+    return;
+  }
+  if (args) {
+    if (args.e !== undefined) {
+      this.e = args.e;
+    }
+  }
+};
+MessageService_deadMessage_result.prototype = {};
+MessageService_deadMessage_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.e = new GalaxyEmqServiceException();
+        this.e.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+MessageService_deadMessage_result.prototype.write = function(output) {
+  output.writeStructBegin('MessageService_deadMessage_result');
+  if (this.e !== null && this.e !== undefined) {
+    output.writeFieldBegin('e', Thrift.Type.STRUCT, 1);
+    this.e.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+MessageService_deadMessageBatch_args = function(args) {
+  this.deadMessageBatchRequest = null;
+  if (args) {
+    if (args.deadMessageBatchRequest !== undefined) {
+      this.deadMessageBatchRequest = args.deadMessageBatchRequest;
+    }
+  }
+};
+MessageService_deadMessageBatch_args.prototype = {};
+MessageService_deadMessageBatch_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.deadMessageBatchRequest = new DeadMessageBatchRequest();
+        this.deadMessageBatchRequest.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+MessageService_deadMessageBatch_args.prototype.write = function(output) {
+  output.writeStructBegin('MessageService_deadMessageBatch_args');
+  if (this.deadMessageBatchRequest !== null && this.deadMessageBatchRequest !== undefined) {
+    output.writeFieldBegin('deadMessageBatchRequest', Thrift.Type.STRUCT, 1);
+    this.deadMessageBatchRequest.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+MessageService_deadMessageBatch_result = function(args) {
+  this.success = null;
+  this.e = null;
+  if (args instanceof GalaxyEmqServiceException) {
+    this.e = args;
+    return;
+  }
+  if (args) {
+    if (args.success !== undefined) {
+      this.success = args.success;
+    }
+    if (args.e !== undefined) {
+      this.e = args.e;
+    }
+  }
+};
+MessageService_deadMessageBatch_result.prototype = {};
+MessageService_deadMessageBatch_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.success = new DeadMessageBatchResponse();
+        this.success.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.e = new GalaxyEmqServiceException();
+        this.e.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+MessageService_deadMessageBatch_result.prototype.write = function(output) {
+  output.writeStructBegin('MessageService_deadMessageBatch_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+    this.success.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.e !== null && this.e !== undefined) {
+    output.writeFieldBegin('e', Thrift.Type.STRUCT, 1);
+    this.e.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
 MessageServiceClient = function(input, output) {
     this.input = input;
     this.output = (!output) ? input : output;
@@ -1183,4 +1421,87 @@ MessageServiceClient.prototype.recv_deleteMessageBatch = function() {
     return result.success;
   }
   throw 'deleteMessageBatch failed: unknown result';
+};
+MessageServiceClient.prototype.deadMessage = function(deadMessageRequest, callback) {
+  if (callback === undefined) {
+    this.send_deadMessage(deadMessageRequest);
+    this.recv_deadMessage();
+  } else {
+    var postData = this.send_deadMessage(deadMessageRequest, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_deadMessage);
+  }
+};
+
+MessageServiceClient.prototype.send_deadMessage = function(deadMessageRequest, callback) {
+  this.output.writeMessageBegin('deadMessage', Thrift.MessageType.CALL, this.seqid);
+  var args = new MessageService_deadMessage_args();
+  args.deadMessageRequest = deadMessageRequest;
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+MessageServiceClient.prototype.recv_deadMessage = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new MessageService_deadMessage_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.e) {
+    throw result.e;
+  }
+  return;
+};
+MessageServiceClient.prototype.deadMessageBatch = function(deadMessageBatchRequest, callback) {
+  if (callback === undefined) {
+    this.send_deadMessageBatch(deadMessageBatchRequest);
+    return this.recv_deadMessageBatch();
+  } else {
+    var postData = this.send_deadMessageBatch(deadMessageBatchRequest, true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_deadMessageBatch);
+  }
+};
+
+MessageServiceClient.prototype.send_deadMessageBatch = function(deadMessageBatchRequest, callback) {
+  this.output.writeMessageBegin('deadMessageBatch', Thrift.MessageType.CALL, this.seqid);
+  var args = new MessageService_deadMessageBatch_args();
+  args.deadMessageBatchRequest = deadMessageBatchRequest;
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+MessageServiceClient.prototype.recv_deadMessageBatch = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new MessageService_deadMessageBatch_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.e) {
+    throw result.e;
+  }
+  if (null !== result.success) {
+    return result.success;
+  }
+  throw 'deadMessageBatch failed: unknown result';
 };
