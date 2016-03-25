@@ -2496,12 +2496,8 @@ AdminService_putClientMetrics_result.prototype.write = function(output) {
 };
 
 AdminService_subscribePhoneAlert_args = function(args) {
-  this.tableName = null;
   this.phoneNumber = null;
   if (args) {
-    if (args.tableName !== undefined) {
-      this.tableName = args.tableName;
-    }
     if (args.phoneNumber !== undefined) {
       this.phoneNumber = args.phoneNumber;
     }
@@ -2523,18 +2519,14 @@ AdminService_subscribePhoneAlert_args.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.tableName = input.readString().value;
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 2:
-      if (ftype == Thrift.Type.STRING) {
         this.phoneNumber = input.readString().value;
       } else {
         input.skip(ftype);
       }
       break;
+      case 0:
+        input.skip(ftype);
+        break;
       default:
         input.skip(ftype);
     }
@@ -2546,13 +2538,8 @@ AdminService_subscribePhoneAlert_args.prototype.read = function(input) {
 
 AdminService_subscribePhoneAlert_args.prototype.write = function(output) {
   output.writeStructBegin('AdminService_subscribePhoneAlert_args');
-  if (this.tableName !== null && this.tableName !== undefined) {
-    output.writeFieldBegin('tableName', Thrift.Type.STRING, 1);
-    output.writeString(this.tableName);
-    output.writeFieldEnd();
-  }
   if (this.phoneNumber !== null && this.phoneNumber !== undefined) {
-    output.writeFieldBegin('phoneNumber', Thrift.Type.STRING, 2);
+    output.writeFieldBegin('phoneNumber', Thrift.Type.STRING, 1);
     output.writeString(this.phoneNumber);
     output.writeFieldEnd();
   }
@@ -2620,12 +2607,8 @@ AdminService_subscribePhoneAlert_result.prototype.write = function(output) {
 };
 
 AdminService_unsubscribePhoneAlert_args = function(args) {
-  this.tableName = null;
   this.phoneNumber = null;
   if (args) {
-    if (args.tableName !== undefined) {
-      this.tableName = args.tableName;
-    }
     if (args.phoneNumber !== undefined) {
       this.phoneNumber = args.phoneNumber;
     }
@@ -2647,18 +2630,14 @@ AdminService_unsubscribePhoneAlert_args.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.tableName = input.readString().value;
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 2:
-      if (ftype == Thrift.Type.STRING) {
         this.phoneNumber = input.readString().value;
       } else {
         input.skip(ftype);
       }
       break;
+      case 0:
+        input.skip(ftype);
+        break;
       default:
         input.skip(ftype);
     }
@@ -2670,13 +2649,8 @@ AdminService_unsubscribePhoneAlert_args.prototype.read = function(input) {
 
 AdminService_unsubscribePhoneAlert_args.prototype.write = function(output) {
   output.writeStructBegin('AdminService_unsubscribePhoneAlert_args');
-  if (this.tableName !== null && this.tableName !== undefined) {
-    output.writeFieldBegin('tableName', Thrift.Type.STRING, 1);
-    output.writeString(this.tableName);
-    output.writeFieldEnd();
-  }
   if (this.phoneNumber !== null && this.phoneNumber !== undefined) {
-    output.writeFieldBegin('phoneNumber', Thrift.Type.STRING, 2);
+    output.writeFieldBegin('phoneNumber', Thrift.Type.STRING, 1);
     output.writeString(this.phoneNumber);
     output.writeFieldEnd();
   }
@@ -2744,12 +2718,8 @@ AdminService_unsubscribePhoneAlert_result.prototype.write = function(output) {
 };
 
 AdminService_subscribeEmailAlert_args = function(args) {
-  this.tableName = null;
   this.email = null;
   if (args) {
-    if (args.tableName !== undefined) {
-      this.tableName = args.tableName;
-    }
     if (args.email !== undefined) {
       this.email = args.email;
     }
@@ -2771,18 +2741,14 @@ AdminService_subscribeEmailAlert_args.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.tableName = input.readString().value;
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 2:
-      if (ftype == Thrift.Type.STRING) {
         this.email = input.readString().value;
       } else {
         input.skip(ftype);
       }
       break;
+      case 0:
+        input.skip(ftype);
+        break;
       default:
         input.skip(ftype);
     }
@@ -2794,13 +2760,8 @@ AdminService_subscribeEmailAlert_args.prototype.read = function(input) {
 
 AdminService_subscribeEmailAlert_args.prototype.write = function(output) {
   output.writeStructBegin('AdminService_subscribeEmailAlert_args');
-  if (this.tableName !== null && this.tableName !== undefined) {
-    output.writeFieldBegin('tableName', Thrift.Type.STRING, 1);
-    output.writeString(this.tableName);
-    output.writeFieldEnd();
-  }
   if (this.email !== null && this.email !== undefined) {
-    output.writeFieldBegin('email', Thrift.Type.STRING, 2);
+    output.writeFieldBegin('email', Thrift.Type.STRING, 1);
     output.writeString(this.email);
     output.writeFieldEnd();
   }
@@ -2868,12 +2829,8 @@ AdminService_subscribeEmailAlert_result.prototype.write = function(output) {
 };
 
 AdminService_unsubscribeEmailAlert_args = function(args) {
-  this.tableName = null;
   this.email = null;
   if (args) {
-    if (args.tableName !== undefined) {
-      this.tableName = args.tableName;
-    }
     if (args.email !== undefined) {
       this.email = args.email;
     }
@@ -2895,18 +2852,14 @@ AdminService_unsubscribeEmailAlert_args.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.tableName = input.readString().value;
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 2:
-      if (ftype == Thrift.Type.STRING) {
         this.email = input.readString().value;
       } else {
         input.skip(ftype);
       }
       break;
+      case 0:
+        input.skip(ftype);
+        break;
       default:
         input.skip(ftype);
     }
@@ -2918,13 +2871,8 @@ AdminService_unsubscribeEmailAlert_args.prototype.read = function(input) {
 
 AdminService_unsubscribeEmailAlert_args.prototype.write = function(output) {
   output.writeStructBegin('AdminService_unsubscribeEmailAlert_args');
-  if (this.tableName !== null && this.tableName !== undefined) {
-    output.writeFieldBegin('tableName', Thrift.Type.STRING, 1);
-    output.writeString(this.tableName);
-    output.writeFieldEnd();
-  }
   if (this.email !== null && this.email !== undefined) {
-    output.writeFieldBegin('email', Thrift.Type.STRING, 2);
+    output.writeFieldBegin('email', Thrift.Type.STRING, 1);
     output.writeString(this.email);
     output.writeFieldEnd();
   }
@@ -2992,12 +2940,6 @@ AdminService_unsubscribeEmailAlert_result.prototype.write = function(output) {
 };
 
 AdminService_listSubscribedPhone_args = function(args) {
-  this.tableName = null;
-  if (args) {
-    if (args.tableName !== undefined) {
-      this.tableName = args.tableName;
-    }
-  }
 };
 AdminService_listSubscribedPhone_args.prototype = {};
 AdminService_listSubscribedPhone_args.prototype.read = function(input) {
@@ -3011,21 +2953,7 @@ AdminService_listSubscribedPhone_args.prototype.read = function(input) {
     if (ftype == Thrift.Type.STOP) {
       break;
     }
-    switch (fid)
-    {
-      case 1:
-      if (ftype == Thrift.Type.STRING) {
-        this.tableName = input.readString().value;
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 0:
-        input.skip(ftype);
-        break;
-      default:
-        input.skip(ftype);
-    }
+    input.skip(ftype);
     input.readFieldEnd();
   }
   input.readStructEnd();
@@ -3034,11 +2962,6 @@ AdminService_listSubscribedPhone_args.prototype.read = function(input) {
 
 AdminService_listSubscribedPhone_args.prototype.write = function(output) {
   output.writeStructBegin('AdminService_listSubscribedPhone_args');
-  if (this.tableName !== null && this.tableName !== undefined) {
-    output.writeFieldBegin('tableName', Thrift.Type.STRING, 1);
-    output.writeString(this.tableName);
-    output.writeFieldEnd();
-  }
   output.writeFieldStop();
   output.writeStructEnd();
   return;
@@ -3138,12 +3061,6 @@ AdminService_listSubscribedPhone_result.prototype.write = function(output) {
 };
 
 AdminService_listSubscribedEmail_args = function(args) {
-  this.tableName = null;
-  if (args) {
-    if (args.tableName !== undefined) {
-      this.tableName = args.tableName;
-    }
-  }
 };
 AdminService_listSubscribedEmail_args.prototype = {};
 AdminService_listSubscribedEmail_args.prototype.read = function(input) {
@@ -3157,21 +3074,7 @@ AdminService_listSubscribedEmail_args.prototype.read = function(input) {
     if (ftype == Thrift.Type.STOP) {
       break;
     }
-    switch (fid)
-    {
-      case 1:
-      if (ftype == Thrift.Type.STRING) {
-        this.tableName = input.readString().value;
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 0:
-        input.skip(ftype);
-        break;
-      default:
-        input.skip(ftype);
-    }
+    input.skip(ftype);
     input.readFieldEnd();
   }
   input.readStructEnd();
@@ -3180,11 +3083,6 @@ AdminService_listSubscribedEmail_args.prototype.read = function(input) {
 
 AdminService_listSubscribedEmail_args.prototype.write = function(output) {
   output.writeStructBegin('AdminService_listSubscribedEmail_args');
-  if (this.tableName !== null && this.tableName !== undefined) {
-    output.writeFieldBegin('tableName', Thrift.Type.STRING, 1);
-    output.writeString(this.tableName);
-    output.writeFieldEnd();
-  }
   output.writeFieldStop();
   output.writeStructEnd();
   return;
@@ -6342,6 +6240,106 @@ AdminService_getSnapshotState_result.prototype.write = function(output) {
   return;
 };
 
+AdminService_getQuotaInfo_args = function(args) {
+};
+AdminService_getQuotaInfo_args.prototype = {};
+AdminService_getQuotaInfo_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    input.skip(ftype);
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+AdminService_getQuotaInfo_args.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_getQuotaInfo_args');
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+AdminService_getQuotaInfo_result = function(args) {
+  this.success = null;
+  this.se = null;
+  if (args instanceof ServiceException) {
+    this.se = args;
+    return;
+  }
+  if (args) {
+    if (args.success !== undefined) {
+      this.success = args.success;
+    }
+    if (args.se !== undefined) {
+      this.se = args.se;
+    }
+  }
+};
+AdminService_getQuotaInfo_result.prototype = {};
+AdminService_getQuotaInfo_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.success = new QuotaInfo();
+        this.success.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.se = new ServiceException();
+        this.se.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+AdminService_getQuotaInfo_result.prototype.write = function(output) {
+  output.writeStructBegin('AdminService_getQuotaInfo_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+    this.success.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.se !== null && this.se !== undefined) {
+    output.writeFieldBegin('se', Thrift.Type.STRUCT, 1);
+    this.se.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
 AdminServiceClient = function(input, output) {
     this.input = input;
     this.output = (!output) ? input : output;
@@ -7147,21 +7145,20 @@ AdminServiceClient.prototype.recv_putClientMetrics = function() {
   }
   return;
 };
-AdminServiceClient.prototype.subscribePhoneAlert = function(tableName, phoneNumber, callback) {
+AdminServiceClient.prototype.subscribePhoneAlert = function(phoneNumber, callback) {
   if (callback === undefined) {
-    this.send_subscribePhoneAlert(tableName, phoneNumber);
+    this.send_subscribePhoneAlert(phoneNumber);
     this.recv_subscribePhoneAlert();
   } else {
-    var postData = this.send_subscribePhoneAlert(tableName, phoneNumber, true);
+    var postData = this.send_subscribePhoneAlert(phoneNumber, true);
     return this.output.getTransport()
       .jqRequest(this, postData, arguments, this.recv_subscribePhoneAlert);
   }
 };
 
-AdminServiceClient.prototype.send_subscribePhoneAlert = function(tableName, phoneNumber, callback) {
+AdminServiceClient.prototype.send_subscribePhoneAlert = function(phoneNumber, callback) {
   this.output.writeMessageBegin('subscribePhoneAlert', Thrift.MessageType.CALL, this.seqid);
   var args = new AdminService_subscribePhoneAlert_args();
-  args.tableName = tableName;
   args.phoneNumber = phoneNumber;
   args.write(this.output);
   this.output.writeMessageEnd();
@@ -7188,21 +7185,20 @@ AdminServiceClient.prototype.recv_subscribePhoneAlert = function() {
   }
   return;
 };
-AdminServiceClient.prototype.unsubscribePhoneAlert = function(tableName, phoneNumber, callback) {
+AdminServiceClient.prototype.unsubscribePhoneAlert = function(phoneNumber, callback) {
   if (callback === undefined) {
-    this.send_unsubscribePhoneAlert(tableName, phoneNumber);
+    this.send_unsubscribePhoneAlert(phoneNumber);
     this.recv_unsubscribePhoneAlert();
   } else {
-    var postData = this.send_unsubscribePhoneAlert(tableName, phoneNumber, true);
+    var postData = this.send_unsubscribePhoneAlert(phoneNumber, true);
     return this.output.getTransport()
       .jqRequest(this, postData, arguments, this.recv_unsubscribePhoneAlert);
   }
 };
 
-AdminServiceClient.prototype.send_unsubscribePhoneAlert = function(tableName, phoneNumber, callback) {
+AdminServiceClient.prototype.send_unsubscribePhoneAlert = function(phoneNumber, callback) {
   this.output.writeMessageBegin('unsubscribePhoneAlert', Thrift.MessageType.CALL, this.seqid);
   var args = new AdminService_unsubscribePhoneAlert_args();
-  args.tableName = tableName;
   args.phoneNumber = phoneNumber;
   args.write(this.output);
   this.output.writeMessageEnd();
@@ -7229,21 +7225,20 @@ AdminServiceClient.prototype.recv_unsubscribePhoneAlert = function() {
   }
   return;
 };
-AdminServiceClient.prototype.subscribeEmailAlert = function(tableName, email, callback) {
+AdminServiceClient.prototype.subscribeEmailAlert = function(email, callback) {
   if (callback === undefined) {
-    this.send_subscribeEmailAlert(tableName, email);
+    this.send_subscribeEmailAlert(email);
     this.recv_subscribeEmailAlert();
   } else {
-    var postData = this.send_subscribeEmailAlert(tableName, email, true);
+    var postData = this.send_subscribeEmailAlert(email, true);
     return this.output.getTransport()
       .jqRequest(this, postData, arguments, this.recv_subscribeEmailAlert);
   }
 };
 
-AdminServiceClient.prototype.send_subscribeEmailAlert = function(tableName, email, callback) {
+AdminServiceClient.prototype.send_subscribeEmailAlert = function(email, callback) {
   this.output.writeMessageBegin('subscribeEmailAlert', Thrift.MessageType.CALL, this.seqid);
   var args = new AdminService_subscribeEmailAlert_args();
-  args.tableName = tableName;
   args.email = email;
   args.write(this.output);
   this.output.writeMessageEnd();
@@ -7270,21 +7265,20 @@ AdminServiceClient.prototype.recv_subscribeEmailAlert = function() {
   }
   return;
 };
-AdminServiceClient.prototype.unsubscribeEmailAlert = function(tableName, email, callback) {
+AdminServiceClient.prototype.unsubscribeEmailAlert = function(email, callback) {
   if (callback === undefined) {
-    this.send_unsubscribeEmailAlert(tableName, email);
+    this.send_unsubscribeEmailAlert(email);
     this.recv_unsubscribeEmailAlert();
   } else {
-    var postData = this.send_unsubscribeEmailAlert(tableName, email, true);
+    var postData = this.send_unsubscribeEmailAlert(email, true);
     return this.output.getTransport()
       .jqRequest(this, postData, arguments, this.recv_unsubscribeEmailAlert);
   }
 };
 
-AdminServiceClient.prototype.send_unsubscribeEmailAlert = function(tableName, email, callback) {
+AdminServiceClient.prototype.send_unsubscribeEmailAlert = function(email, callback) {
   this.output.writeMessageBegin('unsubscribeEmailAlert', Thrift.MessageType.CALL, this.seqid);
   var args = new AdminService_unsubscribeEmailAlert_args();
-  args.tableName = tableName;
   args.email = email;
   args.write(this.output);
   this.output.writeMessageEnd();
@@ -7311,21 +7305,20 @@ AdminServiceClient.prototype.recv_unsubscribeEmailAlert = function() {
   }
   return;
 };
-AdminServiceClient.prototype.listSubscribedPhone = function(tableName, callback) {
+AdminServiceClient.prototype.listSubscribedPhone = function(callback) {
   if (callback === undefined) {
-    this.send_listSubscribedPhone(tableName);
+    this.send_listSubscribedPhone();
     return this.recv_listSubscribedPhone();
   } else {
-    var postData = this.send_listSubscribedPhone(tableName, true);
+    var postData = this.send_listSubscribedPhone(true);
     return this.output.getTransport()
       .jqRequest(this, postData, arguments, this.recv_listSubscribedPhone);
   }
 };
 
-AdminServiceClient.prototype.send_listSubscribedPhone = function(tableName, callback) {
+AdminServiceClient.prototype.send_listSubscribedPhone = function(callback) {
   this.output.writeMessageBegin('listSubscribedPhone', Thrift.MessageType.CALL, this.seqid);
   var args = new AdminService_listSubscribedPhone_args();
-  args.tableName = tableName;
   args.write(this.output);
   this.output.writeMessageEnd();
   return this.output.getTransport().flush(callback);
@@ -7354,21 +7347,20 @@ AdminServiceClient.prototype.recv_listSubscribedPhone = function() {
   }
   throw 'listSubscribedPhone failed: unknown result';
 };
-AdminServiceClient.prototype.listSubscribedEmail = function(tableName, callback) {
+AdminServiceClient.prototype.listSubscribedEmail = function(callback) {
   if (callback === undefined) {
-    this.send_listSubscribedEmail(tableName);
+    this.send_listSubscribedEmail();
     return this.recv_listSubscribedEmail();
   } else {
-    var postData = this.send_listSubscribedEmail(tableName, true);
+    var postData = this.send_listSubscribedEmail(true);
     return this.output.getTransport()
       .jqRequest(this, postData, arguments, this.recv_listSubscribedEmail);
   }
 };
 
-AdminServiceClient.prototype.send_listSubscribedEmail = function(tableName, callback) {
+AdminServiceClient.prototype.send_listSubscribedEmail = function(callback) {
   this.output.writeMessageBegin('listSubscribedEmail', Thrift.MessageType.CALL, this.seqid);
   var args = new AdminService_listSubscribedEmail_args();
-  args.tableName = tableName;
   args.write(this.output);
   this.output.writeMessageEnd();
   return this.output.getTransport().flush(callback);
@@ -8344,4 +8336,46 @@ AdminServiceClient.prototype.recv_getSnapshotState = function() {
     return result.success;
   }
   throw 'getSnapshotState failed: unknown result';
+};
+AdminServiceClient.prototype.getQuotaInfo = function(callback) {
+  if (callback === undefined) {
+    this.send_getQuotaInfo();
+    return this.recv_getQuotaInfo();
+  } else {
+    var postData = this.send_getQuotaInfo(true);
+    return this.output.getTransport()
+      .jqRequest(this, postData, arguments, this.recv_getQuotaInfo);
+  }
+};
+
+AdminServiceClient.prototype.send_getQuotaInfo = function(callback) {
+  this.output.writeMessageBegin('getQuotaInfo', Thrift.MessageType.CALL, this.seqid);
+  var args = new AdminService_getQuotaInfo_args();
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  return this.output.getTransport().flush(callback);
+};
+
+AdminServiceClient.prototype.recv_getQuotaInfo = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new AdminService_getQuotaInfo_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.se) {
+    throw result.se;
+  }
+  if (null !== result.success) {
+    return result.success;
+  }
+  throw 'getQuotaInfo failed: unknown result';
 };
