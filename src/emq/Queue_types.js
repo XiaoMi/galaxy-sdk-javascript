@@ -460,6 +460,9 @@ CreateQueueRequest = function(args) {
   this.queueAttribute = null;
   this.queueQuota = null;
   this.deadLetterQueue = null;
+  this.topicQueue = null;
+  this.deleteMessageForce = true;
+  this.defaultTagName = null;
   if (args) {
     if (args.queueName !== undefined) {
       this.queueName = args.queueName;
@@ -474,6 +477,15 @@ CreateQueueRequest = function(args) {
     }
     if (args.deadLetterQueue !== undefined) {
       this.deadLetterQueue = args.deadLetterQueue;
+    }
+    if (args.topicQueue !== undefined) {
+      this.topicQueue = args.topicQueue;
+    }
+    if (args.deleteMessageForce !== undefined) {
+      this.deleteMessageForce = args.deleteMessageForce;
+    }
+    if (args.defaultTagName !== undefined) {
+      this.defaultTagName = args.defaultTagName;
     }
   }
 };
@@ -521,6 +533,27 @@ CreateQueueRequest.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 6:
+      if (ftype == Thrift.Type.BOOL) {
+        this.topicQueue = input.readBool().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 7:
+      if (ftype == Thrift.Type.BOOL) {
+        this.deleteMessageForce = input.readBool().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 8:
+      if (ftype == Thrift.Type.STRING) {
+        this.defaultTagName = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -552,6 +585,21 @@ CreateQueueRequest.prototype.write = function(output) {
     output.writeBool(this.deadLetterQueue);
     output.writeFieldEnd();
   }
+  if (this.topicQueue !== null && this.topicQueue !== undefined) {
+    output.writeFieldBegin('topicQueue', Thrift.Type.BOOL, 6);
+    output.writeBool(this.topicQueue);
+    output.writeFieldEnd();
+  }
+  if (this.deleteMessageForce !== null && this.deleteMessageForce !== undefined) {
+    output.writeFieldBegin('deleteMessageForce', Thrift.Type.BOOL, 7);
+    output.writeBool(this.deleteMessageForce);
+    output.writeFieldEnd();
+  }
+  if (this.defaultTagName !== null && this.defaultTagName !== undefined) {
+    output.writeFieldBegin('defaultTagName', Thrift.Type.STRING, 8);
+    output.writeString(this.defaultTagName);
+    output.writeFieldEnd();
+  }
   output.writeFieldStop();
   output.writeStructEnd();
   return;
@@ -562,6 +610,9 @@ CreateQueueResponse = function(args) {
   this.queueAttribute = null;
   this.queueQuota = null;
   this.deadLetterQueue = null;
+  this.topicQueue = null;
+  this.deleteMessageForce = null;
+  this.defaultTagName = null;
   if (args) {
     if (args.queueName !== undefined) {
       this.queueName = args.queueName;
@@ -578,6 +629,15 @@ CreateQueueResponse = function(args) {
     }
     if (args.deadLetterQueue !== undefined) {
       this.deadLetterQueue = args.deadLetterQueue;
+    }
+    if (args.topicQueue !== undefined) {
+      this.topicQueue = args.topicQueue;
+    }
+    if (args.deleteMessageForce !== undefined) {
+      this.deleteMessageForce = args.deleteMessageForce;
+    }
+    if (args.defaultTagName !== undefined) {
+      this.defaultTagName = args.defaultTagName;
     }
   }
 };
@@ -625,6 +685,27 @@ CreateQueueResponse.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 6:
+      if (ftype == Thrift.Type.BOOL) {
+        this.topicQueue = input.readBool().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 7:
+      if (ftype == Thrift.Type.BOOL) {
+        this.deleteMessageForce = input.readBool().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 8:
+      if (ftype == Thrift.Type.STRING) {
+        this.defaultTagName = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -654,6 +735,21 @@ CreateQueueResponse.prototype.write = function(output) {
   if (this.deadLetterQueue !== null && this.deadLetterQueue !== undefined) {
     output.writeFieldBegin('deadLetterQueue', Thrift.Type.BOOL, 4);
     output.writeBool(this.deadLetterQueue);
+    output.writeFieldEnd();
+  }
+  if (this.topicQueue !== null && this.topicQueue !== undefined) {
+    output.writeFieldBegin('topicQueue', Thrift.Type.BOOL, 6);
+    output.writeBool(this.topicQueue);
+    output.writeFieldEnd();
+  }
+  if (this.deleteMessageForce !== null && this.deleteMessageForce !== undefined) {
+    output.writeFieldBegin('deleteMessageForce', Thrift.Type.BOOL, 7);
+    output.writeBool(this.deleteMessageForce);
+    output.writeFieldEnd();
+  }
+  if (this.defaultTagName !== null && this.defaultTagName !== undefined) {
+    output.writeFieldBegin('defaultTagName', Thrift.Type.STRING, 8);
+    output.writeString(this.defaultTagName);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -1181,6 +1277,9 @@ GetQueueInfoResponse = function(args) {
   this.queueQuota = null;
   this.isDeadLetterQueue = null;
   this.redrivePolicy = null;
+  this.topicQueue = null;
+  this.deleteMessageForce = null;
+  this.defaultTagName = null;
   if (args) {
     if (args.queueName !== undefined) {
       this.queueName = args.queueName;
@@ -1205,6 +1304,15 @@ GetQueueInfoResponse = function(args) {
     }
     if (args.redrivePolicy !== undefined) {
       this.redrivePolicy = args.redrivePolicy;
+    }
+    if (args.topicQueue !== undefined) {
+      this.topicQueue = args.topicQueue;
+    }
+    if (args.deleteMessageForce !== undefined) {
+      this.deleteMessageForce = args.deleteMessageForce;
+    }
+    if (args.defaultTagName !== undefined) {
+      this.defaultTagName = args.defaultTagName;
     }
   }
 };
@@ -1268,6 +1376,27 @@ GetQueueInfoResponse.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 8:
+      if (ftype == Thrift.Type.BOOL) {
+        this.topicQueue = input.readBool().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 9:
+      if (ftype == Thrift.Type.BOOL) {
+        this.deleteMessageForce = input.readBool().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 10:
+      if (ftype == Thrift.Type.STRING) {
+        this.defaultTagName = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -1307,6 +1436,21 @@ GetQueueInfoResponse.prototype.write = function(output) {
   if (this.redrivePolicy !== null && this.redrivePolicy !== undefined) {
     output.writeFieldBegin('redrivePolicy', Thrift.Type.STRUCT, 6);
     this.redrivePolicy.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.topicQueue !== null && this.topicQueue !== undefined) {
+    output.writeFieldBegin('topicQueue', Thrift.Type.BOOL, 8);
+    output.writeBool(this.topicQueue);
+    output.writeFieldEnd();
+  }
+  if (this.deleteMessageForce !== null && this.deleteMessageForce !== undefined) {
+    output.writeFieldBegin('deleteMessageForce', Thrift.Type.BOOL, 9);
+    output.writeBool(this.deleteMessageForce);
+    output.writeFieldEnd();
+  }
+  if (this.defaultTagName !== null && this.defaultTagName !== undefined) {
+    output.writeFieldBegin('defaultTagName', Thrift.Type.STRING, 10);
+    output.writeString(this.defaultTagName);
     output.writeFieldEnd();
   }
   output.writeFieldStop();

@@ -95,6 +95,7 @@ SendMessageRequest = function(args) {
   this.delaySeconds = null;
   this.invisibilitySeconds = null;
   this.messageAttributes = null;
+  this.topic = null;
   if (args) {
     if (args.queueName !== undefined) {
       this.queueName = args.queueName;
@@ -114,6 +115,9 @@ SendMessageRequest = function(args) {
     }
     if (args.messageAttributes !== undefined) {
       this.messageAttributes = args.messageAttributes;
+    }
+    if (args.topic !== undefined) {
+      this.topic = args.topic;
     }
   }
 };
@@ -189,6 +193,13 @@ SendMessageRequest.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 6:
+      if (ftype == Thrift.Type.STRING) {
+        this.topic = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -233,6 +244,11 @@ SendMessageRequest.prototype.write = function(output) {
       }
     }
     output.writeMapEnd();
+    output.writeFieldEnd();
+  }
+  if (this.topic !== null && this.topic !== undefined) {
+    output.writeFieldBegin('topic', Thrift.Type.STRING, 6);
+    output.writeString(this.topic);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -494,6 +510,7 @@ SendMessageBatchRequestEntry.prototype.write = function(output) {
 SendMessageBatchRequest = function(args) {
   this.queueName = null;
   this.sendMessageBatchRequestEntryList = null;
+  this.topic = null;
   if (args) {
     if (args.queueName !== undefined) {
       this.queueName = args.queueName;
@@ -504,6 +521,9 @@ SendMessageBatchRequest = function(args) {
       this.sendMessageBatchRequestEntryList = args.sendMessageBatchRequestEntryList;
     } else {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field sendMessageBatchRequestEntryList is unset!');
+    }
+    if (args.topic !== undefined) {
+      this.topic = args.topic;
     }
   }
 };
@@ -549,6 +569,13 @@ SendMessageBatchRequest.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 3:
+      if (ftype == Thrift.Type.STRING) {
+        this.topic = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -577,6 +604,11 @@ SendMessageBatchRequest.prototype.write = function(output) {
       }
     }
     output.writeListEnd();
+    output.writeFieldEnd();
+  }
+  if (this.topic !== null && this.topic !== undefined) {
+    output.writeFieldBegin('topic', Thrift.Type.STRING, 3);
+    output.writeString(this.topic);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
