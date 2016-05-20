@@ -96,6 +96,7 @@ SendMessageRequest = function(args) {
   this.invisibilitySeconds = null;
   this.messageAttributes = null;
   this.topic = null;
+  this.priority = null;
   if (args) {
     if (args.queueName !== undefined) {
       this.queueName = args.queueName;
@@ -118,6 +119,9 @@ SendMessageRequest = function(args) {
     }
     if (args.topic !== undefined) {
       this.topic = args.topic;
+    }
+    if (args.priority !== undefined) {
+      this.priority = args.priority;
     }
   }
 };
@@ -200,6 +204,13 @@ SendMessageRequest.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 7:
+      if (ftype == Thrift.Type.I32) {
+        this.priority = input.readI32().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -249,6 +260,11 @@ SendMessageRequest.prototype.write = function(output) {
   if (this.topic !== null && this.topic !== undefined) {
     output.writeFieldBegin('topic', Thrift.Type.STRING, 6);
     output.writeString(this.topic);
+    output.writeFieldEnd();
+  }
+  if (this.priority !== null && this.priority !== undefined) {
+    output.writeFieldBegin('priority', Thrift.Type.I32, 7);
+    output.writeI32(this.priority);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -362,6 +378,7 @@ SendMessageBatchRequestEntry = function(args) {
   this.delaySeconds = null;
   this.invisibilitySeconds = null;
   this.messageAttributes = null;
+  this.priority = null;
   if (args) {
     if (args.entryId !== undefined) {
       this.entryId = args.entryId;
@@ -381,6 +398,9 @@ SendMessageBatchRequestEntry = function(args) {
     }
     if (args.messageAttributes !== undefined) {
       this.messageAttributes = args.messageAttributes;
+    }
+    if (args.priority !== undefined) {
+      this.priority = args.priority;
     }
   }
 };
@@ -456,6 +476,13 @@ SendMessageBatchRequestEntry.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 6:
+      if (ftype == Thrift.Type.I32) {
+        this.priority = input.readI32().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -500,6 +527,11 @@ SendMessageBatchRequestEntry.prototype.write = function(output) {
       }
     }
     output.writeMapEnd();
+    output.writeFieldEnd();
+  }
+  if (this.priority !== null && this.priority !== undefined) {
+    output.writeFieldBegin('priority', Thrift.Type.I32, 6);
+    output.writeI32(this.priority);
     output.writeFieldEnd();
   }
   output.writeFieldStop();

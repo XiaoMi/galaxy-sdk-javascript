@@ -460,6 +460,7 @@ CreateQueueRequest = function(args) {
   this.queueAttribute = null;
   this.queueQuota = null;
   this.deadLetterQueue = null;
+  this.enablePriority = null;
   this.topicQueue = null;
   this.deleteMessageForce = true;
   this.defaultTagName = null;
@@ -477,6 +478,9 @@ CreateQueueRequest = function(args) {
     }
     if (args.deadLetterQueue !== undefined) {
       this.deadLetterQueue = args.deadLetterQueue;
+    }
+    if (args.enablePriority !== undefined) {
+      this.enablePriority = args.enablePriority;
     }
     if (args.topicQueue !== undefined) {
       this.topicQueue = args.topicQueue;
@@ -533,6 +537,13 @@ CreateQueueRequest.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 5:
+      if (ftype == Thrift.Type.BOOL) {
+        this.enablePriority = input.readBool().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
       case 6:
       if (ftype == Thrift.Type.BOOL) {
         this.topicQueue = input.readBool().value;
@@ -585,6 +596,11 @@ CreateQueueRequest.prototype.write = function(output) {
     output.writeBool(this.deadLetterQueue);
     output.writeFieldEnd();
   }
+  if (this.enablePriority !== null && this.enablePriority !== undefined) {
+    output.writeFieldBegin('enablePriority', Thrift.Type.BOOL, 5);
+    output.writeBool(this.enablePriority);
+    output.writeFieldEnd();
+  }
   if (this.topicQueue !== null && this.topicQueue !== undefined) {
     output.writeFieldBegin('topicQueue', Thrift.Type.BOOL, 6);
     output.writeBool(this.topicQueue);
@@ -610,6 +626,7 @@ CreateQueueResponse = function(args) {
   this.queueAttribute = null;
   this.queueQuota = null;
   this.deadLetterQueue = null;
+  this.enablePriority = null;
   this.topicQueue = null;
   this.deleteMessageForce = null;
   this.defaultTagName = null;
@@ -629,6 +646,9 @@ CreateQueueResponse = function(args) {
     }
     if (args.deadLetterQueue !== undefined) {
       this.deadLetterQueue = args.deadLetterQueue;
+    }
+    if (args.enablePriority !== undefined) {
+      this.enablePriority = args.enablePriority;
     }
     if (args.topicQueue !== undefined) {
       this.topicQueue = args.topicQueue;
@@ -685,6 +705,13 @@ CreateQueueResponse.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 5:
+      if (ftype == Thrift.Type.BOOL) {
+        this.enablePriority = input.readBool().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
       case 6:
       if (ftype == Thrift.Type.BOOL) {
         this.topicQueue = input.readBool().value;
@@ -735,6 +762,11 @@ CreateQueueResponse.prototype.write = function(output) {
   if (this.deadLetterQueue !== null && this.deadLetterQueue !== undefined) {
     output.writeFieldBegin('deadLetterQueue', Thrift.Type.BOOL, 4);
     output.writeBool(this.deadLetterQueue);
+    output.writeFieldEnd();
+  }
+  if (this.enablePriority !== null && this.enablePriority !== undefined) {
+    output.writeFieldBegin('enablePriority', Thrift.Type.BOOL, 5);
+    output.writeBool(this.enablePriority);
     output.writeFieldEnd();
   }
   if (this.topicQueue !== null && this.topicQueue !== undefined) {
@@ -1277,6 +1309,7 @@ GetQueueInfoResponse = function(args) {
   this.queueQuota = null;
   this.isDeadLetterQueue = null;
   this.redrivePolicy = null;
+  this.enablePriority = null;
   this.topicQueue = null;
   this.deleteMessageForce = null;
   this.defaultTagName = null;
@@ -1304,6 +1337,9 @@ GetQueueInfoResponse = function(args) {
     }
     if (args.redrivePolicy !== undefined) {
       this.redrivePolicy = args.redrivePolicy;
+    }
+    if (args.enablePriority !== undefined) {
+      this.enablePriority = args.enablePriority;
     }
     if (args.topicQueue !== undefined) {
       this.topicQueue = args.topicQueue;
@@ -1376,6 +1412,13 @@ GetQueueInfoResponse.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 7:
+      if (ftype == Thrift.Type.BOOL) {
+        this.enablePriority = input.readBool().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
       case 8:
       if (ftype == Thrift.Type.BOOL) {
         this.topicQueue = input.readBool().value;
@@ -1436,6 +1479,11 @@ GetQueueInfoResponse.prototype.write = function(output) {
   if (this.redrivePolicy !== null && this.redrivePolicy !== undefined) {
     output.writeFieldBegin('redrivePolicy', Thrift.Type.STRUCT, 6);
     this.redrivePolicy.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.enablePriority !== null && this.enablePriority !== undefined) {
+    output.writeFieldBegin('enablePriority', Thrift.Type.BOOL, 7);
+    output.writeBool(this.enablePriority);
     output.writeFieldEnd();
   }
   if (this.topicQueue !== null && this.topicQueue !== undefined) {
